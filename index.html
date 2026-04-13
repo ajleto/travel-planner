@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-:root{--bg:#f7f4ef;--surface:#ffffff;--surface2:#f0ece4;--border:#e0d9ce;--border2:#c8bfb0;--text:#1a1714;--muted:#7a7267;--accent:#2d5a3d;--accent-light:#e8f0ea;--amber:#b85c00;--amber-light:#fdf0e0;--red:#a02020;--red-light:#fdeaea;--serif:'Instrument Serif',serif;--sans:'DM Sans',sans-serif;--mono:'DM Mono',monospace;--r:12px;--r-sm:6px;}
+:root{--bg:#f7f4ef;--surface:#ffffff;--surface2:#f0ece4;--border:#e0d9ce;--border2:#c8bfb0;--text:#1a1714;--muted:#7a7267;--accent:#2d5a3d;--accent-light:#e8f0ea;--amber:#b85c00;--amber-light:#fdf0e0;--red:#a02020;--red-light:#fdeaea;--blue:#1a3a6b;--blue-light:#e8eef8;--serif:'Instrument Serif',serif;--sans:'DM Sans',sans-serif;--mono:'DM Mono',monospace;--r:12px;--r-sm:6px;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;}
 .topnav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100;}
@@ -38,6 +38,9 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
 .btn-primary:disabled{opacity:0.4;cursor:not-allowed;}
 .btn-ghost{background:var(--surface2);color:var(--text);border:1px solid var(--border);}
 .btn-ghost:hover{border-color:var(--border2);}
+.btn-sm{padding:7px 12px;font-size:12px;}
+.btn-blue{background:var(--blue-light);color:var(--blue);border:1px solid #b8cce8;}
+.btn-blue:hover{background:#d8e8f8;}
 .cc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px;margin-top:4px;}
 .cc-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);cursor:pointer;transition:border-color 0.15s;}
 .cc-item:hover{border-color:var(--border2);}
@@ -45,11 +48,13 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
 .cc-item-name{font-size:13px;font-weight:500;}
 .cc-item-role{font-size:11px;color:var(--muted);}
 .cc-item-email{font-size:11px;color:var(--accent);font-family:var(--mono);}
-.trip-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;}
-.trip-card-left{display:flex;align-items:center;gap:14px;}
+.trip-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;margin-bottom:10px;}
+.trip-card-top{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.trip-card-left{display:flex;align-items:center;gap:14px;flex:1;min-width:0;}
 .trip-avatar{width:38px;height:38px;border-radius:50%;background:var(--accent-light);color:var(--accent);font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .trip-name{font-size:14px;font-weight:500;}
 .trip-meta{font-size:12px;color:var(--muted);margin-top:2px;font-family:var(--mono);}
+.trip-actions{display:flex;gap:6px;flex-shrink:0;}
 .trip-status{font-size:11px;border-radius:20px;padding:3px 10px;font-weight:500;font-family:var(--mono);}
 .status-draft{background:var(--amber-light);color:var(--amber);}
 .status-sent{background:var(--accent-light);color:var(--accent);}
@@ -70,7 +75,10 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
 .add-leader-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
 .add-leader-row input{flex:1;min-width:120px;}
 .loading{text-align:center;padding:48px 24px;color:var(--muted);font-size:13px;font-family:var(--mono);}
-@media(max-width:640px){.form-grid{grid-template-columns:1fr;}.topnav{padding:0 16px;}.page{padding:20px 16px 80px;}.setting-row{flex-direction:column;}.setting-input{width:100%;}.cc-grid{grid-template-columns:1fr;}}
+.edit-banner{background:var(--blue-light);border:1px solid #b8cce8;border-radius:var(--r-sm);padding:12px 16px;margin-bottom:16px;display:none;align-items:center;justify-content:space-between;gap:12px;}
+.edit-banner.active{display:flex;}
+.edit-banner-text{font-size:13px;color:var(--blue);font-weight:500;}
+@media(max-width:640px){.form-grid{grid-template-columns:1fr;}.topnav{padding:0 16px;}.page{padding:20px 16px 80px;}.setting-row{flex-direction:column;}.setting-input{width:100%;}.cc-grid{grid-template-columns:1fr;}.trip-actions{flex-direction:column;}}
 </style>
 </head>
 <body>
@@ -84,8 +92,15 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
 </nav>
 
 <div class="page active" id="page-new">
-  <div class="page-title">New trip itinerary</div>
+  <div class="page-title" id="new-trip-title">New trip itinerary</div>
   <div class="page-sub">Fill in all sections — the employee, driver, and selected leaders will be notified automatically.</div>
+
+  <!-- Edit mode banner -->
+  <div class="edit-banner" id="edit-banner">
+    <div class="edit-banner-text" id="edit-banner-text">✏️ Editing trip</div>
+    <button class="btn btn-ghost btn-sm" onclick="cancelEdit()">Cancel edit</button>
+  </div>
+
   <div class="card">
     <div class="card-title">👤 Employee details</div>
     <div class="form-grid">
@@ -167,7 +182,7 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
   </div>
   <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;">
     <button class="btn btn-ghost" onclick="previewItinerary()">Preview emails</button>
-    <button class="btn btn-primary" onclick="sendItinerary()">Send itinerary + notify all</button>
+    <button class="btn btn-primary" id="send-btn" onclick="sendItinerary()">Send itinerary + notify all</button>
   </div>
   <div id="preview-section" style="display:none;margin-top:24px;">
     <div class="divider"><div class="divider-line"></div><div class="divider-text">EMAIL PREVIEW</div><div class="divider-line"></div></div>
@@ -180,7 +195,7 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
 
 <div class="page" id="page-trips">
   <div class="page-title">All trips</div>
-  <div class="page-sub">Shared history — visible to everyone on the team.</div>
+  <div class="page-sub">Shared history — visible to everyone on the team. Edit, copy, or resend any trip.</div>
   <div id="trips-list"><div class="loading">Loading trips...</div></div>
 </div>
 
@@ -228,108 +243,108 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
 <div class="toast" id="toast"></div>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-// ── CONFIG — update this after deploying your Cloudflare Worker ──────────────
-const WORKER = 'https://travel-worker.aj-3a1.workers.dev'; // e.g. https://travel-worker.aj-3a1.workers.dev
+const WORKER = 'https://travel-worker.aj-3a1.workers.dev';
 
-// ── STATE ────────────────────────────────────────────────────────────────────
-let leaders  = [];
-let settings = {};
-let trips    = [];
+// all form field IDs
+const FIELDS = ['emp-name','emp-email','travel-date','return-date','visa-status','visa-notes',
+  'flight-from','flight-depart-date','flight-depart-time','flight-number','flight-layover',
+  'flight-arrive-loc','flight-arrive-time','flight-confirm','flight-notes',
+  'bus-provider','bus-number','bus-pickup','bus-depart-time','bus-dropoff','bus-confirm','bus-notes',
+  'ferry-from','ferry-depart-time','ferry-name','ferry-arrive-loc','ferry-arrive-time','ferry-ticket','ferry-notes',
+  'driver-name','driver-email','arrival-instructions',
+  'emergency-name','emergency-email','emergency-phone','emp-notes'];
 
-// ── HELPERS ──────────────────────────────────────────────────────────────────
-function switchTab(tab, el) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('page-' + tab).classList.add('active');
-  el.classList.add('active');
-  if (tab === 'trips')    loadTrips();
-  if (tab === 'settings') loadSettingsPage();
-  if (tab === 'new')      renderCCGrid();
-}
-function toast(msg, type='', dur=3200) {
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.className = 'toast show' + (type ? ' '+type : '');
-  setTimeout(() => el.classList.remove('show'), dur);
-}
-function val(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
-function fmt(d)  { return d ? new Date(d+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'}) : '—'; }
-function fmtS(d) { return d ? new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '—'; }
+let leaders=[], settings={}, trips=[], editingTripId=null;
 
-// ── API CALLS ─────────────────────────────────────────────────────────────────
-async function api(path, method='GET', body=null) {
-  const opts = { method, headers: { 'Content-Type': 'application/json' } };
-  if (body) opts.body = JSON.stringify(body);
-  const res = await fetch(WORKER + path, opts);
-  return res.json();
-}
+function switchTab(tab,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));document.getElementById('page-'+tab).classList.add('active');el.classList.add('active');if(tab==='trips')loadTrips();if(tab==='settings'){loadSettingsPage();renderLeadersList();}if(tab==='new')renderCCGrid();}
+function toast(msg,type='',dur=3200){const el=document.getElementById('toast');el.textContent=msg;el.className='toast show'+(type?' '+type:'');setTimeout(()=>el.classList.remove('show'),dur);}
+function val(id){const el=document.getElementById(id);return el?el.value.trim():'';}
+function set(id,v){const el=document.getElementById(id);if(el)el.value=v||'';}
+function fmt(d){return d?new Date(d+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'}):'—';}
+function fmtS(d){return d?new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'—';}
+async function api(path,method='GET',body=null){const opts={method,headers:{'Content-Type':'application/json'}};if(body)opts.body=JSON.stringify(body);const res=await fetch(WORKER+path,opts);return res.json();}
 
-// ── BOOT ─────────────────────────────────────────────────────────────────────
-async function boot() {
-  try {
-    [settings, leaders] = await Promise.all([ api('/settings'), api('/leaders') ]);
-    prefillEmergency();
-    renderCCGrid();
-  } catch(e) {
-    toast('Could not reach server — check your Worker URL in the code', 'error', 6000);
-  }
+async function boot(){
+  try{[settings,leaders]=await Promise.all([api('/settings'),api('/leaders')]);prefillEmergency();renderCCGrid();}
+  catch(e){toast('Could not reach server','error',6000);}
 }
-
-function prefillEmergency() {
-  if (settings['emerg-name'])  document.getElementById('emergency-name').value  = settings['emerg-name'];
-  if (settings['emerg-email']) document.getElementById('emergency-email').value = settings['emerg-email'];
-  if (settings['emerg-phone']) document.getElementById('emergency-phone').value = settings['emerg-phone'];
-}
+function prefillEmergency(){if(settings['emerg-name'])set('emergency-name',settings['emerg-name']);if(settings['emerg-email'])set('emergency-email',settings['emerg-email']);if(settings['emerg-phone'])set('emergency-phone',settings['emerg-phone']);}
 
 // ── LEADERS ──────────────────────────────────────────────────────────────────
-async function addLeader() {
-  const name  = val('new-leader-name');
-  const role  = val('new-leader-role');
-  const email = val('new-leader-email');
-  if (!name || !email) { toast('Enter at least a name and email', 'error'); return; }
-  leaders.push({ id: Date.now(), name, role, email });
-  await api('/leaders', 'POST', leaders);
-  document.getElementById('new-leader-name').value  = '';
-  document.getElementById('new-leader-role').value  = '';
-  document.getElementById('new-leader-email').value = '';
-  renderLeadersList();
-  renderCCGrid();
-  toast(name + ' added!');
-}
-async function removeLeader(id) {
-  leaders = leaders.filter(l => l.id !== id);
-  await api('/leaders', 'POST', leaders);
-  renderLeadersList();
-  renderCCGrid();
-}
-function renderLeadersList() {
-  const el = document.getElementById('leaders-list');
-  if (!leaders.length) { el.innerHTML = '<div style="font-size:13px;color:var(--muted);padding:8px 0;">No leaders added yet.</div>'; return; }
-  el.innerHTML = leaders.map(l => `<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);"><div><div style="font-size:14px;font-weight:500;">${l.name}${l.role?` <span style="font-weight:400;color:var(--muted);">— ${l.role}</span>`:''}</div><div style="font-size:12px;color:var(--accent);font-family:var(--mono);">${l.email}</div></div><button onclick="removeLeader(${l.id})" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;padding:0 4px;">×</button></div>`).join('');
-}
-function renderCCGrid() {
-  const grid = document.getElementById('cc-grid');
-  if (!leaders.length) { grid.innerHTML = '<div style="font-size:13px;color:var(--muted);padding:8px 0;">No leaders added yet — go to Settings to add your team.</div>'; return; }
-  grid.innerHTML = leaders.map(l => `<label class="cc-item"><input type="checkbox" value="${l.id}" class="cc-checkbox"/><div><div class="cc-item-name">${l.name}</div>${l.role?`<div class="cc-item-role">${l.role}</div>`:''}<div class="cc-item-email">${l.email}</div></div></label>`).join('');
-}
-function getCheckedLeaders() { return [...document.querySelectorAll('.cc-checkbox:checked')].map(cb => leaders.find(l => l.id == cb.value)).filter(Boolean); }
+async function addLeader(){const name=val('new-leader-name'),role=val('new-leader-role'),email=val('new-leader-email');if(!name||!email){toast('Enter name and email','error');return;}leaders.push({id:Date.now(),name,role,email});await api('/leaders','POST',leaders);set('new-leader-name','');set('new-leader-role','');set('new-leader-email','');renderLeadersList();renderCCGrid();toast(name+' added!');}
+async function removeLeader(id){leaders=leaders.filter(l=>l.id!==id);await api('/leaders','POST',leaders);renderLeadersList();renderCCGrid();}
+function renderLeadersList(){const el=document.getElementById('leaders-list');if(!leaders.length){el.innerHTML='<div style="font-size:13px;color:var(--muted);padding:8px 0;">No leaders added yet.</div>';return;}el.innerHTML=leaders.map(l=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);"><div><div style="font-size:14px;font-weight:500;">${l.name}${l.role?` <span style="font-weight:400;color:var(--muted);">— ${l.role}</span>`:''}</div><div style="font-size:12px;color:var(--accent);font-family:var(--mono);">${l.email}</div></div><button onclick="removeLeader(${l.id})" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;padding:0 4px;">×</button></div>`).join('');}
+function renderCCGrid(){const grid=document.getElementById('cc-grid');if(!leaders.length){grid.innerHTML='<div style="font-size:13px;color:var(--muted);padding:8px 0;">No leaders added yet — go to Settings.</div>';return;}grid.innerHTML=leaders.map(l=>`<label class="cc-item"><input type="checkbox" value="${l.id}" class="cc-checkbox"/><div><div class="cc-item-name">${l.name}</div>${l.role?`<div class="cc-item-role">${l.role}</div>`:''}<div class="cc-item-email">${l.email}</div></div></label>`).join('');}
+function getCheckedLeaders(){return[...document.querySelectorAll('.cc-checkbox:checked')].map(cb=>leaders.find(l=>l.id==cb.value)).filter(Boolean);}
 
-// ── SETTINGS PAGE ─────────────────────────────────────────────────────────────
-function loadSettingsPage() {
-  const fields = ['company','sender','property','ejs-service','ejs-template-emp','ejs-template-drv','ejs-key','emerg-name','emerg-email','emerg-phone'];
-  fields.forEach(k => { const el = document.getElementById('s-'+k); if (el) el.value = settings[k] || ''; });
-  renderLeadersList();
+// ── SETTINGS ─────────────────────────────────────────────────────────────────
+function loadSettingsPage(){['company','sender','property','ejs-service','ejs-template-emp','ejs-template-drv','ejs-key','emerg-name','emerg-email','emerg-phone'].forEach(k=>{const el=document.getElementById('s-'+k);if(el)el.value=settings[k]||'';});renderLeadersList();}
+async function saveSettings(){['company','sender','property','ejs-service','ejs-template-emp','ejs-template-drv','ejs-key','emerg-name','emerg-email','emerg-phone'].forEach(k=>{const el=document.getElementById('s-'+k);if(el)settings[k]=el.value.trim();});await api('/settings','POST',settings);prefillEmergency();toast('Settings saved!','success');}
+
+// ── SNAPSHOT / RESTORE ───────────────────────────────────────────────────────
+function snapshotForm(){
+  const data={};
+  FIELDS.forEach(id=>data[id]=val(id));
+  data.bags=document.querySelector('input[name="bags"]:checked')?.value||'Yes';
+  data.ccLeaderIds=getCheckedLeaders().map(l=>l.id);
+  return data;
 }
-async function saveSettings() {
-  const fields = ['company','sender','property','ejs-service','ejs-template-emp','ejs-template-drv','ejs-key','emerg-name','emerg-email','emerg-phone'];
-  fields.forEach(k => { const el = document.getElementById('s-'+k); if (el) settings[k] = el.value.trim(); });
-  await api('/settings', 'POST', settings);
-  prefillEmergency();
-  toast('Settings saved for the whole team!', 'success');
+
+function restoreForm(data){
+  FIELDS.forEach(id=>set(id,data[id]||''));
+  // bags radio
+  document.querySelectorAll('input[name="bags"]').forEach(r=>r.checked=r.value===(data.bags||'Yes'));
+  // CC checkboxes
+  renderCCGrid();
+  setTimeout(()=>{
+    const ids=data.ccLeaderIds||[];
+    document.querySelectorAll('.cc-checkbox').forEach(cb=>{cb.checked=ids.includes(Number(cb.value))||ids.includes(cb.value);});
+  },50);
+}
+
+// ── EDIT / COPY ───────────────────────────────────────────────────────────────
+function editTrip(id){
+  const trip=trips.find(t=>t.id===id);
+  if(!trip||!trip.formData){toast('This trip has no stored form data — it was created before edit support was added','error',4000);return;}
+  editingTripId=id;
+  restoreForm(trip.formData);
+  document.getElementById('edit-banner').classList.add('active');
+  document.getElementById('edit-banner-text').textContent=`✏️ Editing itinerary for ${trip.empName}`;
+  document.getElementById('new-trip-title').textContent='Edit itinerary';
+  document.getElementById('send-btn').textContent='Save changes + resend';
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-new').classList.add('active');
+  document.querySelectorAll('.nav-tab')[0].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function copyTrip(id){
+  const trip=trips.find(t=>t.id===id);
+  if(!trip||!trip.formData){toast('This trip has no stored form data','error',4000);return;}
+  cancelEdit();
+  const data={...trip.formData};
+  // Clear employee-specific fields so they fill in for the new person
+  data['emp-name']='';data['emp-email']='';data['travel-date']='';data['return-date']='';data['flight-depart-date']='';data['flight-confirm']='';data['visa-notes']='';
+  restoreForm(data);
+  document.getElementById('new-trip-title').textContent='New trip (copied)';
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-new').classList.add('active');
+  document.querySelectorAll('.nav-tab')[0].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  toast('Trip copied — fill in the new employee details and send!','success',4000);
+}
+
+function cancelEdit(){
+  editingTripId=null;
+  document.getElementById('edit-banner').classList.remove('active');
+  document.getElementById('new-trip-title').textContent='New trip itinerary';
+  document.getElementById('send-btn').textContent='Send itinerary + notify all';
 }
 
 // ── BUILD EMAILS ─────────────────────────────────────────────────────────────
-function buildEmployeeEmail() {
+function buildEmployeeEmail(){
   const name=val('emp-name'),travelDate=val('travel-date'),returnDate=val('return-date'),visaStatus=val('visa-status'),visaNotes=val('visa-notes');
   const property=settings.property||'the property',company=settings.company||'Your company',sender=settings.sender||'Travel Desk';
   const bags=document.querySelector('input[name="bags"]:checked')?.value||'Yes';
@@ -368,7 +383,7 @@ function buildEmployeeEmail() {
   b+=`\n═══════════════════════════════════\n\nSafe travels! We look forward to welcoming you.\n\n${sender}\n${company}`;
   return b;
 }
-function buildDriverEmail() {
+function buildDriverEmail(){
   const empName=val('emp-name'),driverName=val('driver-name'),travelDate=val('travel-date');
   const ferryArrive=val('ferry-arrive-loc'),ferryArrTime=val('ferry-arrive-time'),ferryFrom=val('ferry-from'),ferryDepart=val('ferry-depart-time'),ferryName=val('ferry-name');
   const arrivalInstr=val('arrival-instructions'),company=settings.company||'the company',sender=settings.sender||'Travel Desk';
@@ -382,59 +397,98 @@ function buildDriverEmail() {
 }
 
 // ── PREVIEW & SEND ────────────────────────────────────────────────────────────
-function previewItinerary() {
-  document.getElementById('preview-employee').textContent = buildEmployeeEmail();
-  document.getElementById('preview-driver').textContent   = buildDriverEmail();
-  document.getElementById('preview-section').style.display = 'block';
-  setTimeout(() => document.getElementById('preview-section').scrollIntoView({behavior:'smooth',block:'start'}), 50);
-}
+function previewItinerary(){document.getElementById('preview-employee').textContent=buildEmployeeEmail();document.getElementById('preview-driver').textContent=buildDriverEmail();document.getElementById('preview-section').style.display='block';setTimeout(()=>document.getElementById('preview-section').scrollIntoView({behavior:'smooth',block:'start'}),50);}
 
-async function sendItinerary() {
+async function sendItinerary(){
   const empName=val('emp-name'),empEmail=val('emp-email'),drvEmail=val('driver-email');
   if(!empName||!empEmail){toast('Enter employee name and email first','error');return;}
   const svcId=settings['ejs-service'],tplEmp=settings['ejs-template-emp'],tplDrv=settings['ejs-template-drv'],pubKey=settings['ejs-key'];
   const cl=getCheckedLeaders(),ccEmails=cl.map(l=>l.email).join(', ');
   const empBody=buildEmployeeEmail(),drvBody=buildDriverEmail();
-  const trip={empName,empEmail,travelDate:val('travel-date'),visa:val('visa-status'),ccLeaders:cl.map(l=>l.name),status:'draft'};
+  const formData=snapshotForm();
+
+  const trip={
+    empName,empEmail,
+    travelDate:val('travel-date'),
+    visa:val('visa-status'),
+    ccLeaders:cl.map(l=>l.name),
+    status:'draft',
+    formData  // store full form data for edit/copy
+  };
+
+  // If editing, update existing trip instead of adding new one
+  if(editingTripId){
+    trip.id=editingTripId;
+    const idx=trips.findIndex(t=>t.id===editingTripId);
+    if(idx>-1)trips[idx]={...trips[idx],...trip};
+    await api('/trips/update','POST',{id:editingTripId,...trip});
+  }
+
   if(!svcId||!pubKey||!tplEmp){
-    toast('EmailJS not configured in Settings — saving as draft','error',5000);
-    trip.status='draft';await api('/trips','POST',trip);previewItinerary();return;
+    toast('EmailJS not configured — saving as draft','error',5000);
+    trip.status='draft';
+    if(!editingTripId)await api('/trips','POST',trip);
+    previewItinerary();return;
   }
   try{
     emailjs.init(pubKey);
     await emailjs.send(svcId,tplEmp,{to_email:empEmail,to_name:empName,cc_emails:ccEmails,subject:`Your travel itinerary — ${settings.property||'upcoming trip'}`,message:empBody,from_name:settings.sender||'Travel Desk'});
     if(drvEmail&&tplDrv)await emailjs.send(svcId,tplDrv,{to_email:drvEmail,to_name:val('driver-name'),subject:`Pickup notice — ${empName}`,message:drvBody,from_name:settings.sender||'Travel Desk'});
-    trip.status='sent';await api('/trips','POST',trip);
+    trip.status='sent';
+    if(!editingTripId){await api('/trips','POST',trip);}
+    else{await api('/trips/update','POST',{id:editingTripId,...trip,status:'sent'});}
     const ccMsg=cl.length?` CC'd: ${cl.map(l=>l.name).join(', ')}.`:'';
-    toast(`Itinerary sent to ${empName}!${drvEmail?' Driver notified.':''}${ccMsg}`,'success',5000);
+    const action=editingTripId?'Updated and resent':'Sent';
+    toast(`${action} to ${empName}!${drvEmail?' Driver notified.':''}${ccMsg}`,'success',5000);
+    cancelEdit();
     resetForm();
   }catch(e){toast('Email failed: '+(e.text||e.message||'Check EmailJS settings'),'error',5000);previewItinerary();}
 }
 
 function resetForm(){
-  ['emp-name','emp-email','emp-notes','driver-name','driver-email','arrival-instructions','ferry-from','ferry-depart-time','ferry-name','ferry-arrive-loc','ferry-arrive-time','ferry-ticket','ferry-notes','bus-provider','bus-number','bus-pickup','bus-depart-time','bus-dropoff','bus-confirm','bus-notes','flight-from','flight-depart-time','flight-depart-date','flight-number','flight-layover','flight-arrive-loc','flight-arrive-time','flight-confirm','flight-notes','travel-date','return-date','visa-notes','emergency-name','emergency-email','emergency-phone'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  FIELDS.forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.querySelector('input[name="bags"][value="Yes"]').checked=true;
   document.querySelectorAll('.cc-checkbox').forEach(cb=>cb.checked=false);
   document.getElementById('preview-section').style.display='none';
   prefillEmergency();
 }
 
 // ── TRIPS ─────────────────────────────────────────────────────────────────────
-async function loadTrips() {
-  document.getElementById('trips-list').innerHTML = '<div class="loading">Loading trips...</div>';
-  try {
-    trips = await api('/trips');
-    renderTrips();
-  } catch(e) { document.getElementById('trips-list').innerHTML = '<div class="loading">Could not load trips.</div>'; }
+async function loadTrips(){
+  document.getElementById('trips-list').innerHTML='<div class="loading">Loading trips...</div>';
+  try{trips=await api('/trips');renderTrips();}
+  catch(e){document.getElementById('trips-list').innerHTML='<div class="loading">Could not load trips.</div>';}
 }
-function renderTrips() {
-  const list = document.getElementById('trips-list');
+function renderTrips(){
+  const list=document.getElementById('trips-list');
   if(!trips.length){list.innerHTML='<div style="text-align:center;padding:48px 24px;color:var(--muted);"><div style="font-size:32px;margin-bottom:12px;">✈️</div><div style="font-size:14px;">No trips yet.</div></div>';return;}
-  list.innerHTML=trips.map(t=>{const initials=t.empName.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();const cc=t.ccLeaders?.length?` · CC: ${t.ccLeaders.join(', ')}`:'';return`<div class="trip-card"><div class="trip-card-left"><div class="trip-avatar">${initials}</div><div><div class="trip-name">${t.empName}</div><div class="trip-meta">${fmtS(t.travelDate)} · ${t.visa||''}${cc}</div></div></div><span class="trip-status status-${t.status}">${t.status}</span></div>`;}).join('');
+  list.innerHTML=trips.map(t=>{
+    const initials=t.empName.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+    const cc=t.ccLeaders?.length?` · CC: ${t.ccLeaders.join(', ')}`:'';
+    const hasData=!!t.formData;
+    return`<div class="trip-card">
+      <div class="trip-card-top">
+        <div class="trip-card-left">
+          <div class="trip-avatar">${initials}</div>
+          <div>
+            <div class="trip-name">${t.empName}</div>
+            <div class="trip-meta">${fmtS(t.travelDate)} · ${t.visa||''}${cc}</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span class="trip-status status-${t.status}">${t.status}</span>
+          ${hasData?`
+          <button class="btn btn-ghost btn-sm" onclick="editTrip(${t.id})" title="Edit and resend">✏️ Edit</button>
+          <button class="btn btn-blue btn-sm" onclick="copyTrip(${t.id})" title="Copy for new employee">⧉ Copy</button>
+          `:`<span style="font-size:11px;color:var(--muted);">Legacy</span>`}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
-// ── INIT ─────────────────────────────────────────────────────────────────────
 boot();
-document.getElementById('travel-date').min = new Date().toISOString().split('T')[0];
+document.getElementById('travel-date').min=new Date().toISOString().split('T')[0];
 </script>
 </body>
 </html>
