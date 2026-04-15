@@ -354,7 +354,7 @@ function buildEmployeeEmail(){
   const driverName=val('driver-name'),arrivalInstr=val('arrival-instructions');
   const emergName=val('emergency-name'),emergEmail=val('emergency-email'),emergPhone=val('emergency-phone');
   const empNotes=val('emp-notes'),cl=getCheckedLeaders();
-  let b=`Dear ${name||'[Employee Name]'},\n\nCongratulations on your visa approval! We are excited to welcome you back to ${property}. Please find your complete travel itinerary below.\n\n`;
+  let b=`Dear ${name||'[Employee Name]'},\n\nWe are excited to welcome you back to ${property}. Please find your complete travel itinerary below.\n\n`;
   b+=`═══════════════════════════════════\nTRAVEL ITINERARY\n═══════════════════════════════════\n\n`;
   b+=`Employee:     ${name||'—'}\nTravel date:  ${fmt(travelDate)}\n`;
   if(returnDate)b+=`Return date:  ${fmt(returnDate)}\n`;
