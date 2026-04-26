@@ -30,7 +30,7 @@ label{font-size:12px;font-weight:500;color:var(--muted);letter-spacing:0.3px;}
 input[type=text],input[type=email],input[type=date],input[type=time],input[type=tel],select,textarea{width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:var(--r-sm);font-size:14px;color:var(--text);background:var(--bg);font-family:var(--sans);outline:none;transition:border-color 0.15s;}
 input:focus,select:focus,textarea:focus{border-color:var(--accent);}
 textarea{resize:vertical;min-height:70px;line-height:1.5;}
-.radio-row{display:flex;gap:16px;align-items:center;padding:9px 0;}
+.radio-row{display:flex;gap:16px;align-items:center;padding:9px 0;flex-wrap:wrap;}
 .radio-row label{font-size:14px;color:var(--text);display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:400;}
 .btn{padding:11px 20px;border-radius:var(--r-sm);font-size:14px;font-weight:500;cursor:pointer;border:none;font-family:var(--sans);transition:all 0.15s;display:inline-flex;align-items:center;gap:8px;}
 .btn-primary{background:var(--accent);color:white;}
@@ -40,7 +40,26 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
 .btn-ghost:hover{border-color:var(--border2);}
 .btn-sm{padding:7px 12px;font-size:12px;}
 .btn-blue{background:var(--blue-light);color:var(--blue);border:1px solid #b8cce8;}
-.btn-blue:hover{background:#d8e8f8;}
+
+/* flight leg tabs */
+.leg-tabs{display:flex;gap:4px;margin-bottom:16px;flex-wrap:wrap;}
+.leg-tab{padding:6px 14px;border-radius:var(--r-sm);font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--muted);transition:all 0.15s;}
+.leg-tab.active{background:var(--accent);color:white;border-color:var(--accent);}
+.leg-panel{display:none;}
+.leg-panel.active{display:block;}
+.leg-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.leg-label{font-size:13px;font-weight:500;color:var(--text);}
+
+/* bag policy radio */
+.policy-option{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px;margin-bottom:8px;cursor:pointer;transition:border-color 0.15s;}
+.policy-option:hover{border-color:var(--border2);}
+.policy-option.selected{border-color:var(--accent);background:var(--accent-light);}
+.policy-option-header{display:flex;align-items:flex-start;gap:10px;}
+.policy-option-header input[type=radio]{margin-top:3px;accent-color:var(--accent);flex-shrink:0;}
+.policy-option-title{font-size:13px;font-weight:500;margin-bottom:4px;}
+.policy-option-text{font-size:12px;color:var(--muted);line-height:1.7;}
+
+/* cc grid */
 .cc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px;margin-top:4px;}
 .cc-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);cursor:pointer;transition:border-color 0.15s;}
 .cc-item:hover{border-color:var(--border2);}
@@ -48,21 +67,25 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
 .cc-item-name{font-size:13px;font-weight:500;}
 .cc-item-role{font-size:11px;color:var(--muted);}
 .cc-item-email{font-size:11px;color:var(--accent);font-family:var(--mono);}
+
+/* trips */
 .trip-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;margin-bottom:10px;}
 .trip-card-top{display:flex;align-items:center;justify-content:space-between;gap:12px;}
 .trip-card-left{display:flex;align-items:center;gap:14px;flex:1;min-width:0;}
 .trip-avatar{width:38px;height:38px;border-radius:50%;background:var(--accent-light);color:var(--accent);font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .trip-name{font-size:14px;font-weight:500;}
 .trip-meta{font-size:12px;color:var(--muted);margin-top:2px;font-family:var(--mono);}
-.trip-actions{display:flex;gap:6px;flex-shrink:0;}
 .trip-status{font-size:11px;border-radius:20px;padding:3px 10px;font-weight:500;font-family:var(--mono);}
 .status-draft{background:var(--amber-light);color:var(--amber);}
 .status-sent{background:var(--accent-light);color:var(--accent);}
+
+/* settings */
 .setting-row{display:flex;align-items:flex-start;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border);gap:20px;}
 .setting-row:last-child{border-bottom:none;}
 .setting-label{font-size:14px;font-weight:500;}
 .setting-desc{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.5;}
 .setting-input{flex-shrink:0;width:280px;}
+
 .preview-box{background:#1a1714;color:#f0ece4;border-radius:var(--r);padding:20px;font-size:12px;line-height:1.9;white-space:pre-wrap;font-family:var(--mono);overflow-x:auto;}
 .preview-label{font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);font-family:var(--mono);margin:16px 0 6px;}
 .toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:var(--bg);padding:12px 20px;border-radius:var(--r);font-size:13px;font-weight:500;z-index:200;opacity:0;transition:opacity 0.25s;pointer-events:none;max-width:340px;line-height:1.5;}
@@ -78,7 +101,8 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
 .edit-banner{background:var(--blue-light);border:1px solid #b8cce8;border-radius:var(--r-sm);padding:12px 16px;margin-bottom:16px;display:none;align-items:center;justify-content:space-between;gap:12px;}
 .edit-banner.active{display:flex;}
 .edit-banner-text{font-size:13px;color:var(--blue);font-weight:500;}
-@media(max-width:640px){.form-grid{grid-template-columns:1fr;}.topnav{padding:0 16px;}.page{padding:20px 16px 80px;}.setting-row{flex-direction:column;}.setting-input{width:100%;}.cc-grid{grid-template-columns:1fr;}.trip-actions{flex-direction:column;}}
+.gcal-note{background:var(--accent-light);border:1px solid #b8d4bb;border-radius:var(--r-sm);padding:12px 14px;font-size:12px;color:var(--accent);line-height:1.6;margin-top:10px;}
+@media(max-width:640px){.form-grid{grid-template-columns:1fr;}.topnav{padding:0 16px;}.page{padding:20px 16px 80px;}.setting-row{flex-direction:column;}.setting-input{width:100%;}.cc-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -94,43 +118,72 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
 <div class="page active" id="page-new">
   <div class="page-title" id="new-trip-title">New trip itinerary</div>
   <div class="page-sub">Fill in all sections — the employee, driver, and selected leaders will be notified automatically.</div>
-
-  <!-- Edit mode banner -->
   <div class="edit-banner" id="edit-banner">
     <div class="edit-banner-text" id="edit-banner-text">✏️ Editing trip</div>
     <button class="btn btn-ghost btn-sm" onclick="cancelEdit()">Cancel edit</button>
   </div>
 
+  <!-- EMPLOYEE -->
   <div class="card">
     <div class="card-title">👤 Employee details</div>
     <div class="form-grid">
       <div class="form-group"><label>Full name</label><input type="text" id="emp-name" placeholder="e.g. Maria Santos"/></div>
       <div class="form-group"><label>Email address</label><input type="email" id="emp-email" placeholder="maria@company.com"/></div>
+      <div class="form-group"><label>Mobile phone (for airline/transport alerts)</label><input type="tel" id="emp-phone" placeholder="+1 (555) 000-0000"/></div>
       <div class="form-group"><label>Travel date</label><input type="date" id="travel-date"/></div>
-      <div class="form-group"><label>Return date (if known)</label><input type="date" id="return-date"/></div>
       <div class="form-group"><label>Visa status</label>
         <select id="visa-status"><option value="Approved">Approved ✓</option><option value="Pending">Pending</option><option value="Not required">Not required</option><option value="In progress">In progress</option></select>
       </div>
       <div class="form-group"><label>Visa / passport notes</label><input type="text" id="visa-notes" placeholder="e.g. Visa expires Dec 2026"/></div>
     </div>
   </div>
+
+  <!-- FLIGHT -->
   <div class="card">
     <div class="card-title">✈️ Flight details</div>
-    <div class="form-grid">
-      <div class="form-group"><label>Departure airport</label><input type="text" id="flight-from" placeholder="e.g. Miami International (MIA)"/></div>
-      <div class="form-group"><label>Departure date</label><input type="date" id="flight-depart-date"/></div>
-      <div class="form-group"><label>Departure time</label><input type="time" id="flight-depart-time"/></div>
-      <div class="form-group"><label>Flight number</label><input type="text" id="flight-number" placeholder="e.g. AA 1234"/></div>
-      <div class="form-group full"><label>Layover location / time (if any)</label><input type="text" id="flight-layover" placeholder="e.g. Atlanta (ATL) — 2hr 15min layover"/></div>
-      <div class="form-group"><label>Arrival location</label><input type="text" id="flight-arrive-loc" placeholder="e.g. Belize City (BZE)"/></div>
-      <div class="form-group"><label>Arrival time</label><input type="time" id="flight-arrive-time"/></div>
-      <div class="form-group"><label>Checked bags included?</label>
-        <div class="radio-row"><label><input type="radio" name="bags" value="Yes" checked/> Yes</label><label><input type="radio" name="bags" value="No"/> No</label></div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;">
+      <label style="font-size:13px;color:var(--text);font-weight:500;">Number of flight legs:</label>
+      <select id="leg-count" onchange="updateLegCount(this.value)" style="width:auto;padding:7px 11px;">
+        <option value="1">1 leg</option>
+        <option value="2">2 legs</option>
+        <option value="3">3 legs</option>
+        <option value="4">4 legs</option>
+      </select>
+    </div>
+    <div class="leg-tabs" id="leg-tabs"></div>
+    <div id="leg-panels"></div>
+
+    <!-- Bag policy -->
+    <div class="divider"><div class="divider-line"></div><div class="divider-text">BAGGAGE POLICY</div><div class="divider-line"></div></div>
+    <label style="font-size:12px;font-weight:500;color:var(--muted);letter-spacing:0.3px;display:block;margin-bottom:10px;">Select the applicable baggage policy:</label>
+
+    <div class="policy-option" id="policy-a-wrap" onclick="selectPolicy('a')">
+      <div class="policy-option-header">
+        <input type="radio" name="bag-policy" id="policy-a" value="a"/>
+        <div>
+          <div class="policy-option-title">Bags included in ticket</div>
+          <div class="policy-option-text">The airline allowed us to add your two (2) checked bags to your ticket purchase, so be prepared to show your Flight Confirmation email if they ask for payment for checked bags. For other expenses, we should save our receipts, and we will reimburse. We request you take clear photos of each receipt when you complete our purchases. We require you to upload them to our RAMP expense management system. The email address and phone number above were provided for flight and transportation alerts.</div>
+        </div>
       </div>
-      <div class="form-group"><label>Confirmation / booking ref</label><input type="text" id="flight-confirm" placeholder="e.g. XY7K2M"/></div>
-      <div class="form-group full"><label>Flight notes</label><input type="text" id="flight-notes" placeholder="Terminal, gate, seat, airline app..."/></div>
+    </div>
+
+    <div class="policy-option" id="policy-b-wrap" onclick="selectPolicy('b')">
+      <div class="policy-option-header">
+        <input type="radio" name="bag-policy" id="policy-b" value="b"/>
+        <div>
+          <div class="policy-option-title">Bags paid at airport</div>
+          <div class="policy-option-text">The airline requires us to pay for our additional checked baggage at the airport. For all expenses, we should save our receipts, and we will be reimbursed. We recommend that we take clear photos of each receipt when we complete our purchases. We will be required to upload them to our RAMP expense management system. The email address and phone number above were provided for flight and transportation alerts.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" style="margin-top:14px;">
+      <label>Additional flight notes</label>
+      <textarea id="flight-notes" placeholder="Any other notes about the flights..."></textarea>
     </div>
   </div>
+
+  <!-- BUS -->
   <div class="card">
     <div class="card-title">🚌 Ground transportation</div>
     <div class="form-grid">
@@ -143,6 +196,8 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
       <div class="form-group full"><label>Notes</label><input type="text" id="bus-notes" placeholder="Buy ticket on board, luggage goes underneath..."/></div>
     </div>
   </div>
+
+  <!-- FERRY -->
   <div class="card">
     <div class="card-title">⛴️ Ferry / final leg</div>
     <div class="form-grid">
@@ -150,11 +205,13 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
       <div class="form-group"><label>Ferry departure time</label><input type="time" id="ferry-depart-time"/></div>
       <div class="form-group"><label>Ferry name / operator</label><input type="text" id="ferry-name" placeholder="e.g. MV Hokey Pokey"/></div>
       <div class="form-group"><label>Arrival location</label><input type="text" id="ferry-arrive-loc" placeholder="e.g. Tobacco Caye dock"/></div>
-      <div class="form-group"><label>Estimated arrival time</label><input type="time" id="ferry-arrive-time"/></div>
+      <div class="form-group"><label>Arrival time <span style="color:var(--red);">*</span> <span style="font-weight:400;color:var(--muted);">(required for calendar invite)</span></label><input type="time" id="ferry-arrive-time"/></div>
       <div class="form-group"><label>Ticket details / confirmation</label><input type="text" id="ferry-ticket" placeholder="Pre-booked or buy at dock..."/></div>
       <div class="form-group full"><label>Ferry notes</label><input type="text" id="ferry-notes" placeholder="Cash only, bring exact change, etc."/></div>
     </div>
   </div>
+
+  <!-- ARRIVAL -->
   <div class="card">
     <div class="card-title">🚗 Arrival coordination</div>
     <div class="form-grid">
@@ -163,6 +220,8 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
       <div class="form-group full"><label>Arrival instructions</label><textarea id="arrival-instructions" placeholder="e.g. Carlos will meet you at the ferry dock. Look for the property truck."></textarea></div>
     </div>
   </div>
+
+  <!-- EMERGENCY -->
   <div class="card">
     <div class="card-title">🆘 Emergency contact</div>
     <div class="form-grid">
@@ -171,19 +230,38 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
       <div class="form-group full"><label>Phone / WhatsApp</label><input type="tel" id="emergency-phone" placeholder="+1 (555) 000-0000 (WhatsApp OK)"/></div>
     </div>
   </div>
+
+  <!-- CC LEADERS -->
   <div class="card">
     <div class="card-title">📋 Notify property leadership — CC on employee email</div>
     <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6;">Check the leaders you want copied on this itinerary.</p>
     <div class="cc-grid" id="cc-grid"><div style="font-size:13px;color:var(--muted);padding:8px 0;">Loading leaders...</div></div>
   </div>
+
+  <!-- CALENDAR -->
+  <div class="card">
+    <div class="card-title">📅 Calendar invites (Google Workspace)</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6;">Two calendar invites will be sent automatically:</p>
+    <div style="font-size:13px;line-height:1.8;color:var(--text);">
+      <div style="margin-bottom:8px;">📌 <strong>All-day trip appointment</strong> — sent to the employee, marked free. Shows the full travel date.</div>
+      <div>🕐 <strong>1-hour arrival appointment</strong> — sent to the employee and driver only. Set to the ferry/final leg arrival time (required field).</div>
+    </div>
+    <div class="gcal-note">
+      To send calendar invites, the app uses the Google Calendar API. Enter your Google service account credentials in Settings → Calendar. If not configured, invites will be skipped and only emails will be sent.
+    </div>
+  </div>
+
+  <!-- NOTES -->
   <div class="card">
     <div class="card-title">📝 Additional notes for employee</div>
     <textarea id="emp-notes" placeholder="Packing list, property rules, what to expect on arrival..."></textarea>
   </div>
+
   <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;">
     <button class="btn btn-ghost" onclick="previewItinerary()">Preview emails</button>
     <button class="btn btn-primary" id="send-btn" onclick="sendItinerary()">Send itinerary + notify all</button>
   </div>
+
   <div id="preview-section" style="display:none;margin-top:24px;">
     <div class="divider"><div class="divider-line"></div><div class="divider-text">EMAIL PREVIEW</div><div class="divider-line"></div></div>
     <div class="preview-label">To employee (+ CC'd leaders)</div>
@@ -193,12 +271,14 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
   </div>
 </div>
 
+<!-- TRIPS -->
 <div class="page" id="page-trips">
   <div class="page-title">All trips</div>
-  <div class="page-sub">Shared history — visible to everyone on the team. Edit, copy, or resend any trip.</div>
+  <div class="page-sub">Shared history — visible to everyone on the team.</div>
   <div id="trips-list"><div class="loading">Loading trips...</div></div>
 </div>
 
+<!-- SETTINGS -->
 <div class="page" id="page-settings">
   <div class="page-title">Settings</div>
   <div class="page-sub">Shared settings — saved for the whole team.</div>
@@ -224,18 +304,27 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
     <div class="setting-row"><div><div class="setting-label">Public key</div></div><div class="setting-input"><input type="text" id="s-ejs-key" placeholder="xxxxxxxxxxxxxxx"/></div></div>
   </div>
   <div class="card">
+    <div class="card-title">📅 Google Calendar API</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6;">
+      To send calendar invites, create a Google Cloud project, enable the Calendar API, and create a service account. Enter the credentials below. <a href="https://console.cloud.google.com" target="_blank" style="color:var(--accent);">console.cloud.google.com</a>
+    </p>
+    <div class="setting-row"><div><div class="setting-label">Calendar sender email</div><div class="setting-desc">Google Workspace account that sends invites</div></div><div class="setting-input"><input type="text" id="s-gcal-email" placeholder="calendar@yourcompany.com"/></div></div>
+    <div class="setting-row"><div><div class="setting-label">Google Calendar API key</div><div class="setting-desc">From Google Cloud Console → Credentials</div></div><div class="setting-input"><input type="text" id="s-gcal-key" placeholder="AIza..."/></div></div>
+    <div class="setting-row"><div><div class="setting-label">Calendar Worker URL</div><div class="setting-desc">URL of your calendar proxy Worker (see docs)</div></div><div class="setting-input"><input type="text" id="s-gcal-worker" placeholder="https://cal-worker.yourname.workers.dev"/></div></div>
+  </div>
+  <div class="card">
     <div class="card-title">👥 Property leadership roster</div>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6;">These people appear as CC checkboxes on every new itinerary.</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">These people appear as CC checkboxes on every new itinerary.</p>
     <div id="leaders-list"><div class="loading">Loading...</div></div>
     <div class="divider"><div class="divider-line"></div><div class="divider-text">ADD NEW LEADER</div><div class="divider-line"></div></div>
     <div class="add-leader-row">
       <input type="text" id="new-leader-name" placeholder="Name" style="min-width:130px;"/>
-      <input type="text" id="new-leader-role" placeholder="Role (e.g. General Manager)"/>
+      <input type="text" id="new-leader-role" placeholder="Role"/>
       <input type="email" id="new-leader-email" placeholder="Email"/>
       <button class="btn btn-ghost" onclick="addLeader()">+ Add</button>
     </div>
   </div>
-  <div style="display:flex;justify-content:flex-end;gap:10px;">
+  <div style="display:flex;justify-content:flex-end;">
     <button class="btn btn-primary" onclick="saveSettings()">Save settings</button>
   </div>
 </div>
@@ -245,17 +334,17 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
 <script>
 const WORKER = 'https://travel-worker.aj-3a1.workers.dev';
 
-// all form field IDs
-const FIELDS = ['emp-name','emp-email','travel-date','return-date','visa-status','visa-notes',
-  'flight-from','flight-depart-date','flight-depart-time','flight-number','flight-layover',
-  'flight-arrive-loc','flight-arrive-time','flight-confirm','flight-notes',
+const FIELDS = ['emp-name','emp-email','emp-phone','travel-date','return-date','visa-status','visa-notes',
   'bus-provider','bus-number','bus-pickup','bus-depart-time','bus-dropoff','bus-confirm','bus-notes',
   'ferry-from','ferry-depart-time','ferry-name','ferry-arrive-loc','ferry-arrive-time','ferry-ticket','ferry-notes',
   'driver-name','driver-email','arrival-instructions',
-  'emergency-name','emergency-email','emergency-phone','emp-notes'];
+  'emergency-name','emergency-email','emergency-phone','emp-notes','flight-notes'];
 
-let leaders=[], settings={}, trips=[], editingTripId=null;
+const LEG_FIELDS = ['leg-from','leg-depart-date','leg-depart-time','leg-number','leg-layover','leg-arrive-loc','leg-arrive-time','leg-confirm'];
 
+let leaders=[], settings={}, trips=[], editingTripId=null, currentLegCount=1, activeLeg=0;
+
+// ── INIT ─────────────────────────────────────────────────────────────────────
 function switchTab(tab,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));document.getElementById('page-'+tab).classList.add('active');el.classList.add('active');if(tab==='trips')loadTrips();if(tab==='settings'){loadSettingsPage();renderLeadersList();}if(tab==='new')renderCCGrid();}
 function toast(msg,type='',dur=3200){const el=document.getElementById('toast');el.textContent=msg;el.className='toast show'+(type?' '+type:'');setTimeout(()=>el.classList.remove('show'),dur);}
 function val(id){const el=document.getElementById(id);return el?el.value.trim():'';}
@@ -265,12 +354,98 @@ function fmtS(d){return d?new Date(d+'T12:00:00').toLocaleDateString('en-US',{mo
 async function api(path,method='GET',body=null){const opts={method,headers:{'Content-Type':'application/json'}};if(body)opts.body=JSON.stringify(body);const res=await fetch(WORKER+path,opts);return res.json();}
 
 async function boot(){
+  buildLegs(1);
   try{[settings,leaders]=await Promise.all([api('/settings'),api('/leaders')]);prefillEmergency();renderCCGrid();}
   catch(e){toast('Could not reach server','error',6000);}
 }
 function prefillEmergency(){if(settings['emerg-name'])set('emergency-name',settings['emerg-name']);if(settings['emerg-email'])set('emergency-email',settings['emerg-email']);if(settings['emerg-phone'])set('emergency-phone',settings['emerg-phone']);}
 
-// ── LEADERS ──────────────────────────────────────────────────────────────────
+// ── FLIGHT LEGS ───────────────────────────────────────────────────────────────
+function buildLegs(count){
+  currentLegCount=count;
+  const tabs=document.getElementById('leg-tabs');
+  const panels=document.getElementById('leg-panels');
+  tabs.innerHTML='';panels.innerHTML='';
+  for(let i=0;i<count;i++){
+    const label=count===1?'Flight details':`Leg ${i+1}`;
+    tabs.innerHTML+=`<button class="leg-tab${i===0?' active':''}" id="leg-tab-${i}" onclick="switchLeg(${i})">${label}</button>`;
+    panels.innerHTML+=`<div class="leg-panel${i===0?' active':''}" id="leg-panel-${i}">
+      <div class="form-grid">
+        <div class="form-group"><label>Departure airport</label><input type="text" id="leg-${i}-from" placeholder="e.g. Miami International (MIA)"/></div>
+        <div class="form-group"><label>Departure date</label><input type="date" id="leg-${i}-depart-date"/></div>
+        <div class="form-group"><label>Departure time</label><input type="time" id="leg-${i}-depart-time"/></div>
+        <div class="form-group"><label>Flight number</label><input type="text" id="leg-${i}-number" placeholder="e.g. AA 1234"/></div>
+        <div class="form-group full"><label>Layover (if any)</label><input type="text" id="leg-${i}-layover" placeholder="e.g. Atlanta (ATL) — 2hr 15min layover"/></div>
+        <div class="form-group"><label>Arrival location</label><input type="text" id="leg-${i}-arrive-loc" placeholder="e.g. Belize City (BZE)"/></div>
+        <div class="form-group"><label>Arrival time</label><input type="time" id="leg-${i}-arrive-time"/></div>
+        <div class="form-group"><label>Checked bags?</label>
+          <div class="radio-row">
+            <label><input type="radio" name="bags-${i}" value="Yes" checked/> Yes</label>
+            <label><input type="radio" name="bags-${i}" value="No"/> No</label>
+          </div>
+        </div>
+        <div class="form-group"><label>Confirmation / booking ref</label><input type="text" id="leg-${i}-confirm" placeholder="e.g. XY7K2M"/></div>
+      </div>
+    </div>`;
+  }
+  activeLeg=0;
+}
+
+function switchLeg(i){
+  activeLeg=i;
+  document.querySelectorAll('.leg-tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));
+  document.querySelectorAll('.leg-panel').forEach((p,idx)=>p.classList.toggle('active',idx===i));
+}
+
+function updateLegCount(count){
+  const n=parseInt(count);
+  // save current leg data
+  const saved=getLegData();
+  buildLegs(n);
+  // restore saved data
+  saved.forEach((leg,i)=>{
+    if(i<n){
+      Object.keys(leg).forEach(k=>set(k,leg[k]));
+      const bagsEl=document.querySelector(`input[name="bags-${i}"][value="${leg[`bags-${i}`]||'Yes'}"]`);
+      if(bagsEl)bagsEl.checked=true;
+    }
+  });
+}
+
+function getLegData(){
+  const legs=[];
+  for(let i=0;i<currentLegCount;i++){
+    const leg={};
+    ['from','depart-date','depart-time','number','layover','arrive-loc','arrive-time','confirm'].forEach(f=>{
+      const el=document.getElementById(`leg-${i}-${f}`);
+      leg[`leg-${i}-${f}`]=el?el.value:'';
+    });
+    const bags=document.querySelector(`input[name="bags-${i}"]:checked`);
+    leg[`bags-${i}`]=bags?bags.value:'Yes';
+    legs.push(leg);
+  }
+  return legs;
+}
+
+function selectPolicy(p){
+  document.getElementById('policy-'+p).checked=true;
+  document.getElementById('policy-a-wrap').classList.toggle('selected',p==='a');
+  document.getElementById('policy-b-wrap').classList.toggle('selected',p==='b');
+}
+
+function getPolicy(){
+  const r=document.querySelector('input[name="bag-policy"]:checked');
+  return r?r.value:null;
+}
+
+function getPolicyText(){
+  const p=getPolicy();
+  if(p==='a')return'The airline allowed us to add your two (2) checked bags to your ticket purchase, so be prepared to show your Flight Confirmation email if they ask for payment for checked bags. For other expenses, we should save our receipts, and we will reimburse. We request you take clear photos of each receipt when you complete our purchases. We require you to upload them to our RAMP expense management system. The email address and phone number above were provided for flight and transportation alerts.';
+  if(p==='b')return'The airline requires us to pay for our additional checked baggage at the airport. For all expenses, we should save our receipts, and we will be reimbursed. We recommend that we take clear photos of each receipt when we complete our purchases. We will be required to upload them to our RAMP expense management system. The email address and phone number above were provided for flight and transportation alerts.';
+  return'';
+}
+
+// ── LEADERS ───────────────────────────────────────────────────────────────────
 async function addLeader(){const name=val('new-leader-name'),role=val('new-leader-role'),email=val('new-leader-email');if(!name||!email){toast('Enter name and email','error');return;}leaders.push({id:Date.now(),name,role,email});await api('/leaders','POST',leaders);set('new-leader-name','');set('new-leader-role','');set('new-leader-email','');renderLeadersList();renderCCGrid();toast(name+' added!');}
 async function removeLeader(id){leaders=leaders.filter(l=>l.id!==id);await api('/leaders','POST',leaders);renderLeadersList();renderCCGrid();}
 function renderLeadersList(){const el=document.getElementById('leaders-list');if(!leaders.length){el.innerHTML='<div style="font-size:13px;color:var(--muted);padding:8px 0;">No leaders added yet.</div>';return;}el.innerHTML=leaders.map(l=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);"><div><div style="font-size:14px;font-weight:500;">${l.name}${l.role?` <span style="font-weight:400;color:var(--muted);">— ${l.role}</span>`:''}</div><div style="font-size:12px;color:var(--accent);font-family:var(--mono);">${l.email}</div></div><button onclick="removeLeader(${l.id})" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;padding:0 4px;">×</button></div>`).join('');}
@@ -278,104 +453,96 @@ function renderCCGrid(){const grid=document.getElementById('cc-grid');if(!leader
 function getCheckedLeaders(){return[...document.querySelectorAll('.cc-checkbox:checked')].map(cb=>leaders.find(l=>l.id==cb.value)).filter(Boolean);}
 
 // ── SETTINGS ─────────────────────────────────────────────────────────────────
-function loadSettingsPage(){['company','sender','property','ejs-service','ejs-template-emp','ejs-template-drv','ejs-key','emerg-name','emerg-email','emerg-phone'].forEach(k=>{const el=document.getElementById('s-'+k);if(el)el.value=settings[k]||'';});renderLeadersList();}
-async function saveSettings(){['company','sender','property','ejs-service','ejs-template-emp','ejs-template-drv','ejs-key','emerg-name','emerg-email','emerg-phone'].forEach(k=>{const el=document.getElementById('s-'+k);if(el)settings[k]=el.value.trim();});await api('/settings','POST',settings);prefillEmergency();toast('Settings saved!','success');}
+function loadSettingsPage(){['company','sender','property','ejs-service','ejs-template-emp','ejs-template-drv','ejs-key','emerg-name','emerg-email','emerg-phone','gcal-email','gcal-key','gcal-worker'].forEach(k=>{const el=document.getElementById('s-'+k);if(el)el.value=settings[k]||'';});renderLeadersList();}
+async function saveSettings(){['company','sender','property','ejs-service','ejs-template-emp','ejs-template-drv','ejs-key','emerg-name','emerg-email','emerg-phone','gcal-email','gcal-key','gcal-worker'].forEach(k=>{const el=document.getElementById('s-'+k);if(el)settings[k]=el.value.trim();});await api('/settings','POST',settings);prefillEmergency();toast('Settings saved!','success');}
 
-// ── SNAPSHOT / RESTORE ───────────────────────────────────────────────────────
+// ── SNAPSHOT / RESTORE ────────────────────────────────────────────────────────
 function snapshotForm(){
   const data={};
   FIELDS.forEach(id=>data[id]=val(id));
-  data.bags=document.querySelector('input[name="bags"]:checked')?.value||'Yes';
+  data.legCount=currentLegCount;
+  data.legs=getLegData();
+  data.bagPolicy=getPolicy();
   data.ccLeaderIds=getCheckedLeaders().map(l=>l.id);
   return data;
 }
 
 function restoreForm(data){
   FIELDS.forEach(id=>set(id,data[id]||''));
-  // bags radio
-  document.querySelectorAll('input[name="bags"]').forEach(r=>r.checked=r.value===(data.bags||'Yes'));
-  // CC checkboxes
+  const legCount=data.legCount||1;
+  set('leg-count',String(legCount));
+  buildLegs(legCount);
+  if(data.legs){
+    data.legs.forEach((leg,i)=>{
+      Object.keys(leg).forEach(k=>{const el=document.getElementById(k);if(el)el.value=leg[k]||'';});
+      const bagsEl=document.querySelector(`input[name="bags-${i}"][value="${leg[`bags-${i}`]||'Yes'}"]`);
+      if(bagsEl)bagsEl.checked=true;
+    });
+  }
+  if(data.bagPolicy)selectPolicy(data.bagPolicy);
   renderCCGrid();
   setTimeout(()=>{
     const ids=data.ccLeaderIds||[];
     document.querySelectorAll('.cc-checkbox').forEach(cb=>{cb.checked=ids.includes(Number(cb.value))||ids.includes(cb.value);});
-  },50);
+  },80);
 }
 
 // ── EDIT / COPY ───────────────────────────────────────────────────────────────
-function editTrip(id){
-  const trip=trips.find(t=>t.id===id);
-  if(!trip||!trip.formData){toast('This trip has no stored form data — it was created before edit support was added','error',4000);return;}
-  editingTripId=id;
-  restoreForm(trip.formData);
-  document.getElementById('edit-banner').classList.add('active');
-  document.getElementById('edit-banner-text').textContent=`✏️ Editing itinerary for ${trip.empName}`;
-  document.getElementById('new-trip-title').textContent='Edit itinerary';
-  document.getElementById('send-btn').textContent='Save changes + resend';
-  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-new').classList.add('active');
-  document.querySelectorAll('.nav-tab')[0].classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
+function editTrip(id){const trip=trips.find(t=>t.id===id);if(!trip||!trip.formData){toast('No stored form data — created before edit support','error',4000);return;}editingTripId=id;restoreForm(trip.formData);document.getElementById('edit-banner').classList.add('active');document.getElementById('edit-banner-text').textContent=`✏️ Editing itinerary for ${trip.empName}`;document.getElementById('new-trip-title').textContent='Edit itinerary';document.getElementById('send-btn').textContent='Save changes + resend';document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-new').classList.add('active');document.querySelectorAll('.nav-tab')[0].classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function copyTrip(id){const trip=trips.find(t=>t.id===id);if(!trip||!trip.formData){toast('No stored form data','error',4000);return;}cancelEdit();const data={...trip.formData};data['emp-name']='';data['emp-email']='';data['emp-phone']='';data['travel-date']='';data['return-date']='';data['visa-notes']='';restoreForm(data);document.getElementById('new-trip-title').textContent='New trip (copied)';document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-new').classList.add('active');document.querySelectorAll('.nav-tab')[0].classList.add('active');window.scrollTo({top:0,behavior:'smooth'});toast('Trip copied — fill in the new employee details!','success',4000);}
+function cancelEdit(){editingTripId=null;document.getElementById('edit-banner').classList.remove('active');document.getElementById('new-trip-title').textContent='New trip itinerary';document.getElementById('send-btn').textContent='Send itinerary + notify all';}
 
-function copyTrip(id){
-  const trip=trips.find(t=>t.id===id);
-  if(!trip||!trip.formData){toast('This trip has no stored form data','error',4000);return;}
-  cancelEdit();
-  const data={...trip.formData};
-  // Clear employee-specific fields so they fill in for the new person
-  data['emp-name']='';data['emp-email']='';data['travel-date']='';data['return-date']='';data['flight-depart-date']='';data['flight-confirm']='';data['visa-notes']='';
-  restoreForm(data);
-  document.getElementById('new-trip-title').textContent='New trip (copied)';
-  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-new').classList.add('active');
-  document.querySelectorAll('.nav-tab')[0].classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-  toast('Trip copied — fill in the new employee details and send!','success',4000);
-}
-
-function cancelEdit(){
-  editingTripId=null;
-  document.getElementById('edit-banner').classList.remove('active');
-  document.getElementById('new-trip-title').textContent='New trip itinerary';
-  document.getElementById('send-btn').textContent='Send itinerary + notify all';
-}
-
-// ── BUILD EMAILS ─────────────────────────────────────────────────────────────
+// ── BUILD EMAILS ──────────────────────────────────────────────────────────────
 function buildEmployeeEmail(){
-  const name=val('emp-name'),travelDate=val('travel-date'),returnDate=val('return-date'),visaStatus=val('visa-status'),visaNotes=val('visa-notes');
+  const name=val('emp-name'),phone=val('emp-phone'),email=val('emp-email');
+  const travelDate=val('travel-date'),returnDate=val('return-date'),visaStatus=val('visa-status'),visaNotes=val('visa-notes');
   const property=settings.property||'the property',company=settings.company||'Your company',sender=settings.sender||'Travel Desk';
-  const bags=document.querySelector('input[name="bags"]:checked')?.value||'Yes';
-  const fFrom=val('flight-from'),fDepartTime=val('flight-depart-time'),fDepartDate=val('flight-depart-date'),fNumber=val('flight-number'),fLayover=val('flight-layover'),fArriveLoc=val('flight-arrive-loc'),fArriveTime=val('flight-arrive-time'),fConfirm=val('flight-confirm'),fNotes=val('flight-notes');
+  const legData=getLegData();
+  const policyText=getPolicyText();
+  const flightNotes=val('flight-notes');
   const busProvider=val('bus-provider'),busNumber=val('bus-number'),busPickup=val('bus-pickup'),busDepartTime=val('bus-depart-time'),busDropoff=val('bus-dropoff'),busConfirm=val('bus-confirm'),busNotes=val('bus-notes');
   const ferryFrom=val('ferry-from'),ferryDepart=val('ferry-depart-time'),ferryName=val('ferry-name'),ferryArrive=val('ferry-arrive-loc'),ferryArrTime=val('ferry-arrive-time'),ferryTicket=val('ferry-ticket'),ferryNotes=val('ferry-notes');
   const driverName=val('driver-name'),arrivalInstr=val('arrival-instructions');
   const emergName=val('emergency-name'),emergEmail=val('emergency-email'),emergPhone=val('emergency-phone');
   const empNotes=val('emp-notes'),cl=getCheckedLeaders();
+
   let b=`Dear ${name||'[Employee Name]'},\n\nWe are excited to welcome you back to ${property}. Please find your complete travel itinerary below.\n\n`;
   b+=`═══════════════════════════════════\nTRAVEL ITINERARY\n═══════════════════════════════════\n\n`;
-  b+=`Employee:     ${name||'—'}\nTravel date:  ${fmt(travelDate)}\n`;
+  b+=`Employee:     ${name||'—'}\n`;
+  if(email)b+=`Email:        ${email}\n`;
+  if(phone)b+=`Mobile:       ${phone}\n`;
+  b+=`Travel date:  ${fmt(travelDate)}\n`;
   if(returnDate)b+=`Return date:  ${fmt(returnDate)}\n`;
   b+=`Visa status:  ${visaStatus}${visaNotes?' ('+visaNotes+')':''}\n\n`;
+
   b+=`───────────────────────────────────\n1. ✈️  FLIGHT DETAILS\n───────────────────────────────────\n`;
-  if(fDepartDate)b+=`Date:              ${fmt(fDepartDate)}\n`;
-  if(fFrom)b+=`Departure airport: ${fFrom}\n`;
-  if(fDepartTime)b+=`Departure time:    ${fDepartTime}\n`;
-  if(fNumber)b+=`Flight number:     ${fNumber}\n`;
-  if(fLayover)b+=`Layover:           ${fLayover}\n`;
-  if(fArriveLoc)b+=`Arrival location:  ${fArriveLoc}\n`;
-  if(fArriveTime)b+=`Arrival time:      ${fArriveTime}\n`;
-  b+=`Checked bags:      ${bags}\n`;
-  if(fConfirm)b+=`Confirmation:      ${fConfirm}\n`;
-  if(fNotes)b+=`Notes:             ${fNotes}\n`;
+  legData.forEach((leg,i)=>{
+    if(currentLegCount>1)b+=`\n  — Leg ${i+1} —\n`;
+    const from=leg[`leg-${i}-from`],dd=leg[`leg-${i}-depart-date`],dt=leg[`leg-${i}-depart-time`];
+    const num=leg[`leg-${i}-number`],lay=leg[`leg-${i}-layover`],al=leg[`leg-${i}-arrive-loc`];
+    const at=leg[`leg-${i}-arrive-time`],conf=leg[`leg-${i}-confirm`],bags=leg[`bags-${i}`]||'Yes';
+    if(dd)b+=`  Date:              ${fmt(dd)}\n`;
+    if(from)b+=`  Departure airport: ${from}\n`;
+    if(dt)b+=`  Departure time:    ${dt}\n`;
+    if(num)b+=`  Flight number:     ${num}\n`;
+    if(lay)b+=`  Layover:           ${lay}\n`;
+    if(al)b+=`  Arrival location:  ${al}\n`;
+    if(at)b+=`  Arrival time:      ${at}\n`;
+    b+=`  Checked bags:      ${bags}\n`;
+    if(conf)b+=`  Confirmation:      ${conf}\n`;
+  });
+  if(policyText)b+=`\n${policyText}\n`;
+  if(flightNotes)b+=`\nNotes: ${flightNotes}\n`;
+
   b+=`\n───────────────────────────────────\n2. 🚌  GROUND TRANSPORTATION\n───────────────────────────────────\n`;
   if(busProvider)b+=`Provider:      ${busProvider}\n`;if(busNumber)b+=`Route/bus:     ${busNumber}\n`;if(busPickup)b+=`Pickup at:     ${busPickup}\n`;if(busDepartTime)b+=`Departure:     ${busDepartTime}\n`;if(busDropoff)b+=`Drop-off:      ${busDropoff}\n`;if(busConfirm)b+=`Ticket/ref:    ${busConfirm}\n`;if(busNotes)b+=`Notes:         ${busNotes}\n`;
+
   b+=`\n───────────────────────────────────\n3. ⛴️  FERRY / FINAL LEG\n───────────────────────────────────\n`;
   if(ferryFrom)b+=`Terminal:      ${ferryFrom}\n`;if(ferryName)b+=`Ferry:         ${ferryName}\n`;if(ferryDepart)b+=`Departure:     ${ferryDepart}\n`;if(ferryArrive)b+=`Arrival at:    ${ferryArrive}\n`;if(ferryArrTime)b+=`Arrival time:  ${ferryArrTime}\n`;if(ferryTicket)b+=`Ticket:        ${ferryTicket}\n`;if(ferryNotes)b+=`Notes:         ${ferryNotes}\n`;
+
   b+=`\n───────────────────────────────────\n4. 🚗  ARRIVAL COORDINATION\n───────────────────────────────────\n`;
   if(driverName)b+=`Contact:       ${driverName}\n`;if(arrivalInstr)b+=`Instructions:  ${arrivalInstr}\n`;
+
   b+=`\n───────────────────────────────────\n5. 🆘  EMERGENCY CONTACT\n───────────────────────────────────\n`;
   if(emergName)b+=`Name:          ${emergName}\n`;if(emergEmail)b+=`Email:         ${emergEmail}\n`;if(emergPhone)b+=`Phone/WhatsApp:${emergPhone}\n`;
   if(empNotes)b+=`\n───────────────────────────────────\nADDITIONAL NOTES\n───────────────────────────────────\n${empNotes}\n`;
@@ -383,45 +550,84 @@ function buildEmployeeEmail(){
   b+=`\n═══════════════════════════════════\n\nSafe travels! We look forward to welcoming you.\n\n${sender}\n${company}`;
   return b;
 }
+
 function buildDriverEmail(){
-  const empName=val('emp-name'),driverName=val('driver-name'),travelDate=val('travel-date');
+  const empName=val('emp-name'),empPhone=val('emp-phone');
+  const driverName=val('driver-name'),travelDate=val('travel-date');
   const ferryArrive=val('ferry-arrive-loc'),ferryArrTime=val('ferry-arrive-time'),ferryFrom=val('ferry-from'),ferryDepart=val('ferry-depart-time'),ferryName=val('ferry-name');
   const arrivalInstr=val('arrival-instructions'),company=settings.company||'the company',sender=settings.sender||'Travel Desk';
   let b=`Hi ${driverName||'there'},\n\nPlease be advised of the following employee arrival requiring pickup.\n\n`;
   b+=`═══════════════════════════════════\nPICKUP NOTICE\n═══════════════════════════════════\n\n`;
-  b+=`Employee:      ${empName||'—'}\nTravel date:   ${fmt(travelDate)}\n`;
+  b+=`Employee:      ${empName||'—'}\n`;
+  if(empPhone)b+=`Mobile:        ${empPhone}\n`;
+  b+=`Travel date:   ${fmt(travelDate)}\n`;
   if(ferryName)b+=`Ferry:         ${ferryName}\n`;if(ferryFrom)b+=`Departing:     ${ferryFrom}\n`;if(ferryDepart)b+=`Ferry departs: ${ferryDepart}\n`;if(ferryArrive)b+=`Arriving at:   ${ferryArrive}\n`;if(ferryArrTime)b+=`Arrival time:  ${ferryArrTime}\n`;
   if(arrivalInstr)b+=`\nInstructions:\n${arrivalInstr}\n`;
   b+=`\n═══════════════════════════════════\n\nThank you,\n${sender}\n${company}`;
   return b;
 }
 
+// ── CALENDAR INVITES ──────────────────────────────────────────────────────────
+async function sendCalendarInvites(empName, empEmail, travelDate, ferryArriveTime, checkedLeaders, driverEmail, driverName) {
+  const calWorker = settings['gcal-worker'];
+  if (!calWorker) return { sent: false, reason: 'No calendar worker configured' };
+
+  const allDayTitle = `${empName} — Travel Day to ${settings.property||'Property'}`;
+  const arrivalTitle = `Arrival: ${empName} at ${settings.property||'Property'}`;
+
+  // Build arrival datetime from ferry arrive time on travel date
+  let arrivalStart = null, arrivalEnd = null;
+  if (travelDate && ferryArriveTime) {
+    arrivalStart = `${travelDate}T${ferryArriveTime}:00`;
+    // 1 hour duration
+    const [h, m] = ferryArriveTime.split(':').map(Number);
+    const endH = String(h + 1).padStart(2, '0');
+    arrivalEnd = `${travelDate}T${endH}:${String(m).padStart(2,'0')}:00`;
+  }
+
+  // All-day: employee + CC'd leaders
+  const allDayAttendees = [empEmail];
+  checkedLeaders.forEach(l => { if (l.email) allDayAttendees.push(l.email); });
+  // 1-hour arrival: employee + driver only
+  const arrivalAttendees = [empEmail];
+  if (driverEmail) arrivalAttendees.push(driverEmail);
+
+  const policyText = getPolicyText();
+  const calDescription = buildEmployeeEmail();
+
+  try {
+    const res = await fetch(calWorker + '/create-events', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        allDay: { title: allDayTitle, date: travelDate, attendees: allDayAttendees, description: calDescription },
+        arrival: arrivalStart ? { title: arrivalTitle, start: arrivalStart, end: arrivalEnd, attendees: arrivalAttendees, description: policyText || arrivalTitle } : null
+      })
+    });
+    const data = await res.json();
+    return { sent: true, data };
+  } catch(e) {
+    return { sent: false, reason: e.message };
+  }
+}
+
 // ── PREVIEW & SEND ────────────────────────────────────────────────────────────
 function previewItinerary(){document.getElementById('preview-employee').textContent=buildEmployeeEmail();document.getElementById('preview-driver').textContent=buildDriverEmail();document.getElementById('preview-section').style.display='block';setTimeout(()=>document.getElementById('preview-section').scrollIntoView({behavior:'smooth',block:'start'}),50);}
 
 async function sendItinerary(){
-  const empName=val('emp-name'),empEmail=val('emp-email'),drvEmail=val('driver-email');
+  const empName=val('emp-name'),empEmail=val('emp-email'),drvEmail=val('driver-email'),drvName=val('driver-name');
   if(!empName||!empEmail){toast('Enter employee name and email first','error');return;}
+  if(!val('ferry-arrive-time')){toast('Ferry/final leg arrival time is required for calendar invites','error');return;}
   const svcId=settings['ejs-service'],tplEmp=settings['ejs-template-emp'],tplDrv=settings['ejs-template-drv'],pubKey=settings['ejs-key'];
   const cl=getCheckedLeaders(),ccEmails=cl.map(l=>l.email).join(', ');
   const empBody=buildEmployeeEmail(),drvBody=buildDriverEmail();
   const formData=snapshotForm();
+  const trip={empName,empEmail,travelDate:val('travel-date'),visa:val('visa-status'),ccLeaders:cl.map(l=>l.name),status:'draft',formData};
 
-  const trip={
-    empName,empEmail,
-    travelDate:val('travel-date'),
-    visa:val('visa-status'),
-    ccLeaders:cl.map(l=>l.name),
-    status:'draft',
-    formData  // store full form data for edit/copy
-  };
-
-  // If editing, update existing trip instead of adding new one
   if(editingTripId){
     trip.id=editingTripId;
     const idx=trips.findIndex(t=>t.id===editingTripId);
     if(idx>-1)trips[idx]={...trips[idx],...trip};
-    await api('/trips/update','POST',{id:editingTripId,...trip});
   }
 
   if(!svcId||!pubKey||!tplEmp){
@@ -430,35 +636,50 @@ async function sendItinerary(){
     if(!editingTripId)await api('/trips','POST',trip);
     previewItinerary();return;
   }
+
+  const btn=document.getElementById('send-btn');
+  btn.disabled=true;btn.textContent='Sending...';
+
   try{
     emailjs.init(pubKey);
     await emailjs.send(svcId,tplEmp,{to_email:empEmail,to_name:empName,cc_emails:ccEmails,subject:`Your travel itinerary — ${settings.property||'upcoming trip'}`,message:empBody,from_name:settings.sender||'Travel Desk'});
-    if(drvEmail&&tplDrv)await emailjs.send(svcId,tplDrv,{to_email:drvEmail,to_name:val('driver-name'),subject:`Pickup notice — ${empName}`,message:drvBody,from_name:settings.sender||'Travel Desk'});
+    if(drvEmail&&tplDrv)await emailjs.send(svcId,tplDrv,{to_email:drvEmail,to_name:drvName,subject:`Pickup notice — ${empName}`,message:drvBody,from_name:settings.sender||'Travel Desk'});
     trip.status='sent';
-    if(!editingTripId){await api('/trips','POST',trip);}
-    else{await api('/trips/update','POST',{id:editingTripId,...trip,status:'sent'});}
+
+    // Calendar invites
+    const ferryArriveTime=val('ferry-arrive-time');
+    const calResult=await sendCalendarInvites(empName,empEmail,val('travel-date'),ferryArriveTime,cl,drvEmail,drvName);
+
+    if(editingTripId){await api('/trips/update','POST',{id:editingTripId,...trip,status:'sent'});}
+    else{await api('/trips','POST',trip);}
+
     const ccMsg=cl.length?` CC'd: ${cl.map(l=>l.name).join(', ')}.`:'';
+    const calMsg=calResult.sent?' Calendar invites sent.':settings['gcal-worker']?' (Calendar invite failed)':'';
     const action=editingTripId?'Updated and resent':'Sent';
-    toast(`${action} to ${empName}!${drvEmail?' Driver notified.':''}${ccMsg}`,'success',5000);
-    cancelEdit();
-    resetForm();
-  }catch(e){toast('Email failed: '+(e.text||e.message||'Check EmailJS settings'),'error',5000);previewItinerary();}
+    toast(`${action} to ${empName}!${drvEmail?' Driver notified.':''}${ccMsg}${calMsg}`,'success',6000);
+    cancelEdit();resetForm();
+  }catch(e){
+    toast('Email failed: '+(e.text||e.message||'Check EmailJS settings'),'error',5000);
+    previewItinerary();
+  }finally{
+    btn.disabled=false;
+    document.getElementById('send-btn').textContent=editingTripId?'Save changes + resend':'Send itinerary + notify all';
+  }
 }
 
 function resetForm(){
   FIELDS.forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  document.querySelector('input[name="bags"][value="Yes"]').checked=true;
+  buildLegs(1);set('leg-count','1');
+  document.querySelectorAll('input[name="bag-policy"]').forEach(r=>r.checked=false);
+  document.getElementById('policy-a-wrap').classList.remove('selected');
+  document.getElementById('policy-b-wrap').classList.remove('selected');
   document.querySelectorAll('.cc-checkbox').forEach(cb=>cb.checked=false);
   document.getElementById('preview-section').style.display='none';
   prefillEmergency();
 }
 
 // ── TRIPS ─────────────────────────────────────────────────────────────────────
-async function loadTrips(){
-  document.getElementById('trips-list').innerHTML='<div class="loading">Loading trips...</div>';
-  try{trips=await api('/trips');renderTrips();}
-  catch(e){document.getElementById('trips-list').innerHTML='<div class="loading">Could not load trips.</div>';}
-}
+async function loadTrips(){document.getElementById('trips-list').innerHTML='<div class="loading">Loading trips...</div>';try{trips=await api('/trips');renderTrips();}catch(e){document.getElementById('trips-list').innerHTML='<div class="loading">Could not load trips.</div>';}}
 function renderTrips(){
   const list=document.getElementById('trips-list');
   if(!trips.length){list.innerHTML='<div style="text-align:center;padding:48px 24px;color:var(--muted);"><div style="font-size:32px;margin-bottom:12px;">✈️</div><div style="font-size:14px;">No trips yet.</div></div>';return;}
@@ -466,29 +687,11 @@ function renderTrips(){
     const initials=t.empName.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
     const cc=t.ccLeaders?.length?` · CC: ${t.ccLeaders.join(', ')}`:'';
     const hasData=!!t.formData;
-    return`<div class="trip-card">
-      <div class="trip-card-top">
-        <div class="trip-card-left">
-          <div class="trip-avatar">${initials}</div>
-          <div>
-            <div class="trip-name">${t.empName}</div>
-            <div class="trip-meta">${fmtS(t.travelDate)} · ${t.visa||''}${cc}</div>
-          </div>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-          <span class="trip-status status-${t.status}">${t.status}</span>
-          ${hasData?`
-          <button class="btn btn-ghost btn-sm" onclick="editTrip(${t.id})" title="Edit and resend">✏️ Edit</button>
-          <button class="btn btn-blue btn-sm" onclick="copyTrip(${t.id})" title="Copy for new employee">⧉ Copy</button>
-          `:`<span style="font-size:11px;color:var(--muted);">Legacy</span>`}
-        </div>
-      </div>
-    </div>`;
+    return`<div class="trip-card"><div class="trip-card-top"><div class="trip-card-left"><div class="trip-avatar">${initials}</div><div><div class="trip-name">${t.empName}</div><div class="trip-meta">${fmtS(t.travelDate)} · ${t.visa||''}${cc}</div></div></div><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="trip-status status-${t.status}">${t.status}</span>${hasData?`<button class="btn btn-ghost btn-sm" onclick="editTrip(${t.id})">✏️ Edit</button><button class="btn btn-blue btn-sm" onclick="copyTrip(${t.id})">⧉ Copy</button>`:'<span style="font-size:11px;color:var(--muted);">Legacy</span>'}</div></div></div>`;
   }).join('');
 }
 
 boot();
-document.getElementById('travel-date').min=new Date().toISOString().split('T')[0];
 </script>
 </body>
 </html>
