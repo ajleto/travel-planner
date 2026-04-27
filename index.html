@@ -100,6 +100,16 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
 .loading{text-align:center;padding:48px 24px;color:var(--muted);font-size:13px;font-family:var(--mono);}
 .edit-banner{background:var(--blue-light);border:1px solid #b8cce8;border-radius:var(--r-sm);padding:12px 16px;margin-bottom:16px;display:none;align-items:center;justify-content:space-between;gap:12px;}
 .edit-banner.active{display:flex;}
+.toggle-switch{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.toggle-switch input[type=checkbox]{width:0;height:0;opacity:0;position:absolute;}
+.toggle-knob{width:44px;height:24px;background:var(--border2);border-radius:12px;position:relative;cursor:pointer;transition:background 0.2s;flex-shrink:0;}
+.toggle-knob::after{content:'';position:absolute;width:18px;height:18px;border-radius:50%;background:white;top:3px;left:3px;transition:left 0.2s;}
+.toggle-switch input:checked + .toggle-knob{background:var(--accent);}
+.toggle-switch input:checked + .toggle-knob::after{left:23px;}
+.toggle-label{font-size:14px;font-weight:500;color:var(--text);}
+.hotel-position-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.position-btn{padding:7px 14px;border-radius:var(--r-sm);font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--muted);transition:all 0.15s;}
+.position-btn.active{background:var(--accent);color:white;border-color:var(--accent);}
 .edit-banner-text{font-size:13px;color:var(--blue);font-weight:500;}
 .gcal-note{background:var(--accent-light);border:1px solid #b8d4bb;border-radius:var(--r-sm);padding:12px 14px;font-size:12px;color:var(--accent);line-height:1.6;margin-top:10px;}
 @media(max-width:640px){.form-grid{grid-template-columns:1fr;}.topnav{padding:0 16px;}.page{padding:20px 16px 80px;}.setting-row{flex-direction:column;}.setting-input{width:100%;}.cc-grid{grid-template-columns:1fr;}}
@@ -183,6 +193,15 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
     </div>
   </div>
 
+  <!-- Hotel toggle -->
+  <div style="display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 20px;margin-bottom:16px;">
+    <label class="toggle-switch" style="margin:0;">
+      <input type="checkbox" id="hotel-toggle" onchange="toggleHotel(this.checked)"/>
+      <div class="toggle-knob"></div>
+    </label>
+    <span class="toggle-label">Include hotel accommodation</span>
+  </div>
+
   <!-- BUS -->
   <div class="card">
     <div class="card-title">🚌 Ground transportation</div>
@@ -208,6 +227,34 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
       <div class="form-group"><label>Arrival time <span style="color:var(--red);">*</span> <span style="font-weight:400;color:var(--muted);">(required for calendar invite)</span></label><input type="time" id="ferry-arrive-time"/></div>
       <div class="form-group"><label>Ticket details / confirmation</label><input type="text" id="ferry-ticket" placeholder="Pre-booked or buy at dock..."/></div>
       <div class="form-group full"><label>Ferry notes</label><input type="text" id="ferry-notes" placeholder="Cash only, bring exact change, etc."/></div>
+    </div>
+  </div>
+
+
+  <!-- HOTEL -->
+  <div class="card" id="hotel-card" style="display:none;">
+    <div class="card-title">🏨 Hotel accommodation</div>
+    <div class="hotel-position-row">
+      <span style="font-size:12px;font-weight:500;color:var(--muted);align-self:center;">Position in itinerary:</span>
+      <button class="position-btn active" id="hotel-pos-before" onclick="setHotelPosition('before')">Before ground transportation</button>
+      <button class="position-btn" id="hotel-pos-after" onclick="setHotelPosition('after')">After ground transportation</button>
+    </div>
+    <div class="form-grid">
+      <div class="form-group"><label>Hotel name</label><input type="text" id="hotel-name" placeholder="e.g. Radisson Fort George Hotel"/></div>
+      <div class="form-group"><label>Confirmation number</label><input type="text" id="hotel-confirm" placeholder="e.g. RES-123456"/></div>
+      <div class="form-group full"><label>Hotel address</label><input type="text" id="hotel-address" placeholder="e.g. 2 Marine Parade, Belize City"/></div>
+      <div class="form-group"><label>Check-in date</label><input type="date" id="hotel-checkin-date"/></div>
+      <div class="form-group"><label>Check-in time</label><input type="time" id="hotel-checkin-time"/></div>
+      <div class="form-group"><label>Check-out date</label><input type="date" id="hotel-checkout-date"/></div>
+      <div class="form-group"><label>Check-out time</label><input type="time" id="hotel-checkout-time"/></div>
+      <div class="form-group"><label>Room type</label><input type="text" id="hotel-room-type" placeholder="e.g. Standard King, Double Queen"/></div>
+      <div class="form-group"><label>Breakfast included?</label>
+        <div class="radio-row">
+          <label><input type="radio" name="hotel-breakfast" value="Yes"/> Yes</label>
+          <label><input type="radio" name="hotel-breakfast" value="No" checked/> No</label>
+        </div>
+      </div>
+      <div class="form-group full"><label>Additional hotel notes</label><input type="text" id="hotel-notes" placeholder="Early check-in requested, pool access, etc."/></div>
     </div>
   </div>
 
@@ -338,7 +385,7 @@ const FIELDS = ['emp-name','emp-email','emp-phone','travel-date','return-date','
   'bus-provider','bus-number','bus-pickup','bus-depart-time','bus-dropoff','bus-confirm','bus-notes',
   'ferry-from','ferry-depart-time','ferry-name','ferry-arrive-loc','ferry-arrive-time','ferry-ticket','ferry-notes',
   'driver-name','driver-email','arrival-instructions',
-  'emergency-name','emergency-email','emergency-phone','emp-notes','flight-notes'];
+  'emergency-name','emergency-email','emergency-phone','emp-notes','flight-notes','hotel-name','hotel-confirm','hotel-address','hotel-checkin-date','hotel-checkin-time','hotel-checkout-date','hotel-checkout-time','hotel-room-type','hotel-notes'];
 
 const LEG_FIELDS = ['leg-from','leg-depart-date','leg-depart-time','leg-number','leg-layover','leg-arrive-loc','leg-arrive-time','leg-confirm'];
 
@@ -463,6 +510,9 @@ function snapshotForm(){
   data.legCount=currentLegCount;
   data.legs=getLegData();
   data.bagPolicy=getPolicy();
+  data.hotelOn=document.getElementById('hotel-toggle').checked;
+  data.hotelPosition=hotelPosition;
+  data.hotelBreakfast=document.querySelector('input[name="hotel-breakfast"]:checked')?.value||'No';
   data.ccLeaderIds=getCheckedLeaders().map(l=>l.id);
   return data;
 }
@@ -480,6 +530,9 @@ function restoreForm(data){
     });
   }
   if(data.bagPolicy)selectPolicy(data.bagPolicy);
+  if(data.hotelOn){document.getElementById('hotel-toggle').checked=true;toggleHotel(true);}
+  if(data.hotelPosition)setHotelPosition(data.hotelPosition);
+  if(data.hotelBreakfast){const r=document.querySelector(`input[name="hotel-breakfast"][value="${data.hotelBreakfast}"]`);if(r)r.checked=true;}
   renderCCGrid();
   setTimeout(()=>{
     const ids=data.ccLeaderIds||[];
@@ -534,16 +587,23 @@ function buildEmployeeEmail(){
   if(policyText)b+=`\n${policyText}\n`;
   if(flightNotes)b+=`\nNotes: ${flightNotes}\n`;
 
+  // Hotel before bus
+  if(hotelPosition==='before') b+=getHotelBlock();
   b+=`\n───────────────────────────────────\n2. 🚌  GROUND TRANSPORTATION\n───────────────────────────────────\n`;
   if(busProvider)b+=`Provider:      ${busProvider}\n`;if(busNumber)b+=`Route/bus:     ${busNumber}\n`;if(busPickup)b+=`Pickup at:     ${busPickup}\n`;if(busDepartTime)b+=`Departure:     ${busDepartTime}\n`;if(busDropoff)b+=`Drop-off:      ${busDropoff}\n`;if(busConfirm)b+=`Ticket/ref:    ${busConfirm}\n`;if(busNotes)b+=`Notes:         ${busNotes}\n`;
+  // Hotel after bus
+  if(hotelPosition==='after') b+=getHotelBlock();
 
-  b+=`\n───────────────────────────────────\n3. ⛴️  FERRY / FINAL LEG\n───────────────────────────────────\n`;
+  const ferryNum = document.getElementById('hotel-toggle').checked ? 4 : 3;
+b+=`\n───────────────────────────────────\n${ferryNum}. ⛴️  FERRY / FINAL LEG\n───────────────────────────────────\n`;
   if(ferryFrom)b+=`Terminal:      ${ferryFrom}\n`;if(ferryName)b+=`Ferry:         ${ferryName}\n`;if(ferryDepart)b+=`Departure:     ${ferryDepart}\n`;if(ferryArrive)b+=`Arrival at:    ${ferryArrive}\n`;if(ferryArrTime)b+=`Arrival time:  ${ferryArrTime}\n`;if(ferryTicket)b+=`Ticket:        ${ferryTicket}\n`;if(ferryNotes)b+=`Notes:         ${ferryNotes}\n`;
 
-  b+=`\n───────────────────────────────────\n4. 🚗  ARRIVAL COORDINATION\n───────────────────────────────────\n`;
+  const arrNum = document.getElementById('hotel-toggle').checked ? 5 : 4;
+b+=`\n───────────────────────────────────\n${arrNum}. 🚗  ARRIVAL COORDINATION\n───────────────────────────────────\n`;
   if(driverName)b+=`Contact:       ${driverName}\n`;if(arrivalInstr)b+=`Instructions:  ${arrivalInstr}\n`;
 
-  b+=`\n───────────────────────────────────\n5. 🆘  EMERGENCY CONTACT\n───────────────────────────────────\n`;
+  const emergNum = document.getElementById('hotel-toggle').checked ? 6 : 5;
+b+=`\n───────────────────────────────────\n${emergNum}. 🆘  EMERGENCY CONTACT\n───────────────────────────────────\n`;
   if(emergName)b+=`Name:          ${emergName}\n`;if(emergEmail)b+=`Email:         ${emergEmail}\n`;if(emergPhone)b+=`Phone/WhatsApp:${emergPhone}\n`;
   if(empNotes)b+=`\n───────────────────────────────────\nADDITIONAL NOTES\n───────────────────────────────────\n${empNotes}\n`;
   if(cl.length){b+=`\n───────────────────────────────────\nThis itinerary has been shared with:\n`;cl.forEach(l=>b+=`• ${l.name}${l.role?' ('+l.role+')':''}\n`);}
