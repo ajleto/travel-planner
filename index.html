@@ -194,9 +194,9 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
   </div>
 
   <!-- Hotel toggle -->
-  <div id="hotel-toggle-div" style="display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 20px;margin-bottom:16px;cursor:pointer;" onclick="document.getElementById('hotel-toggle').click()">
-    <input type="checkbox" id="hotel-toggle" onchange="toggleHotel(this.checked)" style="width:18px;height:18px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;"/>
-    <span style="font-size:14px;font-weight:500;color:var(--text);">Include hotel accommodation</span>
+  <div id="hotel-toggle-div" style="display:flex;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 20px;margin-bottom:16px;">
+    <span style="font-size:14px;font-weight:500;color:var(--text);">🏨 Include hotel accommodation</span>
+    <button id="hotel-toggle-btn" onclick="toggleHotel()" style="padding:7px 18px;border-radius:var(--r-sm);font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--muted);transition:all 0.15s;font-family:var(--sans);">No</button>
   </div>
 
 <div class="card" id="hotel-card" style="display:none;">
@@ -420,7 +420,6 @@ function buildLegs(count){
         <div class="form-group"><label>Departure date</label><input type="date" id="leg-${i}-depart-date"/></div>
         <div class="form-group"><label>Departure time</label><input type="time" id="leg-${i}-depart-time"/></div>
         <div class="form-group"><label>Flight number</label><input type="text" id="leg-${i}-number" placeholder="e.g. AA 1234"/></div>
-        <div class="form-group full"><label>Layover (if any)</label><input type="text" id="leg-${i}-layover" placeholder="e.g. Atlanta (ATL) — 2hr 15min layover"/></div>
         <div class="form-group"><label>Arrival location</label><input type="text" id="leg-${i}-arrive-loc" placeholder="e.g. Belize City (BZE)"/></div>
         <div class="form-group"><label>Arrival time</label><input type="time" id="leg-${i}-arrive-time"/></div>
         <div class="form-group"><label>Checked bags?</label>
@@ -429,6 +428,7 @@ function buildLegs(count){
             <label><input type="radio" name="bags-${i}" value="No"/> No</label>
           </div>
         </div>
+        <div class="form-group full"><label>Layover (if any)</label><input type="text" id="leg-${i}-layover" placeholder="e.g. Atlanta (ATL) — 2hr 15min layover"/></div>
         <div class="form-group"><label>Confirmation / booking ref</label><input type="text" id="leg-${i}-confirm" placeholder="e.g. XY7K2M"/></div>
       </div>
     </div>`;
@@ -508,7 +508,7 @@ function snapshotForm(){
   data.legCount=currentLegCount;
   data.legs=getLegData();
   data.bagPolicy=getPolicy();
-  data.hotelOn=document.getElementById('hotel-toggle').checked;
+  data.hotelOn=hotelOn;
   data.hotelPosition=hotelPosition;
   data.hotelBreakfast=document.querySelector('input[name="hotel-breakfast"]:checked')?.value||'No';
   data.ccLeaderIds=getCheckedLeaders().map(l=>l.id);
@@ -528,7 +528,8 @@ function restoreForm(data){
     });
   }
   if(data.bagPolicy)selectPolicy(data.bagPolicy);
-  if(data.hotelOn){document.getElementById('hotel-toggle').checked=true;toggleHotel(true);}
+  if(data.hotelOn && !hotelOn){ toggleHotel(); }
+  else if(!data.hotelOn && hotelOn){ toggleHotel(); }
   if(data.hotelPosition)setHotelPosition(data.hotelPosition);
   if(data.hotelBreakfast){const r=document.querySelector(`input[name="hotel-breakfast"][value="${data.hotelBreakfast}"]`);if(r)r.checked=true;}
   renderCCGrid();
@@ -592,15 +593,15 @@ function buildEmployeeEmail(){
   // Hotel after bus
   if(hotelPosition==='after') b+=getHotelBlock();
 
-  const ferryNum = document.getElementById('hotel-toggle').checked ? 4 : 3;
+  const ferryNum = hotelOn ? 4 : 3;
 b+=`\n───────────────────────────────────\n${ferryNum}. ⛴️  FERRY / FINAL LEG\n───────────────────────────────────\n`;
   if(ferryFrom)b+=`Terminal:      ${ferryFrom}\n`;if(ferryName)b+=`Ferry:         ${ferryName}\n`;if(ferryDepart)b+=`Departure:     ${ferryDepart}\n`;if(ferryArrive)b+=`Arrival at:    ${ferryArrive}\n`;if(ferryArrTime)b+=`Arrival time:  ${ferryArrTime}\n`;if(ferryTicket)b+=`Ticket:        ${ferryTicket}\n`;if(ferryNotes)b+=`Notes:         ${ferryNotes}\n`;
 
-  const arrNum = document.getElementById('hotel-toggle').checked ? 5 : 4;
+  const arrNum = hotelOn ? 5 : 4;
 b+=`\n───────────────────────────────────\n${arrNum}. 🚗  ARRIVAL COORDINATION\n───────────────────────────────────\n`;
   if(driverName)b+=`Contact:       ${driverName}\n`;if(arrivalInstr)b+=`Instructions:  ${arrivalInstr}\n`;
 
-  const emergNum = document.getElementById('hotel-toggle').checked ? 6 : 5;
+  const emergNum = hotelOn ? 6 : 5;
 b+=`\n───────────────────────────────────\n${emergNum}. 🆘  EMERGENCY CONTACT\n───────────────────────────────────\n`;
   if(emergName)b+=`Name:          ${emergName}\n`;if(emergEmail)b+=`Email:         ${emergEmail}\n`;if(emergPhone)b+=`Phone/WhatsApp:${emergPhone}\n`;
   if(empNotes)b+=`\n───────────────────────────────────\nADDITIONAL NOTES\n───────────────────────────────────\n${empNotes}\n`;
@@ -752,10 +753,18 @@ function renderTrips(){
 // ── HOTEL ────────────────────────────────────────────────────────────────────
 let hotelPosition = 'before';
 
-function toggleHotel(on) {
+let hotelOn = false;
+
+function toggleHotel() {
+  hotelOn = !hotelOn;
   const card = document.getElementById('hotel-card');
-  card.style.display = on ? 'block' : 'none';
-  if (on) placeHotelCard(hotelPosition);
+  const btn  = document.getElementById('hotel-toggle-btn');
+  card.style.display = hotelOn ? 'block' : 'none';
+  btn.textContent = hotelOn ? 'Yes' : 'No';
+  btn.style.background = hotelOn ? 'var(--accent)' : 'var(--surface2)';
+  btn.style.color = hotelOn ? 'white' : 'var(--muted)';
+  btn.style.borderColor = hotelOn ? 'var(--accent)' : 'var(--border)';
+  if (hotelOn) placeHotelCard(hotelPosition);
 }
 
 function setHotelPosition(pos) {
@@ -780,7 +789,7 @@ function placeHotelCard(pos) {
 }
 
 function getHotelBlock() {
-  const on = document.getElementById('hotel-toggle').checked;
+  const on = hotelOn;
   if (!on) return '';
   const name = val('hotel-name'), confirm = val('hotel-confirm'), address = val('hotel-address');
   const ciDate = val('hotel-checkin-date'), ciTime = val('hotel-checkin-time');
