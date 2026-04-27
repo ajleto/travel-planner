@@ -751,6 +751,53 @@ function renderTrips(){
   }).join('');
 }
 
+// ── HOTEL ────────────────────────────────────────────────────────────────────
+let hotelPosition = 'before';
+
+function toggleHotel(on) {
+  document.getElementById('hotel-card').style.display = on ? 'block' : 'none';
+}
+
+function setHotelPosition(pos) {
+  hotelPosition = pos;
+  document.getElementById('hotel-pos-before').classList.toggle('active', pos === 'before');
+  document.getElementById('hotel-pos-after').classList.toggle('active', pos === 'after');
+}
+
+function getHotelBlock() {
+  const on = document.getElementById('hotel-toggle').checked;
+  if (!on) return '';
+  const name = val('hotel-name'), confirm = val('hotel-confirm'), address = val('hotel-address');
+  const ciDate = val('hotel-checkin-date'), ciTime = val('hotel-checkin-time');
+  const coDate = val('hotel-checkout-date'), coTime = val('hotel-checkout-time');
+  const roomType = val('hotel-room-type'), notes = val('hotel-notes');
+  const breakfast = document.querySelector('input[name="hotel-breakfast"]:checked')?.value || 'No';
+  let b = `
+───────────────────────────────────
+🏨  HOTEL ACCOMMODATION
+───────────────────────────────────
+`;
+  if (name)     b += `Hotel:         ${name}
+`;
+  if (address)  b += `Address:       ${address}
+`;
+  if (confirm)  b += `Confirmation:  ${confirm}
+`;
+  b +=           `Reservation:   In your name
+`;
+  if (ciDate)   b += `Check-in:      ${fmt(ciDate)}${ciTime ? ' at ' + ciTime : ''}
+`;
+  if (coDate)   b += `Check-out:     ${fmt(coDate)}${coTime ? ' at ' + coTime : ''}
+`;
+  if (roomType) b += `Room type:     ${roomType}
+`;
+  b +=           `Breakfast:     ${breakfast}
+`;
+  if (notes)    b += `Notes:         ${notes}
+`;
+  return b;
+}
+
 boot();
 </script>
 </body>
