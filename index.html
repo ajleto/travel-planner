@@ -194,13 +194,39 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
   </div>
 
   <!-- Hotel toggle -->
-  <div style="display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 20px;margin-bottom:16px;cursor:pointer;" onclick="document.getElementById('hotel-toggle').click()">
+  <div id="hotel-toggle-div" style="display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 20px;margin-bottom:16px;cursor:pointer;" onclick="document.getElementById('hotel-toggle').click()">
     <input type="checkbox" id="hotel-toggle" onchange="toggleHotel(this.checked)" style="width:18px;height:18px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;"/>
     <span style="font-size:14px;font-weight:500;color:var(--text);">Include hotel accommodation</span>
   </div>
 
+<div class="card" id="hotel-card" style="display:none;">
+    <div class="card-title">🏨 Hotel accommodation</div>
+    <div class="hotel-position-row">
+      <span style="font-size:12px;font-weight:500;color:var(--muted);align-self:center;">Position in itinerary:</span>
+      <button class="position-btn active" id="hotel-pos-before" onclick="setHotelPosition('before')">Before ground transportation</button>
+      <button class="position-btn" id="hotel-pos-after" onclick="setHotelPosition('after')">After ground transportation</button>
+    </div>
+    <div class="form-grid">
+      <div class="form-group"><label>Hotel name</label><input type="text" id="hotel-name" placeholder="e.g. Radisson Fort George Hotel"/></div>
+      <div class="form-group"><label>Confirmation number</label><input type="text" id="hotel-confirm" placeholder="e.g. RES-123456"/></div>
+      <div class="form-group full"><label>Hotel address</label><input type="text" id="hotel-address" placeholder="e.g. 2 Marine Parade, Belize City"/></div>
+      <div class="form-group"><label>Check-in date</label><input type="date" id="hotel-checkin-date"/></div>
+      <div class="form-group"><label>Check-in time</label><input type="time" id="hotel-checkin-time"/></div>
+      <div class="form-group"><label>Check-out date</label><input type="date" id="hotel-checkout-date"/></div>
+      <div class="form-group"><label>Check-out time</label><input type="time" id="hotel-checkout-time"/></div>
+      <div class="form-group"><label>Room type</label><input type="text" id="hotel-room-type" placeholder="e.g. Standard King, Double Queen"/></div>
+      <div class="form-group"><label>Breakfast included?</label>
+        <div class="radio-row">
+          <label><input type="radio" name="hotel-breakfast" value="Yes"/> Yes</label>
+          <label><input type="radio" name="hotel-breakfast" value="No" checked/> No</label>
+        </div>
+      </div>
+      <div class="form-group full"><label>Additional hotel notes</label><input type="text" id="hotel-notes" placeholder="Early check-in requested, pool access, etc."/></div>
+    </div>
+  </div>
+
   <!-- BUS -->
-  <div class="card">
+  <div class="card" id="bus-card">
     <div class="card-title">🚌 Ground transportation</div>
     <div class="form-grid">
       <div class="form-group"><label>Provider / bus company</label><input type="text" id="bus-provider" placeholder="e.g. James Bus Line"/></div>
@@ -229,32 +255,7 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
 
 
   <!-- HOTEL -->
-  <div class="card" id="hotel-card" style="display:none;">
-    <div class="card-title">🏨 Hotel accommodation</div>
-    <div class="hotel-position-row">
-      <span style="font-size:12px;font-weight:500;color:var(--muted);align-self:center;">Position in itinerary:</span>
-      <button class="position-btn active" id="hotel-pos-before" onclick="setHotelPosition('before')">Before ground transportation</button>
-      <button class="position-btn" id="hotel-pos-after" onclick="setHotelPosition('after')">After ground transportation</button>
-    </div>
-    <div class="form-grid">
-      <div class="form-group"><label>Hotel name</label><input type="text" id="hotel-name" placeholder="e.g. Radisson Fort George Hotel"/></div>
-      <div class="form-group"><label>Confirmation number</label><input type="text" id="hotel-confirm" placeholder="e.g. RES-123456"/></div>
-      <div class="form-group full"><label>Hotel address</label><input type="text" id="hotel-address" placeholder="e.g. 2 Marine Parade, Belize City"/></div>
-      <div class="form-group"><label>Check-in date</label><input type="date" id="hotel-checkin-date"/></div>
-      <div class="form-group"><label>Check-in time</label><input type="time" id="hotel-checkin-time"/></div>
-      <div class="form-group"><label>Check-out date</label><input type="date" id="hotel-checkout-date"/></div>
-      <div class="form-group"><label>Check-out time</label><input type="time" id="hotel-checkout-time"/></div>
-      <div class="form-group"><label>Room type</label><input type="text" id="hotel-room-type" placeholder="e.g. Standard King, Double Queen"/></div>
-      <div class="form-group"><label>Breakfast included?</label>
-        <div class="radio-row">
-          <label><input type="radio" name="hotel-breakfast" value="Yes"/> Yes</label>
-          <label><input type="radio" name="hotel-breakfast" value="No" checked/> No</label>
-        </div>
-      </div>
-      <div class="form-group full"><label>Additional hotel notes</label><input type="text" id="hotel-notes" placeholder="Early check-in requested, pool access, etc."/></div>
-    </div>
-  </div>
-
+  
   <!-- ARRIVAL -->
   <div class="card">
     <div class="card-title">🚗 Arrival coordination</div>
@@ -752,13 +753,30 @@ function renderTrips(){
 let hotelPosition = 'before';
 
 function toggleHotel(on) {
-  document.getElementById('hotel-card').style.display = on ? 'block' : 'none';
+  const card = document.getElementById('hotel-card');
+  card.style.display = on ? 'block' : 'none';
+  if (on) placeHotelCard(hotelPosition);
 }
 
 function setHotelPosition(pos) {
   hotelPosition = pos;
   document.getElementById('hotel-pos-before').classList.toggle('active', pos === 'before');
   document.getElementById('hotel-pos-after').classList.toggle('active', pos === 'after');
+  placeHotelCard(pos);
+}
+
+function placeHotelCard(pos) {
+  const card = document.getElementById('hotel-card');
+  const busCard = document.getElementById('bus-card');
+  const toggleDiv = document.getElementById('hotel-toggle-div');
+  if (!card || !busCard || !toggleDiv) return;
+  if (pos === 'before') {
+    // Place after toggle, before bus card
+    toggleDiv.parentNode.insertBefore(card, busCard);
+  } else {
+    // Place after bus card
+    busCard.parentNode.insertBefore(card, busCard.nextSibling);
+  }
 }
 
 function getHotelBlock() {
