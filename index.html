@@ -194,12 +194,9 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
   </div>
 
   <!-- Hotel toggle -->
-  <div style="display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 20px;margin-bottom:16px;">
-    <label class="toggle-switch" style="margin:0;">
-      <input type="checkbox" id="hotel-toggle" onchange="toggleHotel(this.checked)"/>
-      <div class="toggle-knob"></div>
-    </label>
-    <span class="toggle-label">Include hotel accommodation</span>
+  <div style="display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 20px;margin-bottom:16px;cursor:pointer;" onclick="document.getElementById('hotel-toggle').click()">
+    <input type="checkbox" id="hotel-toggle" onchange="toggleHotel(this.checked)" style="width:18px;height:18px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;"/>
+    <span style="font-size:14px;font-weight:500;color:var(--text);">Include hotel accommodation</span>
   </div>
 
   <!-- BUS -->
