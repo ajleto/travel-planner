@@ -244,6 +244,7 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
     <div class="card-title">⛴️ Ferry / final leg</div>
     <div class="form-grid">
       <div class="form-group"><label>Departure terminal / dock</label><input type="text" id="ferry-from" placeholder="e.g. Dangriga Dock"/></div>
+      <div class="form-group"><label>Ferry date <span style="color:var(--red);">*</span> <span style="font-weight:400;color:var(--muted);font-size:11px;">(required for calendar invite)</span></label><input type="date" id="ferry-date" required/></div>
       <div class="form-group"><label>Ferry departure time</label><input type="time" id="ferry-depart-time"/></div>
       <div class="form-group"><label>Ferry name / operator</label><input type="text" id="ferry-name" placeholder="e.g. MV Hokey Pokey"/></div>
       <div class="form-group"><label>Arrival location</label><input type="text" id="ferry-arrive-loc" placeholder="e.g. Tobacco Caye dock"/></div>
@@ -381,7 +382,7 @@ const WORKER = 'https://travel-worker.aj-3a1.workers.dev';
 
 const FIELDS = ['emp-name','emp-email','emp-phone','travel-date','return-date','visa-status','visa-notes',
   'bus-provider','bus-number','bus-pickup','bus-depart-time','bus-dropoff','bus-confirm','bus-notes',
-  'ferry-from','ferry-depart-time','ferry-name','ferry-arrive-loc','ferry-arrive-time','ferry-ticket','ferry-notes',
+  'ferry-from','ferry-date','ferry-depart-time','ferry-name','ferry-arrive-loc','ferry-arrive-time','ferry-ticket','ferry-notes',
   'driver-name','driver-email','arrival-instructions',
   'emergency-name','emergency-email','emergency-phone','emp-notes','flight-notes','hotel-name','hotel-confirm','hotel-address','hotel-checkin-date','hotel-checkin-time','hotel-checkout-date','hotel-checkout-time','hotel-room-type','hotel-notes'];
 
@@ -417,7 +418,7 @@ function buildLegs(count){
     panels.innerHTML+=`<div class="leg-panel${i===0?' active':''}" id="leg-panel-${i}">
       <div class="form-grid">
         <div class="form-group"><label>Departure airport</label><input type="text" id="leg-${i}-from" placeholder="e.g. Miami International (MIA)"/></div>
-        <div class="form-group"><label>Departure date</label><input type="date" id="leg-${i}-depart-date"/></div>
+        <div class="form-group"><label>Departure date${i===0?' <span style=\"color:var(--red);\">*</span> <span style=\"font-weight:400;color:var(--muted);font-size:11px;\">(required for calendar invite)</span>':''}</label><input type="date" id="leg-${i}-depart-date"${i===0?' required':''}/></div>
         <div class="form-group"><label>Departure time</label><input type="time" id="leg-${i}-depart-time"/></div>
         <div class="form-group"><label>Flight number</label><input type="text" id="leg-${i}-number" placeholder="e.g. AA 1234"/></div>
         <div class="form-group"><label>Arrival location</label><input type="text" id="leg-${i}-arrive-loc" placeholder="e.g. Belize City (BZE)"/></div>
@@ -553,7 +554,7 @@ function buildEmployeeEmail(){
   const policyText=getPolicyText();
   const flightNotes=val('flight-notes');
   const busProvider=val('bus-provider'),busNumber=val('bus-number'),busPickup=val('bus-pickup'),busDepartTime=val('bus-depart-time'),busDropoff=val('bus-dropoff'),busConfirm=val('bus-confirm'),busNotes=val('bus-notes');
-  const ferryFrom=val('ferry-from'),ferryDepart=val('ferry-depart-time'),ferryName=val('ferry-name'),ferryArrive=val('ferry-arrive-loc'),ferryArrTime=val('ferry-arrive-time'),ferryTicket=val('ferry-ticket'),ferryNotes=val('ferry-notes');
+  const ferryDate=val('ferry-date'),ferryFrom=val('ferry-from'),ferryDepart=val('ferry-depart-time'),ferryName=val('ferry-name'),ferryArrive=val('ferry-arrive-loc'),ferryArrTime=val('ferry-arrive-time'),ferryTicket=val('ferry-ticket'),ferryNotes=val('ferry-notes');
   const driverName=val('driver-name'),arrivalInstr=val('arrival-instructions');
   const emergName=val('emergency-name'),emergEmail=val('emergency-email'),emergPhone=val('emergency-phone');
   const empNotes=val('emp-notes'),cl=getCheckedLeaders();
@@ -595,6 +596,7 @@ function buildEmployeeEmail(){
 
   const ferryNum = hotelOn ? 4 : 3;
 b+=`\n───────────────────────────────────\n${ferryNum}. ⛴️  FERRY / FINAL LEG\n───────────────────────────────────\n`;
+  if(ferryDate)b+=`Date:          ${fmt(ferryDate)}\n`;
   if(ferryFrom)b+=`Terminal:      ${ferryFrom}\n`;if(ferryName)b+=`Ferry:         ${ferryName}\n`;if(ferryDepart)b+=`Departure:     ${ferryDepart}\n`;if(ferryArrive)b+=`Arrival at:    ${ferryArrive}\n`;if(ferryArrTime)b+=`Arrival time:  ${ferryArrTime}\n`;if(ferryTicket)b+=`Ticket:        ${ferryTicket}\n`;if(ferryNotes)b+=`Notes:         ${ferryNotes}\n`;
 
   const arrNum = hotelOn ? 5 : 4;
@@ -627,7 +629,7 @@ function buildDriverEmail(){
 }
 
 // ── CALENDAR INVITES ──────────────────────────────────────────────────────────
-async function sendCalendarInvites(empName, empEmail, travelDate, ferryArriveTime, checkedLeaders, driverEmail, driverName) {
+async function sendCalendarInvites(empName, empEmail, travelDate, ferryArriveTime, checkedLeaders, driverEmail, driverName, leg0Date, ferryDate) {
   const calWorker = settings['gcal-worker'];
   if (!calWorker) return { sent: false, reason: 'No calendar worker configured' };
 
@@ -635,13 +637,14 @@ async function sendCalendarInvites(empName, empEmail, travelDate, ferryArriveTim
   const arrivalTitle = `Arrival: ${empName} at ${settings.property||'Property'}`;
 
   // Build arrival datetime from ferry arrive time on travel date
+  // Use ferry date for arrival appointment
+  const arrivalDate = ferryDate || travelDate;
   let arrivalStart = null, arrivalEnd = null;
-  if (travelDate && ferryArriveTime) {
-    arrivalStart = `${travelDate}T${ferryArriveTime}:00`;
-    // 1 hour duration
+  if (arrivalDate && ferryArriveTime) {
+    arrivalStart = `${arrivalDate}T${ferryArriveTime}:00`;
     const [h, m] = ferryArriveTime.split(':').map(Number);
     const endH = String(h + 1).padStart(2, '0');
-    arrivalEnd = `${travelDate}T${endH}:${String(m).padStart(2,'0')}:00`;
+    arrivalEnd = `${arrivalDate}T${endH}:${String(m).padStart(2,'0')}:00`;
   }
 
   // All-day: employee + CC'd leaders
@@ -659,7 +662,7 @@ async function sendCalendarInvites(empName, empEmail, travelDate, ferryArriveTim
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        allDay: { title: allDayTitle, date: travelDate, attendees: allDayAttendees, description: calDescription },
+        allDay: { title: allDayTitle, startDate: leg0Date || travelDate, endDate: ferryDate || travelDate, attendees: allDayAttendees, description: calDescription },
         arrival: arrivalStart ? { title: arrivalTitle, start: arrivalStart, end: arrivalEnd, attendees: arrivalAttendees, description: policyText || arrivalTitle } : null
       })
     });
@@ -677,6 +680,10 @@ async function sendItinerary(){
   const empName=val('emp-name'),empEmail=val('emp-email'),drvEmail=val('driver-email'),drvName=val('driver-name');
   if(!empName||!empEmail){toast('Enter employee name and email first','error');return;}
   if(!val('ferry-arrive-time')){toast('Ferry/final leg arrival time is required for calendar invites','error');return;}
+  if(!val('ferry-date')){toast('Ferry date is required for the calendar invite','error');return;}
+  // Get leg 1 date for calendar
+  const leg0Date = document.getElementById('leg-0-depart-date')?.value;
+  if(!leg0Date){toast('Leg 1 flight departure date is required for the calendar invite','error');return;}
   const svcId=settings['ejs-service'],tplEmp=settings['ejs-template-emp'],tplDrv=settings['ejs-template-drv'],pubKey=settings['ejs-key'];
   const cl=getCheckedLeaders(),ccEmails=cl.map(l=>l.email).join(', ');
   const empBody=buildEmployeeEmail(),drvBody=buildDriverEmail();
@@ -707,7 +714,9 @@ async function sendItinerary(){
 
     // Calendar invites
     const ferryArriveTime=val('ferry-arrive-time');
-    const calResult=await sendCalendarInvites(empName,empEmail,val('travel-date'),ferryArriveTime,cl,drvEmail,drvName);
+    const leg0Date=document.getElementById('leg-0-depart-date')?.value||val('travel-date');
+    const ferryDate=val('ferry-date')||val('travel-date');
+    const calResult=await sendCalendarInvites(empName,empEmail,val('travel-date'),ferryArriveTime,cl,drvEmail,drvName,leg0Date,ferryDate);
 
     if(editingTripId){await api('/trips/update','POST',{id:editingTripId,...trip,status:'sent'});}
     else{await api('/trips','POST',trip);}
