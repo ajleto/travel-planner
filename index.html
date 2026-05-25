@@ -489,14 +489,28 @@ const DEST_CONFIG = {
 
 // Default leaders (pre-loaded, stored in KV too)
 const DEFAULT_LEADERS = [
-  { id:1, name:'Andrea Hesler',       role:'F&B Floor Manager, The Beachside Hotel', email:'andrea@thebeachside.com',   destinations:['nantucket','marthas-vineyard'] },
-  { id:2, name:'Rachael Maurais',      role:'Hotel Operations Manager FMVY',          email:'rachael@farawayhotels.com',  destinations:['marthas-vineyard'] },
-  { id:3, name:'Blake Bovelsky',       role:'F&B Director FMVY',                      email:'blake@farawayhotels.com',    destinations:['marthas-vineyard'] },
-  { id:4, name:'Samantha Shaw',        role:'Director of Food & Beverage, Nantucket', email:'samantha@farawayhotels.com', destinations:['nantucket'] },
-  { id:5, name:'Joan Guzman',          role:'Regional Director of Engineering, MA',   email:'joan@farawayhotels.com',     destinations:['nantucket','marthas-vineyard'] },
-  { id:6, name:'Liliana Nunez Marte',  role:'Operations Coordinator, Nantucket',      email:'liliana@farawayhotels.com',  destinations:['nantucket'] },
-  { id:7, name:'Kristen Schenerman',   role:'Director of Rooms, Sag Harbor, NY',      email:'kristen@farawayhotels.com',  destinations:['sag-harbor','greenport','montauk'] },
-  { id:8, name:'John Kramer',          role:'Dir F&B, Wyoming',                        email:'john@farawayhotels.com',     destinations:['jackson'] },
+  { id:1,  name:'AJ Leto',             role:'SVP, HR',                                  email:'aj@farawayhotels.com',        destinations:['all'] },
+  { id:2,  name:'Caroleyn Ng',         role:'Managing Director, MA',                    email:'caroleyn@farawayhotels.com',  destinations:['nantucket','marthas-vineyard'] },
+  { id:3,  name:'Sharon Bygrave',      role:'Innkeeper, Brass Lantern',                 email:'sharon@brasslanternnantucket.com', destinations:['nantucket'] },
+  { id:4,  name:'Sam Tyree',           role:'General Manager',                          email:'sam@farawayhotels.com',       destinations:['marthas-vineyard'] },
+  { id:5,  name:'Alexia Rodrique',     role:'HR Manager',                               email:'alexia@farawayhotels.com',    destinations:['jackson'] },
+  { id:6,  name:'Elena Schroth',       role:'Area General Manager',                     email:'elena@farawayhotels.com',     destinations:['jackson'] },
+  { id:7,  name:'Dan Doughtry',        role:'Executive Chef',                           email:'dan@farawayhotels.com',       destinations:['marthas-vineyard'] },
+  { id:8,  name:'Eric Freitas Orford', role:'Managing Director, NY',                    email:'eric@farawayhotels.com',      destinations:['greenport','montauk','sag-harbor'] },
+  { id:9,  name:'Jarad McCarroll',     role:'Culinary Director',                        email:'jarad@farawayhotels.com',     destinations:['sag-harbor','greenport'] },
+  { id:10, name:'Rich Andreoli',       role:'Director, Food & Beverage',                email:'rich@farawayhotels.com',      destinations:['sag-harbor','greenport'] },
+  { id:11, name:'Yamila Santillan',    role:'Hotel Manager',                            email:'yamila@farawayhotels.com',    destinations:['nantucket'] },
+  { id:12, name:'Brandon Mickle',      role:'Executive Sous Chef',                      email:'brandon@farawayhotels.com',   destinations:['nantucket'] },
+  { id:13, name:'Nathan Parsons',      role:'Culinary Director',                        email:'nathan@farawayhotels.com',    destinations:['nantucket'] },
+  { id:14, name:'Andrea Hesler',       role:'F&B Floor Manager, The Beachside Hotel',   email:'andrea@thebeachside.com',     destinations:['nantucket'] },
+  { id:15, name:'Rachael Maurais',     role:'Hotel Operations Manager FMVY',            email:'rachael@farawayhotels.com',   destinations:['marthas-vineyard'] },
+  { id:16, name:'Blake Bovelsky',      role:'F&B Director FMVY',                        email:'blake@farawayhotels.com',     destinations:['marthas-vineyard'] },
+  { id:17, name:'Samantha Shaw',       role:'Director of Food & Beverage, Nantucket',   email:'samantha@farawayhotels.com',  destinations:['nantucket'] },
+  { id:18, name:'Joan Guzman',         role:'Regional Director of Engineering, MA',     email:'joan@farawayhotels.com',      destinations:['all'] },
+  { id:19, name:'Liliana Nunez Marte', role:'Operations Coordinator, Nantucket',        email:'liliana@farawayhotels.com',   destinations:['nantucket'] },
+  { id:20, name:'Kristen Schenerman',  role:'Director of Rooms, Sag Harbor, NY',        email:'kristen@farawayhotels.com',   destinations:['sag-harbor'] },
+  { id:21, name:'John Kramer',         role:'Dir F&B, Wyoming',                         email:'john@farawayhotels.com',      destinations:['jackson'] },
+  { id:22, name:'Victoria Corsini',    role:'HR Specialist',                            email:'victoria@farawayhotels.com',  destinations:['greenport','montauk','sag-harbor'] },
 ];
 
 let leaders=[], settings={}, trips=[], editingTripId=null;
@@ -604,23 +618,22 @@ function getHotelLegBlock(){if(!hotelLegOn)return'';const name=val('hotel-leg-na
 
 // ── LEADERS ───────────────────────────────────────────────────────────────────
 function getLeadersForDest(dest){
-  const all=[...DEFAULT_LEADERS,...leaders];
+  // Only use DEFAULT_LEADERS — ignore KV leaders to avoid stale data
   const seen=new Set();
-  return all.filter(l=>{
+  return DEFAULT_LEADERS.filter(l=>{
     if(seen.has(l.email))return false;
     seen.add(l.email);
     if(!dest)return false;
-    const cfg=DEST_CONFIG[dest];
-    const dests=l.destinations||[l.dest||'all'];
-    return dests.includes(dest)||dests.includes(cfg?.state?.toLowerCase())||dests.includes('all');
+    const dests=l.destinations||[];
+    return dests.includes(dest)||dests.includes('all');
   });
 }
 function renderCCGrid(){const grid=document.getElementById('cc-grid');const filtered=getLeadersForDest(selectedDest);if(!selectedDest){grid.innerHTML='<div style="font-size:13px;color:var(--muted);padding:8px 0;">Select a destination to see relevant leaders.</div>';return;}if(!filtered.length){grid.innerHTML='<div style="font-size:13px;color:var(--muted);padding:8px 0;">No leaders configured for this destination.</div>';return;}grid.innerHTML=filtered.map(l=>`<label class="cc-item"><input type="checkbox" value="${l.email}" class="cc-checkbox"/><div><div class="cc-item-name">${l.name}</div>${l.role?`<div class="cc-item-role">${l.role}</div>`:''}<div class="cc-item-email">${l.email}</div></div></label>`).join('');}
 function getCheckedLeaders(){return[...document.querySelectorAll('.cc-checkbox:checked')].map(cb=>({email:cb.value,name:cb.closest('.cc-item').querySelector('.cc-item-name')?.textContent||cb.value}));}
 
-async function addLeader(){const name=val('new-leader-name'),role=val('new-leader-role'),email=val('new-leader-email'),dest=val('new-leader-dest')||'all';if(!name||!email){toast('Enter name and email','error');return;}const dests=dest==='all'?['all']:dest==='ma'?['nantucket','marthas-vineyard']:dest==='ny'?['greenport','montauk','sag-harbor']:dest==='wy'?['jackson']:[dest];leaders.push({id:Date.now(),name,role,email,destinations:dests});await api('/leaders','POST',[...DEFAULT_LEADERS,...leaders]);set('new-leader-name','');set('new-leader-role','');set('new-leader-email','');renderLeadersList();renderCCGrid();toast(name+' added!');}
-async function removeLeader(id){leaders=leaders.filter(l=>l.id!==id);await api('/leaders','POST',[...DEFAULT_LEADERS,...leaders]);renderLeadersList();renderCCGrid();}
-function renderLeadersList(){const el=document.getElementById('leaders-list');const all=[...DEFAULT_LEADERS,...leaders];if(!all.length){el.innerHTML='<div style="font-size:13px;color:var(--muted);padding:8px 0;">No leaders yet.</div>';return;}el.innerHTML=all.map(l=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);"><div><div style="font-size:14px;font-weight:500;">${l.name} <span style="font-weight:400;color:var(--muted);font-size:12px;">— ${l.role||''}</span></div><div style="font-size:12px;color:var(--accent);font-family:var(--mono);">${l.email}</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">${(l.destinations||[]).join(', ')}</div></div>${!DEFAULT_LEADERS.find(d=>d.id===l.id)?`<button onclick="removeLeader(${l.id})" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;padding:0 4px;">×</button>`:'' }</div>`).join('');}
+async function addLeader(){const name=val('new-leader-name'),role=val('new-leader-role'),email=val('new-leader-email'),dest=val('new-leader-dest')||'all';if(!name||!email){toast('Enter name and email','error');return;}const dests=dest==='all'?['all']:dest==='ma'?['nantucket','marthas-vineyard']:dest==='ny'?['greenport','montauk','sag-harbor']:dest==='wy'?['jackson']:[dest];leaders.push({id:Date.now(),name,role,email,destinations:dests});await api('/leaders','POST',leaders);set('new-leader-name','');set('new-leader-role','');set('new-leader-email','');renderLeadersList();renderCCGrid();toast(name+' added!');}
+async function removeLeader(id){leaders=leaders.filter(l=>l.id!==id);await api('/leaders','POST',leaders);renderLeadersList();renderCCGrid();}
+function renderLeadersList(){const el=document.getElementById('leaders-list');const all=[...DEFAULT_LEADERS,...leaders.filter(l=>!DEFAULT_LEADERS.find(d=>d.email===l.email))];if(!all.length){el.innerHTML='<div style="font-size:13px;color:var(--muted);padding:8px 0;">No leaders yet.</div>';return;}el.innerHTML=all.map(l=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);"><div><div style="font-size:14px;font-weight:500;">${l.name} <span style="font-weight:400;color:var(--muted);font-size:12px;">— ${l.role||''}</span></div><div style="font-size:12px;color:var(--accent);font-family:var(--mono);">${l.email}</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">${(l.destinations||[]).join(', ')}</div></div>${!DEFAULT_LEADERS.find(d=>d.id===l.id)?`<button onclick="removeLeader(${l.id})" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;padding:0 4px;">×</button>`:'' }</div>`).join('');}
 
 // ── SETTINGS ──────────────────────────────────────────────────────────────────
 async function boot(){try{[settings,leaders]=await Promise.all([api('/settings'),api('/leaders')]);prefillEmergency();renderCCGrid();}catch(e){toast('Could not reach server','error',6000);}}
