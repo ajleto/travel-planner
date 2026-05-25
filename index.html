@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-:root{--bg:#f7f4ef;--surface:#ffffff;--surface2:#f0ece4;--border:#e0d9ce;--border2:#c8bfb0;--text:#1a1714;--muted:#7a7267;--accent:#2d5a3d;--accent-light:#e8f0ea;--amber:#b85c00;--amber-light:#fdf0e0;--red:#a02020;--red-light:#fdeaea;--blue:#1a3a6b;--blue-light:#e8eef8;--serif:'Instrument Serif',serif;--sans:'DM Sans',sans-serif;--mono:'DM Mono',monospace;--r:12px;--r-sm:6px;}
+:root{--bg:#f7f4ef;--surface:#ffffff;--surface2:#f0ece4;--border:#e0d9ce;--border2:#c8bfb0;--text:#1a1714;--muted:#7a7267;--accent:#2d5a3d;--accent-light:#e8f0ea;--amber:#b85c00;--amber-light:#fdf0e0;--red:#a02020;--red-light:#fdeaea;--blue:#1a3a6b;--blue-light:#e8eef8;--serif:"Instrument Serif",serif;--sans:"DM Sans",sans-serif;--mono:"DM Mono",monospace;--r:12px;--r-sm:6px;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;}
 .topnav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100;}
@@ -40,17 +40,11 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
 .btn-ghost:hover{border-color:var(--border2);}
 .btn-sm{padding:7px 12px;font-size:12px;}
 .btn-blue{background:var(--blue-light);color:var(--blue);border:1px solid #b8cce8;}
-
-/* flight leg tabs */
 .leg-tabs{display:flex;gap:4px;margin-bottom:16px;flex-wrap:wrap;}
 .leg-tab{padding:6px 14px;border-radius:var(--r-sm);font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--muted);transition:all 0.15s;}
 .leg-tab.active{background:var(--accent);color:white;border-color:var(--accent);}
 .leg-panel{display:none;}
 .leg-panel.active{display:block;}
-.leg-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
-.leg-label{font-size:13px;font-weight:500;color:var(--text);}
-
-/* bag policy radio */
 .policy-option{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px;margin-bottom:8px;cursor:pointer;transition:border-color 0.15s;}
 .policy-option:hover{border-color:var(--border2);}
 .policy-option.selected{border-color:var(--accent);background:var(--accent-light);}
@@ -58,8 +52,6 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
 .policy-option-header input[type=radio]{margin-top:3px;accent-color:var(--accent);flex-shrink:0;}
 .policy-option-title{font-size:13px;font-weight:500;margin-bottom:4px;}
 .policy-option-text{font-size:12px;color:var(--muted);line-height:1.7;}
-
-/* cc grid */
 .cc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px;margin-top:4px;}
 .cc-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);cursor:pointer;transition:border-color 0.15s;}
 .cc-item:hover{border-color:var(--border2);}
@@ -67,8 +59,6 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
 .cc-item-name{font-size:13px;font-weight:500;}
 .cc-item-role{font-size:11px;color:var(--muted);}
 .cc-item-email{font-size:11px;color:var(--accent);font-family:var(--mono);}
-
-/* trips */
 .trip-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;margin-bottom:10px;}
 .trip-card-top{display:flex;align-items:center;justify-content:space-between;gap:12px;}
 .trip-card-left{display:flex;align-items:center;gap:14px;flex:1;min-width:0;}
@@ -78,14 +68,11 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
 .trip-status{font-size:11px;border-radius:20px;padding:3px 10px;font-weight:500;font-family:var(--mono);}
 .status-draft{background:var(--amber-light);color:var(--amber);}
 .status-sent{background:var(--accent-light);color:var(--accent);}
-
-/* settings */
 .setting-row{display:flex;align-items:flex-start;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border);gap:20px;}
 .setting-row:last-child{border-bottom:none;}
 .setting-label{font-size:14px;font-weight:500;}
 .setting-desc{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.5;}
 .setting-input{flex-shrink:0;width:280px;}
-
 .preview-box{background:#1a1714;color:#f0ece4;border-radius:var(--r);padding:20px;font-size:12px;line-height:1.9;white-space:pre-wrap;font-family:var(--mono);overflow-x:auto;}
 .preview-label{font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);font-family:var(--mono);margin:16px 0 6px;}
 .toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:var(--bg);padding:12px 20px;border-radius:var(--r);font-size:13px;font-weight:500;z-index:200;opacity:0;transition:opacity 0.25s;pointer-events:none;max-width:340px;line-height:1.5;}
@@ -100,19 +87,19 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
 .loading{text-align:center;padding:48px 24px;color:var(--muted);font-size:13px;font-family:var(--mono);}
 .edit-banner{background:var(--blue-light);border:1px solid #b8cce8;border-radius:var(--r-sm);padding:12px 16px;margin-bottom:16px;display:none;align-items:center;justify-content:space-between;gap:12px;}
 .edit-banner.active{display:flex;}
-.toggle-switch{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
-.toggle-switch input[type=checkbox]{width:0;height:0;opacity:0;position:absolute;}
-.toggle-knob{width:44px;height:24px;background:var(--border2);border-radius:12px;position:relative;cursor:pointer;transition:background 0.2s;flex-shrink:0;}
-.toggle-knob::after{content:'';position:absolute;width:18px;height:18px;border-radius:50%;background:white;top:3px;left:3px;transition:left 0.2s;}
-.toggle-switch input:checked + .toggle-knob{background:var(--accent);}
-.toggle-switch input:checked + .toggle-knob::after{left:23px;}
-.toggle-label{font-size:14px;font-weight:500;color:var(--text);}
-.hotel-position-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
-.position-btn{padding:7px 14px;border-radius:var(--r-sm);font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--muted);transition:all 0.15s;}
-.position-btn.active{background:var(--accent);color:white;border-color:var(--accent);}
 .edit-banner-text{font-size:13px;color:var(--blue);font-weight:500;}
 .gcal-note{background:var(--accent-light);border:1px solid #b8d4bb;border-radius:var(--r-sm);padding:12px 14px;font-size:12px;color:var(--accent);line-height:1.6;margin-top:10px;}
-@media(max-width:640px){.form-grid{grid-template-columns:1fr;}.topnav{padding:0 16px;}.page{padding:20px 16px 80px;}.setting-row{flex-direction:column;}.setting-input{width:100%;}.cc-grid{grid-template-columns:1fr;}}
+/* Destination selector */
+.dest-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:4px;}
+.dest-option{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r-sm);cursor:pointer;transition:all 0.15s;}
+.dest-option:hover{border-color:var(--border2);}
+.dest-option.selected{border-color:var(--accent);background:var(--accent-light);}
+.dest-option input[type=radio]{accent-color:var(--accent);flex-shrink:0;}
+.dest-option-name{font-size:14px;font-weight:500;}
+.dest-option-state{font-size:11px;color:var(--muted);font-family:var(--mono);}
+.dest-group-label{font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);font-family:var(--mono);margin:14px 0 8px;}
+.dest-group-label:first-child{margin-top:0;}
+@media(max-width:640px){.form-grid{grid-template-columns:1fr;}.topnav{padding:0 16px;}.page{padding:20px 16px 80px;}.setting-row{flex-direction:column;}.setting-input{width:100%;}.cc-grid{grid-template-columns:1fr;}.dest-grid{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
 <body>
@@ -125,216 +112,300 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
   </div>
 </nav>
 
+<!-- ═══ NEW TRIP ═══ -->
 <div class="page active" id="page-new">
   <div class="page-title" id="new-trip-title">New trip itinerary</div>
-  <div class="page-sub">Fill in all sections — the employee, driver, and selected leaders will be notified automatically.</div>
+  <div class="page-sub" id="new-trip-sub">Select a destination to begin.</div>
   <div class="edit-banner" id="edit-banner">
     <div class="edit-banner-text" id="edit-banner-text">✏️ Editing trip</div>
     <button class="btn btn-ghost btn-sm" onclick="cancelEdit()">Cancel edit</button>
   </div>
 
-  <!-- EMPLOYEE -->
-  <div class="card">
-    <div class="card-title">👤 Employee details</div>
-    <div class="form-grid">
-      <div class="form-group"><label>Full name</label><input type="text" id="emp-name" placeholder="e.g. Maria Santos"/></div>
-      <div class="form-group"><label>Email address</label><input type="email" id="emp-email" placeholder="maria@company.com"/></div>
-      <div class="form-group"><label>Mobile phone (for airline/transport alerts)</label><input type="tel" id="emp-phone" placeholder="+1 (555) 000-0000"/></div>
-      <div class="form-group"><label>Travel date</label><input type="date" id="travel-date"/></div>
-      <div class="form-group"><label>Visa status</label>
-        <select id="visa-status"><option value="Approved">Approved ✓</option><option value="Pending">Pending</option><option value="Not required">Not required</option><option value="In progress">In progress</option></select>
-      </div>
-      <div class="form-group"><label>Visa / passport notes</label><input type="text" id="visa-notes" placeholder="e.g. Visa expires Dec 2026"/></div>
+  <!-- DESTINATION SELECTOR -->
+  <div class="card" id="dest-card">
+    <div class="card-title">📍 Destination</div>
+    <div class="dest-group-label">Massachusetts</div>
+    <div class="dest-grid">
+      <label class="dest-option" onclick="selectDest('nantucket',this)">
+        <input type="radio" name="destination" value="nantucket"/>
+        <div><div class="dest-option-name">Nantucket</div><div class="dest-option-state">MA</div></div>
+      </label>
+      <label class="dest-option" onclick="selectDest('marthas-vineyard',this)">
+        <input type="radio" name="destination" value="marthas-vineyard"/>
+        <div><div class="dest-option-name">Martha's Vineyard</div><div class="dest-option-state">MA</div></div>
+      </label>
+    </div>
+    <div class="dest-group-label">New York</div>
+    <div class="dest-grid">
+      <label class="dest-option" onclick="selectDest('greenport',this)">
+        <input type="radio" name="destination" value="greenport"/>
+        <div><div class="dest-option-name">Greenport</div><div class="dest-option-state">NY</div></div>
+      </label>
+      <label class="dest-option" onclick="selectDest('montauk',this)">
+        <input type="radio" name="destination" value="montauk"/>
+        <div><div class="dest-option-name">Montauk</div><div class="dest-option-state">NY</div></div>
+      </label>
+      <label class="dest-option" onclick="selectDest('sag-harbor',this)">
+        <input type="radio" name="destination" value="sag-harbor"/>
+        <div><div class="dest-option-name">Sag Harbor</div><div class="dest-option-state">NY</div></div>
+      </label>
+    </div>
+    <div class="dest-group-label">Wyoming</div>
+    <div class="dest-grid">
+      <label class="dest-option" onclick="selectDest('jackson',this)">
+        <input type="radio" name="destination" value="jackson"/>
+        <div><div class="dest-option-name">Jackson</div><div class="dest-option-state">WY</div></div>
+      </label>
     </div>
   </div>
 
-  <!-- FLIGHT -->
-  <div class="card">
-    <div class="card-title">✈️ Flight details</div>
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;">
-      <label style="font-size:13px;color:var(--text);font-weight:500;">Number of flight legs:</label>
-      <select id="leg-count" onchange="updateLegCount(this.value)" style="width:auto;padding:7px 11px;">
-        <option value="1">1 leg</option>
-        <option value="2">2 legs</option>
-        <option value="3">3 legs</option>
-        <option value="4">4 legs</option>
-      </select>
+  <!-- FORM (shown after destination selected) -->
+  <div id="trip-form" style="display:none;">
+
+    <!-- EMPLOYEE -->
+    <div class="card">
+      <div class="card-title">👤 Employee details</div>
+      <div class="form-grid">
+        <div class="form-group"><label>Full name</label><input type="text" id="emp-name" placeholder="e.g. Maria Santos"/></div>
+        <div class="form-group"><label>Email address</label><input type="email" id="emp-email" placeholder="maria@company.com"/></div>
+        <div class="form-group"><label>Mobile phone (for airline/transport alerts)</label><input type="tel" id="emp-phone" placeholder="+1 (555) 000-0000"/></div>
+        <div class="form-group"><label>Travel date</label><input type="date" id="travel-date"/></div>
+        <div class="form-group"><label>Visa status</label>
+          <select id="visa-status"><option value="Approved">Approved ✓</option><option value="Pending">Pending</option><option value="Not required">Not required</option><option value="In progress">In progress</option></select>
+        </div>
+        <div class="form-group"><label>Visa / passport notes</label><input type="text" id="visa-notes" placeholder="e.g. Visa expires Dec 2026"/></div>
+      </div>
     </div>
-    <div class="leg-tabs" id="leg-tabs"></div>
-    <div id="leg-panels"></div>
 
-    <!-- Bag policy -->
-    <div class="divider"><div class="divider-line"></div><div class="divider-text">BAGGAGE POLICY</div><div class="divider-line"></div></div>
-    <label style="font-size:12px;font-weight:500;color:var(--muted);letter-spacing:0.3px;display:block;margin-bottom:10px;">Select the applicable baggage policy:</label>
+    <!-- FLIGHT -->
+    <div class="card">
+      <div class="card-title">✈️ Flight details</div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;">
+        <label style="font-size:13px;color:var(--text);font-weight:500;">Number of flight legs:</label>
+        <select id="leg-count" onchange="updateLegCount(this.value)" style="width:auto;padding:7px 11px;">
+          <option value="1">1 leg</option>
+          <option value="2">2 legs</option>
+          <option value="3">3 legs</option>
+          <option value="4">4 legs</option>
+        </select>
+      </div>
+      <div class="leg-tabs" id="leg-tabs"></div>
+      <div id="leg-panels"></div>
+      <div class="divider"><div class="divider-line"></div><div class="divider-text">BAGGAGE POLICY</div><div class="divider-line"></div></div>
+      <label style="font-size:12px;font-weight:500;color:var(--muted);letter-spacing:0.3px;display:block;margin-bottom:10px;">Select the applicable baggage policy:</label>
+      <div class="policy-option" id="policy-a-wrap" onclick="selectPolicy('a')">
+        <div class="policy-option-header">
+          <input type="radio" name="bag-policy" id="policy-a" value="a"/>
+          <div>
+            <div class="policy-option-title">Bags included in ticket</div>
+            <div class="policy-option-text">The airline allowed us to add your two (2) checked bags to your ticket purchase, so be prepared to show your Flight Confirmation email if they ask for payment for checked bags. For other expenses, we should save our receipts, and we will reimburse. We request you take clear photos of each receipt when you complete our purchases. We require you to upload them to our RAMP expense management system. The email address and phone number above were provided for flight and transportation alerts.</div>
+          </div>
+        </div>
+      </div>
+      <div class="policy-option" id="policy-b-wrap" onclick="selectPolicy('b')">
+        <div class="policy-option-header">
+          <input type="radio" name="bag-policy" id="policy-b" value="b"/>
+          <div>
+            <div class="policy-option-title">Bags paid at airport</div>
+            <div class="policy-option-text">The airline requires us to pay for our additional checked baggage at the airport. For all expenses, we should save our receipts, and we will be reimbursed. We recommend that we take clear photos of each receipt when we complete our purchases. We will be required to upload them to our RAMP expense management system. The email address and phone number above were provided for flight and transportation alerts.</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" style="margin-top:14px;">
+        <label>Additional flight notes</label>
+        <textarea id="flight-notes" placeholder="Any other notes about the flights..."></textarea>
+      </div>
+    </div>
 
-    <div class="policy-option" id="policy-a-wrap" onclick="selectPolicy('a')">
-      <div class="policy-option-header">
-        <input type="radio" name="bag-policy" id="policy-a" value="a"/>
-        <div>
-          <div class="policy-option-title">Bags included in ticket</div>
-          <div class="policy-option-text">The airline allowed us to add your two (2) checked bags to your ticket purchase, so be prepared to show your Flight Confirmation email if they ask for payment for checked bags. For other expenses, we should save our receipts, and we will reimburse. We request you take clear photos of each receipt when you complete our purchases. We require you to upload them to our RAMP expense management system. The email address and phone number above were provided for flight and transportation alerts.</div>
+    <!-- HOTEL TOGGLE (MA only) -->
+    <div id="hotel-toggle-section" style="display:none;">
+      <div id="hotel-toggle-div" style="display:flex;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 20px;margin-bottom:16px;">
+        <span style="font-size:14px;font-weight:500;color:var(--text);">🏨 Include hotel accommodation</span>
+        <button id="hotel-toggle-btn" onclick="toggleHotel()" style="padding:7px 18px;border-radius:var(--r-sm);font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--muted);transition:all 0.15s;font-family:var(--sans);">No</button>
+      </div>
+      <div class="card" id="hotel-card" style="display:none;">
+        <div class="card-title">🏨 Hotel accommodation</div>
+        <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
+          <span style="font-size:12px;font-weight:500;color:var(--muted);align-self:center;">Position:</span>
+          <button class="leg-tab active" id="hotel-pos-before" onclick="setHotelPosition('before')">Before ground transportation</button>
+          <button class="leg-tab" id="hotel-pos-after" onclick="setHotelPosition('after')">After ground transportation</button>
+        </div>
+        <div class="form-grid">
+          <div class="form-group"><label>Hotel name</label><input type="text" id="hotel-name" placeholder="e.g. Greydon House"/></div>
+          <div class="form-group"><label>Confirmation number</label><input type="text" id="hotel-confirm" placeholder="e.g. RES-123456"/></div>
+          <div class="form-group full"><label>Hotel address</label><input type="text" id="hotel-address" placeholder="e.g. 17 Broad St, Nantucket, MA"/></div>
+          <div class="form-group"><label>Check-in date</label><input type="date" id="hotel-checkin-date"/></div>
+          <div class="form-group"><label>Check-in time</label><input type="time" id="hotel-checkin-time"/></div>
+          <div class="form-group"><label>Check-out date</label><input type="date" id="hotel-checkout-date"/></div>
+          <div class="form-group"><label>Check-out time</label><input type="time" id="hotel-checkout-time"/></div>
+          <div class="form-group"><label>Room type</label><input type="text" id="hotel-room-type" placeholder="e.g. Standard King"/></div>
+          <div class="form-group"><label>Breakfast included?</label>
+            <div class="radio-row">
+              <label><input type="radio" name="hotel-breakfast" value="Yes"/> Yes</label>
+              <label><input type="radio" name="hotel-breakfast" value="No" checked/> No</label>
+            </div>
+          </div>
+          <div class="form-group full"><label>Additional hotel notes</label><input type="text" id="hotel-notes" placeholder="Early check-in requested, etc."/></div>
         </div>
       </div>
     </div>
 
-    <div class="policy-option" id="policy-b-wrap" onclick="selectPolicy('b')">
-      <div class="policy-option-header">
-        <input type="radio" name="bag-policy" id="policy-b" value="b"/>
-        <div>
-          <div class="policy-option-title">Bags paid at airport</div>
-          <div class="policy-option-text">The airline requires us to pay for our additional checked baggage at the airport. For all expenses, we should save our receipts, and we will be reimbursed. We recommend that we take clear photos of each receipt when we complete our purchases. We will be required to upload them to our RAMP expense management system. The email address and phone number above were provided for flight and transportation alerts.</div>
+    <!-- HOTEL AFTER LEG (NY/WY) -->
+    <div id="hotel-leg-section" style="display:none;">
+      <div style="display:flex;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 20px;margin-bottom:16px;">
+        <span style="font-size:14px;font-weight:500;color:var(--text);">🏨 Include hotel accommodation</span>
+        <button id="hotel-leg-toggle-btn" onclick="toggleHotelLeg()" style="padding:7px 18px;border-radius:var(--r-sm);font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--muted);transition:all 0.15s;font-family:var(--sans);">No</button>
+      </div>
+      <div class="card" id="hotel-leg-card" style="display:none;">
+        <div class="card-title">🏨 Hotel accommodation</div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap;">
+          <label style="font-size:13px;font-weight:500;color:var(--text);">Insert after leg:</label>
+          <select id="hotel-after-leg" style="width:auto;padding:7px 11px;">
+            <option value="1">Leg 1</option>
+            <option value="2">Leg 2</option>
+            <option value="3">Leg 3</option>
+            <option value="4">Leg 4</option>
+          </select>
+        </div>
+        <div class="form-grid">
+          <div class="form-group"><label>Hotel name</label><input type="text" id="hotel-leg-name" placeholder="e.g. Sag Harbor Inn"/></div>
+          <div class="form-group"><label>Confirmation number</label><input type="text" id="hotel-leg-confirm" placeholder="e.g. RES-123456"/></div>
+          <div class="form-group full"><label>Hotel address</label><input type="text" id="hotel-leg-address" placeholder="e.g. 45 West Water St, Sag Harbor, NY"/></div>
+          <div class="form-group"><label>Check-in date</label><input type="date" id="hotel-leg-checkin-date"/></div>
+          <div class="form-group"><label>Check-in time</label><input type="time" id="hotel-leg-checkin-time"/></div>
+          <div class="form-group"><label>Check-out date</label><input type="date" id="hotel-leg-checkout-date"/></div>
+          <div class="form-group"><label>Check-out time</label><input type="time" id="hotel-leg-checkout-time"/></div>
+          <div class="form-group"><label>Room type</label><input type="text" id="hotel-leg-room-type" placeholder="e.g. Standard King"/></div>
+          <div class="form-group"><label>Breakfast included?</label>
+            <div class="radio-row">
+              <label><input type="radio" name="hotel-leg-breakfast" value="Yes"/> Yes</label>
+              <label><input type="radio" name="hotel-leg-breakfast" value="No" checked/> No</label>
+            </div>
+          </div>
+          <div class="form-group full"><label>Additional hotel notes</label><input type="text" id="hotel-leg-notes" placeholder="Early check-in requested, etc."/></div>
         </div>
       </div>
     </div>
 
-    <div class="form-group" style="margin-top:14px;">
-      <label>Additional flight notes</label>
-      <textarea id="flight-notes" placeholder="Any other notes about the flights..."></textarea>
-    </div>
-  </div>
-
-  <!-- Hotel toggle -->
-  <div id="hotel-toggle-div" style="display:flex;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 20px;margin-bottom:16px;">
-    <span style="font-size:14px;font-weight:500;color:var(--text);">🏨 Include hotel accommodation</span>
-    <button id="hotel-toggle-btn" onclick="toggleHotel()" style="padding:7px 18px;border-radius:var(--r-sm);font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--muted);transition:all 0.15s;font-family:var(--sans);">No</button>
-  </div>
-
-<div class="card" id="hotel-card" style="display:none;">
-    <div class="card-title">🏨 Hotel accommodation</div>
-    <div class="hotel-position-row">
-      <span style="font-size:12px;font-weight:500;color:var(--muted);align-self:center;">Position in itinerary:</span>
-      <button class="position-btn active" id="hotel-pos-before" onclick="setHotelPosition('before')">Before ground transportation</button>
-      <button class="position-btn" id="hotel-pos-after" onclick="setHotelPosition('after')">After ground transportation</button>
-    </div>
-    <div class="form-grid">
-      <div class="form-group"><label>Hotel name</label><input type="text" id="hotel-name" placeholder="e.g. Radisson Fort George Hotel"/></div>
-      <div class="form-group"><label>Confirmation number</label><input type="text" id="hotel-confirm" placeholder="e.g. RES-123456"/></div>
-      <div class="form-group full"><label>Hotel address</label><input type="text" id="hotel-address" placeholder="e.g. 2 Marine Parade, Belize City"/></div>
-      <div class="form-group"><label>Check-in date</label><input type="date" id="hotel-checkin-date"/></div>
-      <div class="form-group"><label>Check-in time</label><input type="time" id="hotel-checkin-time"/></div>
-      <div class="form-group"><label>Check-out date</label><input type="date" id="hotel-checkout-date"/></div>
-      <div class="form-group"><label>Check-out time</label><input type="time" id="hotel-checkout-time"/></div>
-      <div class="form-group"><label>Room type</label><input type="text" id="hotel-room-type" placeholder="e.g. Standard King, Double Queen"/></div>
-      <div class="form-group"><label>Breakfast included?</label>
-        <div class="radio-row">
-          <label><input type="radio" name="hotel-breakfast" value="Yes"/> Yes</label>
-          <label><input type="radio" name="hotel-breakfast" value="No" checked/> No</label>
+    <!-- BUS (MA only) -->
+    <div id="bus-section" style="display:none;">
+      <div class="card" id="bus-card">
+        <div class="card-title">🚌 Ground transportation</div>
+        <div class="form-grid">
+          <div class="form-group"><label>Provider / bus company</label><input type="text" id="bus-provider" placeholder="e.g. James Bus Line"/></div>
+          <div class="form-group"><label>Route / bus number</label><input type="text" id="bus-number" placeholder="e.g. Route 5A"/></div>
+          <div class="form-group"><label>Pickup location</label><input type="text" id="bus-pickup" placeholder="e.g. Airport arrivals hall"/></div>
+          <div class="form-group"><label>Departure time</label><input type="time" id="bus-depart-time"/></div>
+          <div class="form-group"><label>Drop-off location</label><input type="text" id="bus-dropoff" placeholder="e.g. Ferry terminal"/></div>
+          <div class="form-group"><label>Ticket / confirmation</label><input type="text" id="bus-confirm" placeholder="Ticket number or how to pay"/></div>
+          <div class="form-group full"><label>Notes</label><input type="text" id="bus-notes" placeholder="Buy ticket on board, luggage goes underneath..."/></div>
         </div>
       </div>
-      <div class="form-group full"><label>Additional hotel notes</label><input type="text" id="hotel-notes" placeholder="Early check-in requested, pool access, etc."/></div>
     </div>
-  </div>
 
-  <!-- BUS -->
-  <div class="card" id="bus-card">
-    <div class="card-title">🚌 Ground transportation</div>
-    <div class="form-grid">
-      <div class="form-group"><label>Provider / bus company</label><input type="text" id="bus-provider" placeholder="e.g. James Bus Line"/></div>
-      <div class="form-group"><label>Route / bus number</label><input type="text" id="bus-number" placeholder="e.g. Route 5A"/></div>
-      <div class="form-group"><label>Pickup location</label><input type="text" id="bus-pickup" placeholder="e.g. Airport arrivals hall"/></div>
-      <div class="form-group"><label>Departure time</label><input type="time" id="bus-depart-time"/></div>
-      <div class="form-group"><label>Drop-off location</label><input type="text" id="bus-dropoff" placeholder="e.g. Ferry terminal, Dangriga"/></div>
-      <div class="form-group"><label>Ticket / confirmation</label><input type="text" id="bus-confirm" placeholder="Ticket number or how to pay"/></div>
-      <div class="form-group full"><label>Notes</label><input type="text" id="bus-notes" placeholder="Buy ticket on board, luggage goes underneath..."/></div>
+    <!-- FERRY (MA only) -->
+    <div id="ferry-section" style="display:none;">
+      <div class="card">
+        <div class="card-title">⛴️ Ferry / final leg</div>
+        <div class="form-grid">
+          <div class="form-group"><label>Departure terminal / dock</label><input type="text" id="ferry-from" placeholder="e.g. Hyannis Dock"/></div>
+          <div class="form-group"><label>Ferry date <span style="color:var(--red);">*</span> <span style="font-weight:400;color:var(--muted);font-size:11px;">(required for calendar invite)</span></label><input type="date" id="ferry-date" required/></div>
+          <div class="form-group"><label>Ferry departure time</label><input type="time" id="ferry-depart-time"/></div>
+          <div class="form-group"><label>Ferry name / operator</label><input type="text" id="ferry-name" placeholder="e.g. Hy-Line Cruises"/></div>
+          <div class="form-group"><label>Arrival location</label><input type="text" id="ferry-arrive-loc" placeholder="e.g. Nantucket dock"/></div>
+          <div class="form-group"><label>Arrival time <span style="color:var(--red);">*</span> <span style="font-weight:400;color:var(--muted);font-size:11px;">(required for calendar invite)</span></label><input type="time" id="ferry-arrive-time" required/></div>
+          <div class="form-group"><label>Ticket details / confirmation</label><input type="text" id="ferry-ticket" placeholder="Pre-booked or buy at dock..."/></div>
+          <div class="form-group full"><label>Ferry notes</label><input type="text" id="ferry-notes" placeholder="Cash only, bring exact change, etc."/></div>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <!-- FERRY -->
-  <div class="card">
-    <div class="card-title">⛴️ Ferry / final leg</div>
-    <div class="form-grid">
-      <div class="form-group"><label>Departure terminal / dock</label><input type="text" id="ferry-from" placeholder="e.g. Dangriga Dock"/></div>
-      <div class="form-group"><label>Ferry date <span style="color:var(--red);">*</span> <span style="font-weight:400;color:var(--muted);font-size:11px;">(required for calendar invite)</span></label><input type="date" id="ferry-date" required/></div>
-      <div class="form-group"><label>Ferry departure time</label><input type="time" id="ferry-depart-time"/></div>
-      <div class="form-group"><label>Ferry name / operator</label><input type="text" id="ferry-name" placeholder="e.g. MV Hokey Pokey"/></div>
-      <div class="form-group"><label>Arrival location</label><input type="text" id="ferry-arrive-loc" placeholder="e.g. Tobacco Caye dock"/></div>
-      <div class="form-group"><label>Arrival time <span style="color:var(--red);">*</span> <span style="font-weight:400;color:var(--muted);">(required for calendar invite)</span></label><input type="time" id="ferry-arrive-time"/></div>
-      <div class="form-group"><label>Ticket details / confirmation</label><input type="text" id="ferry-ticket" placeholder="Pre-booked or buy at dock..."/></div>
-      <div class="form-group full"><label>Ferry notes</label><input type="text" id="ferry-notes" placeholder="Cash only, bring exact change, etc."/></div>
+    <!-- ARRIVAL DATE/TIME (NY/WY only) -->
+    <div id="arrival-datetime-section" style="display:none;">
+      <div class="card">
+        <div class="card-title">🕐 Arrival date & time</div>
+        <div class="form-grid">
+          <div class="form-group"><label>Arrival date <span style="color:var(--red);">*</span> <span style="font-weight:400;color:var(--muted);font-size:11px;">(required for calendar invite)</span></label><input type="date" id="arrival-date" required/></div>
+          <div class="form-group"><label>Arrival time <span style="color:var(--red);">*</span> <span style="font-weight:400;color:var(--muted);font-size:11px;">(required for calendar invite)</span></label><input type="time" id="arrival-time" required/></div>
+          <div class="form-group"><label>Arrival location</label><input type="text" id="arrival-location" placeholder="e.g. Southampton Train Station"/></div>
+        </div>
+      </div>
     </div>
-  </div>
 
-
-  <!-- HOTEL -->
-  
-  <!-- ARRIVAL -->
-  <div class="card">
-    <div class="card-title">🚗 Arrival coordination</div>
-    <div class="form-grid">
-      <div class="form-group"><label>Contact #1 at property</label><input type="text" id="driver-name" placeholder="e.g. Carlos"/></div>
-      <div class="form-group"><label>Contact #1 email (for notification)</label><input type="email" id="driver-email" placeholder="carlos@property.com"/></div>
-      <div class="form-group"><label>Contact #2 at property</label><input type="text" id="driver-name-2" placeholder="e.g. Maria"/></div>
-      <div class="form-group"><label>Contact #2 email (for notification)</label><input type="email" id="driver-email-2" placeholder="maria@property.com"/></div>
-      <div class="form-group full"><label>Arrival instructions <span style="font-weight:400;color:var(--muted);font-size:11px;">(included in the arrival coordination calendar invite)</span></label><textarea id="arrival-instructions" placeholder="e.g. Carlos will meet you at the ferry dock. Look for the property truck."></textarea></div>
+    <!-- ARRIVAL COORDINATION -->
+    <div class="card">
+      <div class="card-title">🚗 Arrival coordination</div>
+      <div class="form-grid">
+        <div class="form-group"><label>Contact #1 at property</label><input type="text" id="driver-name" placeholder="e.g. Carlos"/></div>
+        <div class="form-group"><label>Contact #1 email (for notification)</label><input type="email" id="driver-email" placeholder="carlos@property.com"/></div>
+        <div class="form-group"><label>Contact #2 at property</label><input type="text" id="driver-name-2" placeholder="e.g. Maria"/></div>
+        <div class="form-group"><label>Contact #2 email (for notification)</label><input type="email" id="driver-email-2" placeholder="maria@property.com"/></div>
+        <div class="form-group full"><label>Arrival instructions <span style="font-weight:400;color:var(--muted);font-size:11px;">(included in the arrival coordination calendar invite)</span></label><textarea id="arrival-instructions" placeholder="e.g. Carlos will meet you at the dock. Look for the property truck."></textarea></div>
+      </div>
     </div>
-  </div>
 
-  <!-- EMERGENCY -->
-  <div class="card">
-    <div class="card-title">🆘 Emergency contact</div>
-    <div class="form-grid">
-      <div class="form-group"><label>Contact name</label><input type="text" id="emergency-name"/></div>
-      <div class="form-group"><label>Email</label><input type="email" id="emergency-email"/></div>
-      <div class="form-group full"><label>Phone / WhatsApp</label><input type="tel" id="emergency-phone" placeholder="+1 (555) 000-0000 (WhatsApp OK)"/></div>
+    <!-- EMERGENCY -->
+    <div class="card">
+      <div class="card-title">🆘 Emergency contact</div>
+      <div class="form-grid">
+        <div class="form-group"><label>Contact name</label><input type="text" id="emergency-name"/></div>
+        <div class="form-group"><label>Email</label><input type="email" id="emergency-email"/></div>
+        <div class="form-group full"><label>Phone / WhatsApp</label><input type="tel" id="emergency-phone" placeholder="+1 (555) 000-0000 (WhatsApp OK)"/></div>
+      </div>
     </div>
-  </div>
 
-  <!-- CC LEADERS -->
-  <div class="card">
-    <div class="card-title">📋 Notify property leadership — CC on employee email</div>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6;">Check the leaders you want copied on this itinerary.</p>
-    <div class="cc-grid" id="cc-grid"><div style="font-size:13px;color:var(--muted);padding:8px 0;">Loading leaders...</div></div>
-  </div>
-
-  <!-- CALENDAR -->
-  <div class="card">
-    <div class="card-title">📅 Calendar invites (Google Workspace)</div>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6;">Two calendar invites will be sent automatically:</p>
-    <div style="font-size:13px;line-height:1.8;color:var(--text);">
-      <div style="margin-bottom:8px;">📌 <strong>All-day trip appointment</strong> — sent to the employee, marked free. Shows the full travel date.</div>
-      <div>🕐 <strong>1-hour arrival appointment</strong> — sent to the employee and driver only. Set to the ferry/final leg arrival time (required field).</div>
+    <!-- CC LEADERS -->
+    <div class="card">
+      <div class="card-title">📋 Notify property leadership — CC on employee email</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6;">Showing leaders for selected destination.</p>
+      <div class="cc-grid" id="cc-grid"><div style="font-size:13px;color:var(--muted);padding:8px 0;">Select a destination to see relevant leaders.</div></div>
     </div>
-    <div class="gcal-note">
-      To send calendar invites, the app uses the Google Calendar API. Enter your Google service account credentials in Settings → Calendar. If not configured, invites will be skipped and only emails will be sent.
+
+    <!-- CALENDAR -->
+    <div class="card">
+      <div class="card-title">📅 Calendar invites (Google Workspace)</div>
+      <div style="font-size:13px;line-height:1.8;color:var(--text);">
+        <div style="margin-bottom:8px;">📌 <strong>All-day trip appointment</strong> — sent to the employee + CC'd leaders, marked free. Spans from Leg 1 flight date to final arrival date.</div>
+        <div>🕐 <strong>1-hour arrival appointment</strong> — sent to the employee + driver contacts. Set to the final arrival time.</div>
+      </div>
     </div>
-  </div>
 
-  <!-- NOTES -->
-  <div class="card">
-    <div class="card-title">📝 Additional notes for employee</div>
-    <textarea id="emp-notes" placeholder="Packing list, property rules, what to expect on arrival..."></textarea>
-  </div>
+    <!-- NOTES -->
+    <div class="card">
+      <div class="card-title">📝 Additional notes for employee</div>
+      <textarea id="emp-notes" placeholder="Packing list, property rules, what to expect on arrival..."></textarea>
+    </div>
 
-  <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;">
-    <button class="btn btn-ghost" onclick="previewItinerary()">Preview emails</button>
-    <button class="btn btn-primary" id="send-btn" onclick="sendItinerary()">Send itinerary + notify all</button>
-  </div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;">
+      <button class="btn btn-ghost" onclick="previewItinerary()">Preview emails</button>
+      <button class="btn btn-primary" id="send-btn" onclick="sendItinerary()">Send itinerary + notify all</button>
+    </div>
 
-  <div id="preview-section" style="display:none;margin-top:24px;">
-    <div class="divider"><div class="divider-line"></div><div class="divider-text">EMAIL PREVIEW</div><div class="divider-line"></div></div>
-    <div class="preview-label">To employee (+ CC'd leaders)</div>
-    <div class="preview-box" id="preview-employee"></div>
-    <div class="preview-label" style="margin-top:16px;">To property driver</div>
-    <div class="preview-box" id="preview-driver"></div>
-  </div>
-</div>
+    <div id="preview-section" style="display:none;margin-top:24px;">
+      <div class="divider"><div class="divider-line"></div><div class="divider-text">EMAIL PREVIEW</div><div class="divider-line"></div></div>
+      <div class="preview-label">To employee (+ CC'd leaders)</div>
+      <div class="preview-box" id="preview-employee"></div>
+      <div class="preview-label" style="margin-top:16px;">To property driver</div>
+      <div class="preview-box" id="preview-driver"></div>
+    </div>
+  </div><!-- end trip-form -->
+</div><!-- end page-new -->
 
-<!-- TRIPS -->
+<!-- ═══ TRIPS ═══ -->
 <div class="page" id="page-trips">
   <div class="page-title">All trips</div>
   <div class="page-sub">Shared history — visible to everyone on the team.</div>
   <div id="trips-list"><div class="loading">Loading trips...</div></div>
 </div>
 
-<!-- SETTINGS -->
+<!-- ═══ SETTINGS ═══ -->
 <div class="page" id="page-settings">
   <div class="page-title">Settings</div>
   <div class="page-sub">Shared settings — saved for the whole team.</div>
   <div class="card">
     <div class="card-title">🏢 Company & property</div>
-    <div class="setting-row"><div><div class="setting-label">Company name</div><div class="setting-desc">Appears in email signatures</div></div><div class="setting-input"><input type="text" id="s-company" placeholder="e.g. Acme Resorts"/></div></div>
+    <div class="setting-row"><div><div class="setting-label">Company name</div><div class="setting-desc">Appears in email signatures</div></div><div class="setting-input"><input type="text" id="s-company" placeholder="e.g. Faraway Hotels"/></div></div>
     <div class="setting-row"><div><div class="setting-label">Sender name</div><div class="setting-desc">Who the emails are from</div></div><div class="setting-input"><input type="text" id="s-sender" placeholder="e.g. AJ — Travel Desk"/></div></div>
-    <div class="setting-row"><div><div class="setting-label">Property name</div><div class="setting-desc">Destination shown in itinerary</div></div><div class="setting-input"><input type="text" id="s-property" placeholder="e.g. Isla Verde Resort"/></div></div>
     <div class="setting-row">
       <div><div class="setting-label">Default emergency contact</div><div class="setting-desc">Pre-fills on every new trip</div></div>
       <div class="setting-input">
@@ -352,29 +423,35 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
     <div class="setting-row"><div><div class="setting-label">Public key</div></div><div class="setting-input"><input type="text" id="s-ejs-key" placeholder="xxxxxxxxxxxxxxx"/></div></div>
   </div>
   <div class="card">
-    <div class="card-title">📅 Google Calendar API</div>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6;">
-      To send calendar invites, create a Google Cloud project, enable the Calendar API, and create a service account. Enter the credentials below. <a href="https://console.cloud.google.com" target="_blank" style="color:var(--accent);">console.cloud.google.com</a>
-    </p>
-    <div class="setting-row"><div><div class="setting-label">Calendar sender email</div><div class="setting-desc">Google Workspace account that sends invites</div></div><div class="setting-input"><input type="text" id="s-gcal-email" placeholder="calendar@yourcompany.com"/></div></div>
-    <div class="setting-row"><div><div class="setting-label">Google Calendar API key</div><div class="setting-desc">From Google Cloud Console → Credentials</div></div><div class="setting-input"><input type="text" id="s-gcal-key" placeholder="AIza..."/></div></div>
-    <div class="setting-row"><div><div class="setting-label">Calendar Worker URL</div><div class="setting-desc">URL of your calendar proxy Worker (see docs)</div></div><div class="setting-input"><input type="text" id="s-gcal-worker" placeholder="https://cal-worker.aj-3a1.workers.dev"/></div></div>
+    <div class="card-title">📅 Google Calendar</div>
+    <div class="setting-row"><div><div class="setting-label">Calendar sender email</div></div><div class="setting-input"><input type="text" id="s-gcal-email" placeholder="calendar@yourcompany.com"/></div></div>
+    <div class="setting-row"><div><div class="setting-label">Calendar Worker URL</div></div><div class="setting-input"><input type="text" id="s-gcal-worker" placeholder="https://cal-worker.yourname.workers.dev"/></div></div>
   </div>
   <div class="card">
     <div class="card-title">👥 Property leadership roster</div>
-    <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">These people appear as CC checkboxes on every new itinerary.</p>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">Leaders are filtered by destination on each new trip. Manage assignments here.</p>
     <div id="leaders-list"><div class="loading">Loading...</div></div>
     <div class="divider"><div class="divider-line"></div><div class="divider-text">ADD NEW LEADER</div><div class="divider-line"></div></div>
     <div class="add-leader-row">
       <input type="text" id="new-leader-name" placeholder="Name" style="min-width:130px;"/>
       <input type="text" id="new-leader-role" placeholder="Role"/>
       <input type="email" id="new-leader-email" placeholder="Email"/>
+      <select id="new-leader-dest" style="min-width:160px;">
+        <option value="all">All destinations</option>
+        <option value="nantucket">Nantucket, MA</option>
+        <option value="marthas-vineyard">Martha's Vineyard, MA</option>
+        <option value="greenport">Greenport, NY</option>
+        <option value="montauk">Montauk, NY</option>
+        <option value="sag-harbor">Sag Harbor, NY</option>
+        <option value="jackson">Jackson, WY</option>
+        <option value="ma">All MA</option>
+        <option value="ny">All NY</option>
+        <option value="wy">All WY</option>
+      </select>
       <button class="btn btn-ghost" onclick="addLeader()">+ Add</button>
     </div>
   </div>
-  <div style="display:flex;justify-content:flex-end;">
-    <button class="btn btn-primary" onclick="saveSettings()">Save settings</button>
-  </div>
+  <div style="display:flex;justify-content:flex-end;"><button class="btn btn-primary" onclick="saveSettings()">Save settings</button></div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -382,31 +459,79 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
 <script>
 const WORKER = 'https://travel-worker.aj-3a1.workers.dev';
 
-const FIELDS = ['emp-name','emp-email','emp-phone','travel-date','return-date','visa-status','visa-notes',
+const FIELDS = ['emp-name','emp-email','emp-phone','travel-date','visa-status','visa-notes',
   'bus-provider','bus-number','bus-pickup','bus-depart-time','bus-dropoff','bus-confirm','bus-notes',
   'ferry-from','ferry-date','ferry-depart-time','ferry-name','ferry-arrive-loc','ferry-arrive-time','ferry-ticket','ferry-notes',
+  'arrival-date','arrival-time','arrival-location',
   'driver-name','driver-email','driver-name-2','driver-email-2','arrival-instructions',
-  'emergency-name','emergency-email','emergency-phone','emp-notes','flight-notes','hotel-name','hotel-confirm','hotel-address','hotel-checkin-date','hotel-checkin-time','hotel-checkout-date','hotel-checkout-time','hotel-room-type','hotel-notes'];
+  'emergency-name','emergency-email','emergency-phone','emp-notes','flight-notes',
+  'hotel-name','hotel-confirm','hotel-address','hotel-checkin-date','hotel-checkin-time',
+  'hotel-checkout-date','hotel-checkout-time','hotel-room-type','hotel-notes',
+  'hotel-leg-name','hotel-leg-confirm','hotel-leg-address','hotel-leg-checkin-date','hotel-leg-checkin-time',
+  'hotel-leg-checkout-date','hotel-leg-checkout-time','hotel-leg-room-type','hotel-leg-notes'];
 
-const LEG_FIELDS = ['leg-from','leg-depart-date','leg-depart-time','leg-number','leg-layover','leg-arrive-loc','leg-arrive-time','leg-confirm'];
+// Destination config
+const DEST_CONFIG = {
+  'nantucket':       { state:'MA', label:'Nantucket, MA',       variant:'ma' },
+  'marthas-vineyard':{ state:'MA', label:'Martha\'s Vineyard, MA', variant:'ma' },
+  'greenport':       { state:'NY', label:'Greenport, NY',       variant:'ny' },
+  'montauk':         { state:'NY', label:'Montauk, NY',         variant:'ny' },
+  'sag-harbor':      { state:'NY', label:'Sag Harbor, NY',      variant:'ny' },
+  'jackson':         { state:'WY', label:'Jackson, WY',         variant:'wy' },
+};
 
-let leaders=[], settings={}, trips=[], editingTripId=null, currentLegCount=1, activeLeg=0;
+// Default leaders (pre-loaded, stored in KV too)
+const DEFAULT_LEADERS = [
+  { id:1, name:'Andrea Hesler',       role:'F&B Floor Manager, The Beachside Hotel', email:'andrea@thebeachside.com',   destinations:['nantucket','marthas-vineyard'] },
+  { id:2, name:'Rachael Maurais',      role:'Hotel Operations Manager FMVY',          email:'rachael@farawayhotels.com',  destinations:['marthas-vineyard'] },
+  { id:3, name:'Blake Bovelsky',       role:'F&B Director FMVY',                      email:'blake@farawayhotels.com',    destinations:['marthas-vineyard'] },
+  { id:4, name:'Samantha Shaw',        role:'Director of Food & Beverage, Nantucket', email:'samantha@farawayhotels.com', destinations:['nantucket'] },
+  { id:5, name:'Joan Guzman',          role:'Regional Director of Engineering, MA',   email:'joan@farawayhotels.com',     destinations:['nantucket','marthas-vineyard'] },
+  { id:6, name:'Liliana Nunez Marte',  role:'Operations Coordinator, Nantucket',      email:'liliana@farawayhotels.com',  destinations:['nantucket'] },
+  { id:7, name:'Kristen Schenerman',   role:'Director of Rooms, Sag Harbor, NY',      email:'kristen@farawayhotels.com',  destinations:['sag-harbor','greenport','montauk'] },
+  { id:8, name:'John Kramer',          role:'Dir F&B, Wyoming',                        email:'john@farawayhotels.com',     destinations:['jackson'] },
+];
 
-// ── INIT ─────────────────────────────────────────────────────────────────────
+let leaders=[], settings={}, trips=[], editingTripId=null;
+let currentLegCount=1, activeLeg=0;
+let selectedDest=null;
+let hotelOn=false, hotelLegOn=false, hotelPosition='before';
+
+// ── HELPERS ──────────────────────────────────────────────────────────────────
 function switchTab(tab,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));document.getElementById('page-'+tab).classList.add('active');el.classList.add('active');if(tab==='trips')loadTrips();if(tab==='settings'){loadSettingsPage();renderLeadersList();}if(tab==='new')renderCCGrid();}
 function toast(msg,type='',dur=3200){const el=document.getElementById('toast');el.textContent=msg;el.className='toast show'+(type?' '+type:'');setTimeout(()=>el.classList.remove('show'),dur);}
 function val(id){const el=document.getElementById(id);return el?el.value.trim():'';}
 function set(id,v){const el=document.getElementById(id);if(el)el.value=v||'';}
-function fmt(d){return d?new Date(d+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'}):'—';}
-function fmtS(d){return d?new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'—';}
+function fmt(d){return d?new Date(d+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'}):' — ';}
+function fmtS(d){return d?new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):' — ';}
 async function api(path,method='GET',body=null){const opts={method,headers:{'Content-Type':'application/json'}};if(body)opts.body=JSON.stringify(body);const res=await fetch(WORKER+path,opts);return res.json();}
 
-async function boot(){
-  buildLegs(1);
-  try{[settings,leaders]=await Promise.all([api('/settings'),api('/leaders')]);prefillEmergency();renderCCGrid();}
-  catch(e){toast('Could not reach server','error',6000);}
+// ── DESTINATION SELECTOR ─────────────────────────────────────────────────────
+function selectDest(dest, labelEl) {
+  selectedDest = dest;
+  document.querySelectorAll('.dest-option').forEach(el=>el.classList.remove('selected'));
+  if(labelEl) labelEl.classList.add('selected');
+  document.querySelector(`input[name="destination"][value="${dest}"]`).checked = true;
+  const cfg = DEST_CONFIG[dest];
+  document.getElementById('new-trip-sub').textContent = `Creating itinerary for ${cfg.label}`;
+  document.getElementById('trip-form').style.display = 'block';
+  applyVariant(cfg.variant);
+  renderCCGrid();
+  buildLegs(currentLegCount);
 }
-function prefillEmergency(){if(settings['emerg-name'])set('emergency-name',settings['emerg-name']);if(settings['emerg-email'])set('emergency-email',settings['emerg-email']);if(settings['emerg-phone'])set('emergency-phone',settings['emerg-phone']);}
+
+function applyVariant(variant) {
+  // MA: bus, ferry, hotel toggle
+  const isMA = variant==='ma';
+  const isNY = variant==='ny';
+  const isWY = variant==='wy';
+
+  document.getElementById('bus-section').style.display             = isMA ? 'block' : 'none';
+  document.getElementById('ferry-section').style.display           = isMA ? 'block' : 'none';
+  document.getElementById('hotel-toggle-section').style.display    = isMA ? 'block' : 'none';
+  document.getElementById('hotel-leg-section').style.display       = (isNY||isWY) ? 'block' : 'none';
+  document.getElementById('arrival-datetime-section').style.display = (isNY||isWY) ? 'block' : 'none';
+}
 
 // ── FLIGHT LEGS ───────────────────────────────────────────────────────────────
 function buildLegs(count){
@@ -414,16 +539,22 @@ function buildLegs(count){
   const tabs=document.getElementById('leg-tabs');
   const panels=document.getElementById('leg-panels');
   tabs.innerHTML='';panels.innerHTML='';
+  // Update hotel-after-leg dropdown options
+  const hotelAfterLeg = document.getElementById('hotel-after-leg');
+  if(hotelAfterLeg){
+    hotelAfterLeg.innerHTML='';
+    for(let i=1;i<=count;i++) hotelAfterLeg.innerHTML+=`<option value="${i}">Leg ${i}</option>`;
+  }
   for(let i=0;i<count;i++){
     const label=count===1?'Flight details':`Leg ${i+1}`;
     tabs.innerHTML+=`<button class="leg-tab${i===0?' active':''}" id="leg-tab-${i}" onclick="switchLeg(${i})">${label}</button>`;
     panels.innerHTML+=`<div class="leg-panel${i===0?' active':''}" id="leg-panel-${i}">
       <div class="form-grid">
-        <div class="form-group"><label>Departure airport</label><input type="text" id="leg-${i}-from" placeholder="e.g. Miami International (MIA)"/></div>
-        <div class="form-group"><label>Departure date${i===0?' <span style=\"color:var(--red);\">*</span> <span style=\"font-weight:400;color:var(--muted);font-size:11px;\">(required for calendar invite)</span>':''}</label><input type="date" id="leg-${i}-depart-date"${i===0?' required':''}/></div>
+        <div class="form-group"><label>Departure airport</label><input type="text" id="leg-${i}-from" placeholder="e.g. JFK International"/></div>
+        <div class="form-group"><label>Departure date${i===0?' <span style="color:var(--red);">*</span> <span style="font-weight:400;color:var(--muted);font-size:11px;">(required for calendar invite)</span>':''}</label><input type="date" id="leg-${i}-depart-date"${i===0?' required':''}/></div>
         <div class="form-group"><label>Departure time</label><input type="time" id="leg-${i}-depart-time"/></div>
         <div class="form-group"><label>Flight number</label><input type="text" id="leg-${i}-number" placeholder="e.g. AA 1234"/></div>
-        <div class="form-group"><label>Arrival location</label><input type="text" id="leg-${i}-arrive-loc" placeholder="e.g. Belize City (BZE)"/></div>
+        <div class="form-group"><label>Arrival location</label><input type="text" id="leg-${i}-arrive-loc" placeholder="e.g. BOS"/></div>
         <div class="form-group"><label>Arrival time</label><input type="time" id="leg-${i}-arrive-time"/></div>
         <div class="form-group"><label>Checked bags?</label>
           <div class="radio-row">
@@ -438,138 +569,82 @@ function buildLegs(count){
   }
   activeLeg=0;
 }
+function switchLeg(i){activeLeg=i;document.querySelectorAll('.leg-tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));document.querySelectorAll('.leg-panel').forEach((p,idx)=>p.classList.toggle('active',idx===i));}
+function updateLegCount(count){const n=parseInt(count);const saved=getLegData();buildLegs(n);saved.forEach((leg,i)=>{if(i<n){Object.keys(leg).forEach(k=>set(k,leg[k]));const bagsEl=document.querySelector(`input[name="bags-${i}"][value="${leg[`bags-${i}`]||'Yes'}"]`);if(bagsEl)bagsEl.checked=true;}});}
+function getLegData(){const legs=[];for(let i=0;i<currentLegCount;i++){const leg={};['from','depart-date','depart-time','number','layover','arrive-loc','arrive-time','confirm'].forEach(f=>{const el=document.getElementById(`leg-${i}-${f}`);leg[`leg-${i}-${f}`]=el?el.value:'';});const bags=document.querySelector(`input[name="bags-${i}"]:checked`);leg[`bags-${i}`]=bags?bags.value:'Yes';legs.push(leg);}return legs;}
 
-function switchLeg(i){
-  activeLeg=i;
-  document.querySelectorAll('.leg-tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));
-  document.querySelectorAll('.leg-panel').forEach((p,idx)=>p.classList.toggle('active',idx===i));
-}
+// ── POLICY ────────────────────────────────────────────────────────────────────
+function selectPolicy(p){document.getElementById('policy-'+p).checked=true;document.getElementById('policy-a-wrap').classList.toggle('selected',p==='a');document.getElementById('policy-b-wrap').classList.toggle('selected',p==='b');}
+function getPolicy(){const r=document.querySelector('input[name="bag-policy"]:checked');return r?r.value:null;}
+function getPolicyText(){const p=getPolicy();if(p==='a')return'The airline allowed us to add your two (2) checked bags to your ticket purchase, so be prepared to show your Flight Confirmation email if they ask for payment for checked bags. For other expenses, we should save our receipts, and we will reimburse. We request you take clear photos of each receipt when you complete our purchases. We require you to upload them to our RAMP expense management system. The email address and phone number above were provided for flight and transportation alerts.';if(p==='b')return'The airline requires us to pay for our additional checked baggage at the airport. For all expenses, we should save our receipts, and we will be reimbursed. We recommend that we take clear photos of each receipt when we complete our purchases. We will be required to upload them to our RAMP expense management system. The email address and phone number above were provided for flight and transportation alerts.';return'';}
 
-function updateLegCount(count){
-  const n=parseInt(count);
-  // save current leg data
-  const saved=getLegData();
-  buildLegs(n);
-  // restore saved data
-  saved.forEach((leg,i)=>{
-    if(i<n){
-      Object.keys(leg).forEach(k=>set(k,leg[k]));
-      const bagsEl=document.querySelector(`input[name="bags-${i}"][value="${leg[`bags-${i}`]||'Yes'}"]`);
-      if(bagsEl)bagsEl.checked=true;
-    }
-  });
-}
+// ── HOTEL (MA toggle) ─────────────────────────────────────────────────────────
+function toggleHotel(){hotelOn=!hotelOn;const card=document.getElementById('hotel-card');const btn=document.getElementById('hotel-toggle-btn');card.style.display=hotelOn?'block':'none';btn.textContent=hotelOn?'Yes':'No';btn.style.background=hotelOn?'var(--accent)':'var(--surface2)';btn.style.color=hotelOn?'white':'var(--muted)';btn.style.borderColor=hotelOn?'var(--accent)':'var(--border)';}
+function setHotelPosition(pos){hotelPosition=pos;document.getElementById('hotel-pos-before').classList.toggle('active',pos==='before');document.getElementById('hotel-pos-after').classList.toggle('active',pos==='after');}
+function getHotelBlock(){if(!hotelOn)return'';const name=val('hotel-name'),confirm=val('hotel-confirm'),address=val('hotel-address');const ciDate=val('hotel-checkin-date'),ciTime=val('hotel-checkin-time');const coDate=val('hotel-checkout-date'),coTime=val('hotel-checkout-time');const roomType=val('hotel-room-type'),notes=val('hotel-notes');const breakfast=document.querySelector('input[name="hotel-breakfast"]:checked')?.value||'No';let b=`\n───────────────────────────────────\n🏨  HOTEL ACCOMMODATION\n───────────────────────────────────\n`;if(name)b+=`Hotel:         ${name}\n`;if(address)b+=`Address:       ${address}\n`;if(confirm)b+=`Confirmation:  ${confirm}\n`;b+=`Reservation:   In your name\n`;if(ciDate)b+=`Check-in:      ${fmt(ciDate)}${ciTime?' at '+ciTime:''}\n`;if(coDate)b+=`Check-out:     ${fmt(coDate)}${coTime?' at '+coTime:''}\n`;if(roomType)b+=`Room type:     ${roomType}\n`;b+=`Breakfast:     ${breakfast}\n`;if(notes)b+=`Notes:         ${notes}\n`;return b;}
 
-function getLegData(){
-  const legs=[];
-  for(let i=0;i<currentLegCount;i++){
-    const leg={};
-    ['from','depart-date','depart-time','number','layover','arrive-loc','arrive-time','confirm'].forEach(f=>{
-      const el=document.getElementById(`leg-${i}-${f}`);
-      leg[`leg-${i}-${f}`]=el?el.value:'';
-    });
-    const bags=document.querySelector(`input[name="bags-${i}"]:checked`);
-    leg[`bags-${i}`]=bags?bags.value:'Yes';
-    legs.push(leg);
-  }
-  return legs;
-}
-
-function selectPolicy(p){
-  document.getElementById('policy-'+p).checked=true;
-  document.getElementById('policy-a-wrap').classList.toggle('selected',p==='a');
-  document.getElementById('policy-b-wrap').classList.toggle('selected',p==='b');
-}
-
-function getPolicy(){
-  const r=document.querySelector('input[name="bag-policy"]:checked');
-  return r?r.value:null;
-}
-
-function getPolicyText(){
-  const p=getPolicy();
-  if(p==='a')return'The airline allowed us to add your two (2) checked bags to your ticket purchase, so be prepared to show your Flight Confirmation email if they ask for payment for checked bags. For other expenses, we should save our receipts, and we will reimburse. We request you take clear photos of each receipt when you complete our purchases. We require you to upload them to our RAMP expense management system. The email address and phone number above were provided for flight and transportation alerts.';
-  if(p==='b')return'The airline requires us to pay for our additional checked baggage at the airport. For all expenses, we should save our receipts, and we will be reimbursed. We recommend that we take clear photos of each receipt when we complete our purchases. We will be required to upload them to our RAMP expense management system. The email address and phone number above were provided for flight and transportation alerts.';
-  return'';
-}
+// ── HOTEL (NY/WY after leg) ───────────────────────────────────────────────────
+function toggleHotelLeg(){hotelLegOn=!hotelLegOn;const card=document.getElementById('hotel-leg-card');const btn=document.getElementById('hotel-leg-toggle-btn');card.style.display=hotelLegOn?'block':'none';btn.textContent=hotelLegOn?'Yes':'No';btn.style.background=hotelLegOn?'var(--accent)':'var(--surface2)';btn.style.color=hotelLegOn?'white':'var(--muted)';btn.style.borderColor=hotelLegOn?'var(--accent)':'var(--border)';}
+function getHotelLegBlock(){if(!hotelLegOn)return'';const name=val('hotel-leg-name'),confirm=val('hotel-leg-confirm'),address=val('hotel-leg-address');const ciDate=val('hotel-leg-checkin-date'),ciTime=val('hotel-leg-checkin-time');const coDate=val('hotel-leg-checkout-date'),coTime=val('hotel-leg-checkout-time');const roomType=val('hotel-leg-room-type'),notes=val('hotel-leg-notes');const breakfast=document.querySelector('input[name="hotel-leg-breakfast"]:checked')?.value||'No';let b=`\n───────────────────────────────────\n🏨  HOTEL ACCOMMODATION\n───────────────────────────────────\n`;if(name)b+=`Hotel:         ${name}\n`;if(address)b+=`Address:       ${address}\n`;if(confirm)b+=`Confirmation:  ${confirm}\n`;b+=`Reservation:   In your name\n`;if(ciDate)b+=`Check-in:      ${fmt(ciDate)}${ciTime?' at '+ciTime:''}\n`;if(coDate)b+=`Check-out:     ${fmt(coDate)}${coTime?' at '+coTime:''}\n`;if(roomType)b+=`Room type:     ${roomType}\n`;b+=`Breakfast:     ${breakfast}\n`;if(notes)b+=`Notes:         ${notes}\n`;return b;}
 
 // ── LEADERS ───────────────────────────────────────────────────────────────────
-async function addLeader(){const name=val('new-leader-name'),role=val('new-leader-role'),email=val('new-leader-email');if(!name||!email){toast('Enter name and email','error');return;}leaders.push({id:Date.now(),name,role,email});await api('/leaders','POST',leaders);set('new-leader-name','');set('new-leader-role','');set('new-leader-email','');renderLeadersList();renderCCGrid();toast(name+' added!');}
-async function removeLeader(id){leaders=leaders.filter(l=>l.id!==id);await api('/leaders','POST',leaders);renderLeadersList();renderCCGrid();}
-function renderLeadersList(){const el=document.getElementById('leaders-list');if(!leaders.length){el.innerHTML='<div style="font-size:13px;color:var(--muted);padding:8px 0;">No leaders added yet.</div>';return;}el.innerHTML=leaders.map(l=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);"><div><div style="font-size:14px;font-weight:500;">${l.name}${l.role?` <span style="font-weight:400;color:var(--muted);">— ${l.role}</span>`:''}</div><div style="font-size:12px;color:var(--accent);font-family:var(--mono);">${l.email}</div></div><button onclick="removeLeader(${l.id})" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;padding:0 4px;">×</button></div>`).join('');}
-function renderCCGrid(){const grid=document.getElementById('cc-grid');if(!leaders.length){grid.innerHTML='<div style="font-size:13px;color:var(--muted);padding:8px 0;">No leaders added yet — go to Settings.</div>';return;}grid.innerHTML=leaders.map(l=>`<label class="cc-item"><input type="checkbox" value="${l.id}" class="cc-checkbox"/><div><div class="cc-item-name">${l.name}</div>${l.role?`<div class="cc-item-role">${l.role}</div>`:''}<div class="cc-item-email">${l.email}</div></div></label>`).join('');}
-function getCheckedLeaders(){return[...document.querySelectorAll('.cc-checkbox:checked')].map(cb=>leaders.find(l=>l.id==cb.value)).filter(Boolean);}
+function getLeadersForDest(dest){
+  const all=[...DEFAULT_LEADERS,...leaders];
+  const seen=new Set();
+  return all.filter(l=>{
+    if(seen.has(l.email))return false;
+    seen.add(l.email);
+    if(!dest)return false;
+    const cfg=DEST_CONFIG[dest];
+    const dests=l.destinations||[l.dest||'all'];
+    return dests.includes(dest)||dests.includes(cfg?.state?.toLowerCase())||dests.includes('all');
+  });
+}
+function renderCCGrid(){const grid=document.getElementById('cc-grid');const filtered=getLeadersForDest(selectedDest);if(!selectedDest){grid.innerHTML='<div style="font-size:13px;color:var(--muted);padding:8px 0;">Select a destination to see relevant leaders.</div>';return;}if(!filtered.length){grid.innerHTML='<div style="font-size:13px;color:var(--muted);padding:8px 0;">No leaders configured for this destination.</div>';return;}grid.innerHTML=filtered.map(l=>`<label class="cc-item"><input type="checkbox" value="${l.email}" class="cc-checkbox"/><div><div class="cc-item-name">${l.name}</div>${l.role?`<div class="cc-item-role">${l.role}</div>`:''}<div class="cc-item-email">${l.email}</div></div></label>`).join('');}
+function getCheckedLeaders(){return[...document.querySelectorAll('.cc-checkbox:checked')].map(cb=>({email:cb.value,name:cb.closest('.cc-item').querySelector('.cc-item-name')?.textContent||cb.value}));}
 
-// ── SETTINGS ─────────────────────────────────────────────────────────────────
-function loadSettingsPage(){['company','sender','property','ejs-service','ejs-template-emp','ejs-template-drv','ejs-key','emerg-name','emerg-email','emerg-phone','gcal-email','gcal-key','gcal-worker'].forEach(k=>{const el=document.getElementById('s-'+k);if(el)el.value=settings[k]||'';});renderLeadersList();}
-async function saveSettings(){['company','sender','property','ejs-service','ejs-template-emp','ejs-template-drv','ejs-key','emerg-name','emerg-email','emerg-phone','gcal-email','gcal-key','gcal-worker'].forEach(k=>{const el=document.getElementById('s-'+k);if(el)settings[k]=el.value.trim();});await api('/settings','POST',settings);prefillEmergency();toast('Settings saved!','success');}
+async function addLeader(){const name=val('new-leader-name'),role=val('new-leader-role'),email=val('new-leader-email'),dest=val('new-leader-dest')||'all';if(!name||!email){toast('Enter name and email','error');return;}const dests=dest==='all'?['all']:dest==='ma'?['nantucket','marthas-vineyard']:dest==='ny'?['greenport','montauk','sag-harbor']:dest==='wy'?['jackson']:[dest];leaders.push({id:Date.now(),name,role,email,destinations:dests});await api('/leaders','POST',[...DEFAULT_LEADERS,...leaders]);set('new-leader-name','');set('new-leader-role','');set('new-leader-email','');renderLeadersList();renderCCGrid();toast(name+' added!');}
+async function removeLeader(id){leaders=leaders.filter(l=>l.id!==id);await api('/leaders','POST',[...DEFAULT_LEADERS,...leaders]);renderLeadersList();renderCCGrid();}
+function renderLeadersList(){const el=document.getElementById('leaders-list');const all=[...DEFAULT_LEADERS,...leaders];if(!all.length){el.innerHTML='<div style="font-size:13px;color:var(--muted);padding:8px 0;">No leaders yet.</div>';return;}el.innerHTML=all.map(l=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);"><div><div style="font-size:14px;font-weight:500;">${l.name} <span style="font-weight:400;color:var(--muted);font-size:12px;">— ${l.role||''}</span></div><div style="font-size:12px;color:var(--accent);font-family:var(--mono);">${l.email}</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">${(l.destinations||[]).join(', ')}</div></div>${!DEFAULT_LEADERS.find(d=>d.id===l.id)?`<button onclick="removeLeader(${l.id})" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;padding:0 4px;">×</button>`:'' }</div>`).join('');}
+
+// ── SETTINGS ──────────────────────────────────────────────────────────────────
+async function boot(){try{[settings,leaders]=await Promise.all([api('/settings'),api('/leaders')]);prefillEmergency();renderCCGrid();}catch(e){toast('Could not reach server','error',6000);}}
+function prefillEmergency(){if(settings['emerg-name'])set('emergency-name',settings['emerg-name']);if(settings['emerg-email'])set('emergency-email',settings['emerg-email']);if(settings['emerg-phone'])set('emergency-phone',settings['emerg-phone']);}
+function loadSettingsPage(){['company','sender','ejs-service','ejs-template-emp','ejs-template-drv','ejs-key','emerg-name','emerg-email','emerg-phone','gcal-email','gcal-worker'].forEach(k=>{const el=document.getElementById('s-'+k);if(el)el.value=settings[k]||'';}); renderLeadersList();}
+async function saveSettings(){['company','sender','ejs-service','ejs-template-emp','ejs-template-drv','ejs-key','emerg-name','emerg-email','emerg-phone','gcal-email','gcal-worker'].forEach(k=>{const el=document.getElementById('s-'+k);if(el)settings[k]=el.value.trim();});await api('/settings','POST',settings);prefillEmergency();toast('Settings saved!','success');}
 
 // ── SNAPSHOT / RESTORE ────────────────────────────────────────────────────────
-function snapshotForm(){
-  const data={};
-  FIELDS.forEach(id=>data[id]=val(id));
-  data.legCount=currentLegCount;
-  data.legs=getLegData();
-  data.bagPolicy=getPolicy();
-  data.hotelOn=hotelOn;
-  data.hotelPosition=hotelPosition;
-  data.hotelBreakfast=document.querySelector('input[name="hotel-breakfast"]:checked')?.value||'No';
-  data.ccLeaderIds=getCheckedLeaders().map(l=>l.id);
-  return data;
-}
-
-function restoreForm(data){
-  FIELDS.forEach(id=>set(id,data[id]||''));
-  const legCount=data.legCount||1;
-  set('leg-count',String(legCount));
-  buildLegs(legCount);
-  if(data.legs){
-    data.legs.forEach((leg,i)=>{
-      Object.keys(leg).forEach(k=>{const el=document.getElementById(k);if(el)el.value=leg[k]||'';});
-      const bagsEl=document.querySelector(`input[name="bags-${i}"][value="${leg[`bags-${i}`]||'Yes'}"]`);
-      if(bagsEl)bagsEl.checked=true;
-    });
-  }
-  if(data.bagPolicy)selectPolicy(data.bagPolicy);
-  if(data.hotelOn && !hotelOn){ toggleHotel(); }
-  else if(!data.hotelOn && hotelOn){ toggleHotel(); }
-  if(data.hotelPosition)setHotelPosition(data.hotelPosition);
-  if(data.hotelBreakfast){const r=document.querySelector(`input[name="hotel-breakfast"][value="${data.hotelBreakfast}"]`);if(r)r.checked=true;}
-  renderCCGrid();
-  setTimeout(()=>{
-    const ids=data.ccLeaderIds||[];
-    document.querySelectorAll('.cc-checkbox').forEach(cb=>{cb.checked=ids.includes(Number(cb.value))||ids.includes(cb.value);});
-  },80);
-}
+function snapshotForm(){const data={};FIELDS.forEach(id=>data[id]=val(id));data.dest=selectedDest;data.legCount=currentLegCount;data.legs=getLegData();data.bagPolicy=getPolicy();data.hotelOn=hotelOn;data.hotelPosition=hotelPosition;data.hotelLegOn=hotelLegOn;data.hotelAfterLeg=val('hotel-after-leg');data.hotelBreakfast=document.querySelector('input[name="hotel-breakfast"]:checked')?.value||'No';data.hotelLegBreakfast=document.querySelector('input[name="hotel-leg-breakfast"]:checked')?.value||'No';data.ccLeaderIds=getCheckedLeaders().map(l=>l.email);return data;}
+function restoreForm(data){if(data.dest){const el=document.querySelector(`.dest-option[onclick*="${data.dest}"]`);selectDest(data.dest,el);}FIELDS.forEach(id=>set(id,data[id]||'')); const legCount=data.legCount||1;set('leg-count',String(legCount));buildLegs(legCount);if(data.legs){data.legs.forEach((leg,i)=>{Object.keys(leg).forEach(k=>{const el=document.getElementById(k);if(el)el.value=leg[k]||'';}); const bagsEl=document.querySelector(`input[name="bags-${i}"][value="${leg[`bags-${i}`]||'Yes'}"]`);if(bagsEl)bagsEl.checked=true;});}if(data.bagPolicy)selectPolicy(data.bagPolicy);if(data.hotelOn&&!hotelOn)toggleHotel();if(data.hotelPosition)setHotelPosition(data.hotelPosition);if(data.hotelLegOn&&!hotelLegOn)toggleHotelLeg();if(data.hotelAfterLeg)set('hotel-after-leg',data.hotelAfterLeg);if(data.hotelBreakfast){const r=document.querySelector(`input[name="hotel-breakfast"][value="${data.hotelBreakfast}"]`);if(r)r.checked=true;}if(data.hotelLegBreakfast){const r=document.querySelector(`input[name="hotel-leg-breakfast"][value="${data.hotelLegBreakfast}"]`);if(r)r.checked=true;}renderCCGrid();setTimeout(()=>{const ids=data.ccLeaderIds||[];document.querySelectorAll('.cc-checkbox').forEach(cb=>{cb.checked=ids.includes(cb.value);});},80);}
 
 // ── EDIT / COPY ───────────────────────────────────────────────────────────────
-function editTrip(id){const trip=trips.find(t=>t.id===id);if(!trip||!trip.formData){toast('No stored form data — created before edit support','error',4000);return;}editingTripId=id;restoreForm(trip.formData);document.getElementById('edit-banner').classList.add('active');document.getElementById('edit-banner-text').textContent=`✏️ Editing itinerary for ${trip.empName}`;document.getElementById('new-trip-title').textContent='Edit itinerary';document.getElementById('send-btn').textContent='Save changes + resend';document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-new').classList.add('active');document.querySelectorAll('.nav-tab')[0].classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
-function copyTrip(id){const trip=trips.find(t=>t.id===id);if(!trip||!trip.formData){toast('No stored form data','error',4000);return;}cancelEdit();const data={...trip.formData};data['emp-name']='';data['emp-email']='';data['emp-phone']='';data['travel-date']='';data['return-date']='';data['visa-notes']='';restoreForm(data);document.getElementById('new-trip-title').textContent='New trip (copied)';document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-new').classList.add('active');document.querySelectorAll('.nav-tab')[0].classList.add('active');window.scrollTo({top:0,behavior:'smooth'});toast('Trip copied — fill in the new employee details!','success',4000);}
+function editTrip(id){const trip=trips.find(t=>t.id===id);if(!trip||!trip.formData){toast('No stored form data','error',4000);return;}editingTripId=id;restoreForm(trip.formData);document.getElementById('edit-banner').classList.add('active');document.getElementById('edit-banner-text').textContent=`✏️ Editing itinerary for ${trip.empName}`;document.getElementById('new-trip-title').textContent='Edit itinerary';document.getElementById('send-btn').textContent='Save changes + resend';document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-new').classList.add('active');document.querySelectorAll('.nav-tab')[0].classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function copyTrip(id){const trip=trips.find(t=>t.id===id);if(!trip||!trip.formData){toast('No stored form data','error',4000);return;}cancelEdit();const data={...trip.formData};data['emp-name']='';data['emp-email']='';data['emp-phone']='';data['travel-date']='';data['visa-notes']='';restoreForm(data);document.getElementById('new-trip-title').textContent='New trip (copied)';document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-new').classList.add('active');document.querySelectorAll('.nav-tab')[0].classList.add('active');window.scrollTo({top:0,behavior:'smooth'});toast('Trip copied — fill in the new employee details!','success',4000);}
 function cancelEdit(){editingTripId=null;document.getElementById('edit-banner').classList.remove('active');document.getElementById('new-trip-title').textContent='New trip itinerary';document.getElementById('send-btn').textContent='Send itinerary + notify all';}
 
-// ── BUILD EMAILS ──────────────────────────────────────────────────────────────
+// ── BUILD EMPLOYEE EMAIL ──────────────────────────────────────────────────────
 function buildEmployeeEmail(){
   const name=val('emp-name'),phone=val('emp-phone'),email=val('emp-email');
-  const travelDate=val('travel-date'),returnDate=val('return-date'),visaStatus=val('visa-status'),visaNotes=val('visa-notes');
-  const property=settings.property||'the property',company=settings.company||'Your company',sender=settings.sender||'Travel Desk';
+  const travelDate=val('travel-date'),visaStatus=val('visa-status'),visaNotes=val('visa-notes');
+  const property=selectedDest?DEST_CONFIG[selectedDest]?.label:'the property';
+  const company=settings.company||'Your company',sender=settings.sender||'Travel Desk';
   const legData=getLegData();
   const policyText=getPolicyText();
   const flightNotes=val('flight-notes');
-  const busProvider=val('bus-provider'),busNumber=val('bus-number'),busPickup=val('bus-pickup'),busDepartTime=val('bus-depart-time'),busDropoff=val('bus-dropoff'),busConfirm=val('bus-confirm'),busNotes=val('bus-notes');
-  const ferryDate=val('ferry-date'),ferryFrom=val('ferry-from'),ferryDepart=val('ferry-depart-time'),ferryName=val('ferry-name'),ferryArrive=val('ferry-arrive-loc'),ferryArrTime=val('ferry-arrive-time'),ferryTicket=val('ferry-ticket'),ferryNotes=val('ferry-notes');
-  const driverName=val('driver-name'),arrivalInstr=val('arrival-instructions');
-  const emergName=val('emergency-name'),emergEmail=val('emergency-email'),emergPhone=val('emergency-phone');
-  const empNotes=val('emp-notes'),cl=getCheckedLeaders();
+  const isMA=selectedDest&&DEST_CONFIG[selectedDest]?.variant==='ma';
+  const isNYWY=selectedDest&&(DEST_CONFIG[selectedDest]?.variant==='ny'||DEST_CONFIG[selectedDest]?.variant==='wy');
+  const hotelAfterLeg=parseInt(val('hotel-after-leg')||'1');
 
-  let b=`Dear ${name||'[Employee Name]'},\n\nWe are excited to welcome you back to ${property}. Please find your complete travel itinerary below.\n\n`;
+  let b=`Dear ${name||'[Employee Name]'},\n\nWe are excited to welcome you to ${property}. Please find your complete travel itinerary below.\n\n`;
   b+=`═══════════════════════════════════\nTRAVEL ITINERARY\n═══════════════════════════════════\n\n`;
   b+=`Employee:     ${name||'—'}\n`;
   if(email)b+=`Email:        ${email}\n`;
   if(phone)b+=`Mobile:       ${phone}\n`;
+  b+=`Destination:  ${property}\n`;
   b+=`Travel date:  ${fmt(travelDate)}\n`;
-  if(returnDate)b+=`Return date:  ${fmt(returnDate)}\n`;
-  b+=`Visa status:  ${visaStatus}${visaNotes?' ('+visaNotes+')':''}\n\n`;
+  b+=`Visa status:  ${visaStatus}${visaNotes?' ('+visaNotes+')':''} \n\n`;
 
+  // Flights with hotel after leg (NY/WY)
   b+=`───────────────────────────────────\n1. ✈️  FLIGHT DETAILS\n───────────────────────────────────\n`;
   legData.forEach((leg,i)=>{
     if(currentLegCount>1)b+=`\n  — Leg ${i+1} —\n`;
@@ -580,165 +655,154 @@ function buildEmployeeEmail(){
     if(from)b+=`  Departure airport: ${from}\n`;
     if(dt)b+=`  Departure time:    ${dt}\n`;
     if(num)b+=`  Flight number:     ${num}\n`;
-    if(lay)b+=`  Layover:           ${lay}\n`;
     if(al)b+=`  Arrival location:  ${al}\n`;
     if(at)b+=`  Arrival time:      ${at}\n`;
     b+=`  Checked bags:      ${bags}\n`;
+    if(lay)b+=`  Layover:           ${lay}\n`;
     if(conf)b+=`  Confirmation:      ${conf}\n`;
+    // Insert hotel after selected leg (NY/WY)
+    if(isNYWY&&hotelLegOn&&(i+1)===hotelAfterLeg) b+=getHotelLegBlock();
   });
   if(policyText)b+=`\n${policyText}\n`;
   if(flightNotes)b+=`\nNotes: ${flightNotes}\n`;
 
-  // Hotel before bus
-  if(hotelPosition==='before') b+=getHotelBlock();
-  b+=`\n───────────────────────────────────\n2. 🚌  GROUND TRANSPORTATION\n───────────────────────────────────\n`;
-  if(busProvider)b+=`Provider:      ${busProvider}\n`;if(busNumber)b+=`Route/bus:     ${busNumber}\n`;if(busPickup)b+=`Pickup at:     ${busPickup}\n`;if(busDepartTime)b+=`Departure:     ${busDepartTime}\n`;if(busDropoff)b+=`Drop-off:      ${busDropoff}\n`;if(busConfirm)b+=`Ticket/ref:    ${busConfirm}\n`;if(busNotes)b+=`Notes:         ${busNotes}\n`;
-  // Hotel after bus
-  if(hotelPosition==='after') b+=getHotelBlock();
+  let sectionNum=2;
 
-  const ferryNum = hotelOn ? 4 : 3;
-b+=`\n───────────────────────────────────\n${ferryNum}. ⛴️  FERRY / FINAL LEG\n───────────────────────────────────\n`;
-  if(ferryDate)b+=`Date:          ${fmt(ferryDate)}\n`;
-  if(ferryFrom)b+=`Terminal:      ${ferryFrom}\n`;if(ferryName)b+=`Ferry:         ${ferryName}\n`;if(ferryDepart)b+=`Departure:     ${ferryDepart}\n`;if(ferryArrive)b+=`Arrival at:    ${ferryArrive}\n`;if(ferryArrTime)b+=`Arrival time:  ${ferryArrTime}\n`;if(ferryTicket)b+=`Ticket:        ${ferryTicket}\n`;if(ferryNotes)b+=`Notes:         ${ferryNotes}\n`;
+  // MA: hotel before bus
+  if(isMA&&hotelOn&&hotelPosition==='before') b+=getHotelBlock();
 
-  const arrNum = hotelOn ? 5 : 4;
-b+=`\n───────────────────────────────────\n${arrNum}. 🚗  ARRIVAL COORDINATION\n───────────────────────────────────\n`;
-  if(driverName)b+=`Contact:       ${driverName}\n`;if(arrivalInstr)b+=`Instructions:  ${arrivalInstr}\n`;
+  // Bus (MA only)
+  if(isMA){
+    const busProvider=val('bus-provider'),busNumber=val('bus-number'),busPickup=val('bus-pickup'),busDepartTime=val('bus-depart-time'),busDropoff=val('bus-dropoff'),busConfirm=val('bus-confirm'),busNotes=val('bus-notes');
+    b+=`\n───────────────────────────────────\n${sectionNum++}. 🚌  GROUND TRANSPORTATION\n───────────────────────────────────\n`;
+    if(busProvider)b+=`Provider:      ${busProvider}\n`;if(busNumber)b+=`Route/bus:     ${busNumber}\n`;if(busPickup)b+=`Pickup at:     ${busPickup}\n`;if(busDepartTime)b+=`Departure:     ${busDepartTime}\n`;if(busDropoff)b+=`Drop-off:      ${busDropoff}\n`;if(busConfirm)b+=`Ticket/ref:    ${busConfirm}\n`;if(busNotes)b+=`Notes:         ${busNotes}\n`;
+  }
 
-  const emergNum = hotelOn ? 6 : 5;
-b+=`\n───────────────────────────────────\n${emergNum}. 🆘  EMERGENCY CONTACT\n───────────────────────────────────\n`;
+  // MA: hotel after bus
+  if(isMA&&hotelOn&&hotelPosition==='after') b+=getHotelBlock();
+
+  // Ferry (MA only)
+  if(isMA){
+    const ferryDate=val('ferry-date'),ferryFrom=val('ferry-from'),ferryDepart=val('ferry-depart-time'),ferryName=val('ferry-name'),ferryArrive=val('ferry-arrive-loc'),ferryArrTime=val('ferry-arrive-time'),ferryTicket=val('ferry-ticket'),ferryNotes=val('ferry-notes');
+    b+=`\n───────────────────────────────────\n${sectionNum++}. ⛴️  FERRY / FINAL LEG\n───────────────────────────────────\n`;
+    if(ferryDate)b+=`Date:          ${fmt(ferryDate)}\n`;if(ferryFrom)b+=`Terminal:      ${ferryFrom}\n`;if(ferryName)b+=`Ferry:         ${ferryName}\n`;if(ferryDepart)b+=`Departure:     ${ferryDepart}\n`;if(ferryArrive)b+=`Arrival at:    ${ferryArrive}\n`;if(ferryArrTime)b+=`Arrival time:  ${ferryArrTime}\n`;if(ferryTicket)b+=`Ticket:        ${ferryTicket}\n`;if(ferryNotes)b+=`Notes:         ${ferryNotes}\n`;
+  }
+
+  // NY/WY: arrival date/time
+  if(isNYWY){
+    const arrDate=val('arrival-date'),arrTime=val('arrival-time'),arrLoc=val('arrival-location');
+    b+=`\n───────────────────────────────────\n${sectionNum++}. 🕐  ARRIVAL\n───────────────────────────────────\n`;
+    if(arrDate)b+=`Date:          ${fmt(arrDate)}\n`;if(arrTime)b+=`Time:          ${arrTime}\n`;if(arrLoc)b+=`Location:      ${arrLoc}\n`;
+  }
+
+  // Arrival coordination
+  const driverName=val('driver-name'),driverName2=val('driver-name-2'),arrivalInstr=val('arrival-instructions');
+  b+=`\n───────────────────────────────────\n${sectionNum++}. 🚗  ARRIVAL COORDINATION\n───────────────────────────────────\n`;
+  if(driverName)b+=`Contact #1:    ${driverName}\n`;if(driverName2)b+=`Contact #2:    ${driverName2}\n`;if(arrivalInstr)b+=`Instructions:  ${arrivalInstr}\n`;
+
+  // Emergency
+  const emergName=val('emergency-name'),emergEmail=val('emergency-email'),emergPhone=val('emergency-phone');
+  b+=`\n───────────────────────────────────\n${sectionNum++}. 🆘  EMERGENCY CONTACT\n───────────────────────────────────\n`;
   if(emergName)b+=`Name:          ${emergName}\n`;if(emergEmail)b+=`Email:         ${emergEmail}\n`;if(emergPhone)b+=`Phone/WhatsApp:${emergPhone}\n`;
+
+  const empNotes=val('emp-notes');
   if(empNotes)b+=`\n───────────────────────────────────\nADDITIONAL NOTES\n───────────────────────────────────\n${empNotes}\n`;
-  if(cl.length){b+=`\n───────────────────────────────────\nThis itinerary has been shared with:\n`;cl.forEach(l=>b+=`• ${l.name}${l.role?' ('+l.role+')':''}\n`);}
+
+  const cl=getCheckedLeaders();
+  if(cl.length){b+=`\n───────────────────────────────────\nThis itinerary has been shared with:\n`;cl.forEach(l=>b+=`• ${l.name}\n`);}
   b+=`\n═══════════════════════════════════\n\nSafe travels! We look forward to welcoming you.\n\n${sender}\n${company}`;
   return b;
 }
 
+// ── BUILD DRIVER EMAIL ────────────────────────────────────────────────────────
 function buildDriverEmail(){
   const empName=val('emp-name'),empPhone=val('emp-phone');
   const driverName=val('driver-name'),driverName2=val('driver-name-2'),travelDate=val('travel-date');
-  const ferryArrive=val('ferry-arrive-loc'),ferryArrTime=val('ferry-arrive-time'),ferryFrom=val('ferry-from'),ferryDepart=val('ferry-depart-time'),ferryName=val('ferry-name');
-  const arrivalInstr=val('arrival-instructions'),company=settings.company||'the company',sender=settings.sender||'Travel Desk';
-  const greeting = driverName2 ? `${driverName||'there'} & ${driverName2}` : (driverName||'there');
+  const isMA=selectedDest&&DEST_CONFIG[selectedDest]?.variant==='ma';
+  const ferryArrive=isMA?val('ferry-arrive-loc'):'',ferryArrTime=isMA?val('ferry-arrive-time'):'';
+  const ferryFrom=isMA?val('ferry-from'):'',ferryDepart=isMA?val('ferry-depart-time'):'',ferryName=isMA?val('ferry-name'):'';
+  const arrDate=val('arrival-date'),arrTime=val('arrival-time'),arrLoc=val('arrival-location');
+  const arrivalInstr=val('arrival-instructions');
+  const property=selectedDest?DEST_CONFIG[selectedDest]?.label:'the property';
+  const company=settings.company||'the company',sender=settings.sender||'Travel Desk';
+  const greeting=driverName2?`${driverName||'there'} & ${driverName2}`:(driverName||'there');
   let b=`Hi ${greeting},\n\nPlease be advised of the following employee arrival requiring pickup.\n\n`;
   b+=`═══════════════════════════════════\nPICKUP NOTICE\n═══════════════════════════════════\n\n`;
   b+=`Employee:      ${empName||'—'}\n`;
   if(empPhone)b+=`Mobile:        ${empPhone}\n`;
-  b+=`Travel date:   ${fmt(travelDate)}\n`;
-  if(ferryName)b+=`Ferry:         ${ferryName}\n`;if(ferryFrom)b+=`Departing:     ${ferryFrom}\n`;if(ferryDepart)b+=`Ferry departs: ${ferryDepart}\n`;if(ferryArrive)b+=`Arriving at:   ${ferryArrive}\n`;if(ferryArrTime)b+=`Arrival time:  ${ferryArrTime}\n`;
+  b+=`Destination:   ${property}\nTravel date:   ${fmt(travelDate)}\n`;
+  if(isMA){if(ferryName)b+=`Ferry:         ${ferryName}\n`;if(ferryFrom)b+=`Departing:     ${ferryFrom}\n`;if(ferryDepart)b+=`Ferry departs: ${ferryDepart}\n`;if(ferryArrive)b+=`Arriving at:   ${ferryArrive}\n`;if(ferryArrTime)b+=`Arrival time:  ${ferryArrTime}\n`;}
+  else{if(arrDate)b+=`Arrival date:  ${fmt(arrDate)}\n`;if(arrTime)b+=`Arrival time:  ${arrTime}\n`;if(arrLoc)b+=`Location:      ${arrLoc}\n`;}
   if(arrivalInstr)b+=`\nInstructions:\n${arrivalInstr}\n`;
   b+=`\n═══════════════════════════════════\n\nThank you,\n${sender}\n${company}`;
   return b;
 }
 
-// ── CALENDAR INVITES ──────────────────────────────────────────────────────────
-async function sendCalendarInvites(empName, empEmail, travelDate, ferryArriveTime, checkedLeaders, driverEmail, driverName, leg0Date, ferryDate, driverEmail2) {
-  const calWorker = settings['gcal-worker'];
-  if (!calWorker) return { sent: false, reason: 'No calendar worker configured' };
-
-  const allDayTitle = `${empName} — Travel Day to ${settings.property||'Property'}`;
-  const arrivalTitle = `Arrival: ${empName} at ${settings.property||'Property'}`;
-
-  // Build arrival datetime from ferry arrive time on travel date
-  // Use ferry date for arrival appointment
-  const arrivalDate = ferryDate || travelDate;
-  let arrivalStart = null, arrivalEnd = null;
-  if (arrivalDate && ferryArriveTime) {
-    arrivalStart = `${arrivalDate}T${ferryArriveTime}:00`;
-    const [h, m] = ferryArriveTime.split(':').map(Number);
-    const endH = String(h + 1).padStart(2, '0');
-    arrivalEnd = `${arrivalDate}T${endH}:${String(m).padStart(2,'0')}:00`;
-  }
-
-  // All-day: employee + CC'd leaders
-  const allDayAttendees = [empEmail];
-  checkedLeaders.forEach(l => { if (l.email) allDayAttendees.push(l.email); });
-  // 1-hour arrival: employee + driver only
-  const arrivalAttendees = [empEmail];
-  if (driverEmail) arrivalAttendees.push(driverEmail);
-
-  const policyText = getPolicyText();
-  const calDescription = buildEmployeeEmail();
-  const arrivalInstructions = val('arrival-instructions');
-
-  try {
-    const res = await fetch(calWorker + '/create-events', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        allDay: { title: allDayTitle, startDate: leg0Date || travelDate, endDate: ferryDate || travelDate, attendees: allDayAttendees, description: calDescription },
-        arrival: arrivalStart ? { title: arrivalTitle, start: arrivalStart, end: arrivalEnd, attendees: arrivalAttendees, description: val('arrival-instructions') || arrivalTitle } : null
-      })
-    });
-    const data = await res.json();
-    return { sent: true, data };
-  } catch(e) {
-    return { sent: false, reason: e.message };
-  }
-}
-
-// ── PREVIEW & SEND ────────────────────────────────────────────────────────────
+// ── PREVIEW ───────────────────────────────────────────────────────────────────
 function previewItinerary(){document.getElementById('preview-employee').textContent=buildEmployeeEmail();document.getElementById('preview-driver').textContent=buildDriverEmail();document.getElementById('preview-section').style.display='block';setTimeout(()=>document.getElementById('preview-section').scrollIntoView({behavior:'smooth',block:'start'}),50);}
 
+// ── CALENDAR INVITES ──────────────────────────────────────────────────────────
+async function sendCalendarInvites(empName,empEmail,travelDate,checkedLeaders,driverEmail,driverEmail2,leg0Date,finalDate,finalTime,arrivalInstr){
+  const calWorker=settings['gcal-worker'];
+  if(!calWorker)return{sent:false,reason:'No calendar worker configured'};
+  const dest=selectedDest?DEST_CONFIG[selectedDest]?.label:'';
+  const allDayTitle=`${empName} — Travel to ${dest}`;
+  const arrivalTitle=`Arrival: ${empName} at ${dest}`;
+  const allDayAttendees=[empEmail];
+  checkedLeaders.forEach(l=>{if(l.email)allDayAttendees.push(l.email);});
+  const arrivalAttendees=[empEmail];
+  if(driverEmail)arrivalAttendees.push(driverEmail);
+  if(driverEmail2)arrivalAttendees.push(driverEmail2);
+  let arrivalStart=null,arrivalEnd=null;
+  if(finalDate&&finalTime){
+    arrivalStart=`${finalDate}T${finalTime}:00`;
+    const[h,m]=finalTime.split(':').map(Number);
+    const endH=String(h+1).padStart(2,'0');
+    arrivalEnd=`${finalDate}T${endH}:${String(m).padStart(2,'0')}:00`;
+  }
+  try{
+    const res=await fetch(calWorker+'/create-events',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({allDay:{title:allDayTitle,startDate:leg0Date||travelDate,endDate:finalDate||travelDate,attendees:allDayAttendees,description:buildEmployeeEmail()},arrival:arrivalStart?{title:arrivalTitle,start:arrivalStart,end:arrivalEnd,attendees:arrivalAttendees,description:arrivalInstr||arrivalTitle}:null})});
+    const data=await res.json();
+    return{sent:true,data};
+  }catch(e){return{sent:false,reason:e.message};}
+}
+
+// ── SEND ──────────────────────────────────────────────────────────────────────
 async function sendItinerary(){
-  const empName=val('emp-name'),empEmail=val('emp-email'),drvEmail=val('driver-email'),drvName=val('driver-name');
+  if(!selectedDest){toast('Please select a destination first','error');return;}
+  const empName=val('emp-name'),empEmail=val('emp-email'),drvEmail=val('driver-email'),drvEmail2=val('driver-email-2');
   if(!empName||!empEmail){toast('Enter employee name and email first','error');return;}
-  if(!val('ferry-arrive-time')){toast('Ferry/final leg arrival time is required for calendar invites','error');return;}
-  if(!val('ferry-date')){toast('Ferry date is required for the calendar invite','error');return;}
-  // Get leg 1 date for calendar
-  const leg0Date = document.getElementById('leg-0-depart-date')?.value;
-  if(!leg0Date){toast('Leg 1 flight departure date is required for the calendar invite','error');return;}
+  const isMA=DEST_CONFIG[selectedDest]?.variant==='ma';
+  const isNYWY=!isMA;
+  // Validate required calendar fields
+  const leg0Date=document.getElementById('leg-0-depart-date')?.value;
+  if(!leg0Date){toast('Leg 1 departure date is required for the calendar invite','error');return;}
+  let finalDate,finalTime;
+  if(isMA){finalDate=val('ferry-date');finalTime=val('ferry-arrive-time');if(!finalDate||!finalTime){toast('Ferry date and arrival time are required for the calendar invite','error');return;}}
+  else{finalDate=val('arrival-date');finalTime=val('arrival-time');if(!finalDate||!finalTime){toast('Arrival date and time are required for the calendar invite','error');return;}}
   const svcId=settings['ejs-service'],tplEmp=settings['ejs-template-emp'],tplDrv=settings['ejs-template-drv'],pubKey=settings['ejs-key'];
   const cl=getCheckedLeaders(),ccEmails=cl.map(l=>l.email).join(', ');
   const empBody=buildEmployeeEmail(),drvBody=buildDriverEmail();
   const formData=snapshotForm();
-  const trip={empName,empEmail,travelDate:val('travel-date'),visa:val('visa-status'),ccLeaders:cl.map(l=>l.name),status:'draft',formData};
-
-  if(editingTripId){
-    trip.id=editingTripId;
-    const idx=trips.findIndex(t=>t.id===editingTripId);
-    if(idx>-1)trips[idx]={...trips[idx],...trip};
-  }
-
-  if(!svcId||!pubKey||!tplEmp){
-    toast('EmailJS not configured — saving as draft','error',5000);
-    trip.status='draft';
-    if(!editingTripId)await api('/trips','POST',trip);
-    previewItinerary();return;
-  }
-
-  const btn=document.getElementById('send-btn');
-  btn.disabled=true;btn.textContent='Sending...';
-
+  const trip={empName,empEmail,travelDate:val('travel-date'),dest:selectedDest,visa:val('visa-status'),ccLeaders:cl.map(l=>l.name),status:'draft',formData};
+  if(editingTripId){trip.id=editingTripId;const idx=trips.findIndex(t=>t.id===editingTripId);if(idx>-1)trips[idx]={...trips[idx],...trip};}
+  if(!svcId||!pubKey||!tplEmp){toast('EmailJS not configured — saving as draft','error',5000);trip.status='draft';if(!editingTripId)await api('/trips','POST',trip);previewItinerary();return;}
+  const btn=document.getElementById('send-btn');btn.disabled=true;btn.textContent='Sending...';
   try{
     emailjs.init(pubKey);
-    await emailjs.send(svcId,tplEmp,{to_email:empEmail,to_name:empName,cc_emails:ccEmails,subject:`Your travel itinerary — ${settings.property||'upcoming trip'}`,message:empBody,from_name:settings.sender||'Travel Desk'});
-    if(drvEmail&&tplDrv)await emailjs.send(svcId,tplDrv,{to_email:drvEmail,to_name:drvName,subject:`Pickup notice — ${empName}`,message:drvBody,from_name:settings.sender||'Travel Desk'});
-    const drvEmail2=val('driver-email-2'),drvName2=val('driver-name-2');
-    if(drvEmail2&&tplDrv)await emailjs.send(svcId,tplDrv,{to_email:drvEmail2,to_name:drvName2,subject:`Pickup notice — ${empName}`,message:drvBody,from_name:settings.sender||'Travel Desk'});
+    await emailjs.send(svcId,tplEmp,{to_email:empEmail,to_name:empName,cc_emails:ccEmails,subject:`Your travel itinerary — ${DEST_CONFIG[selectedDest]?.label||'upcoming trip'}`,message:empBody,from_name:settings.sender||'Travel Desk'});
+    if(drvEmail&&tplDrv)await emailjs.send(svcId,tplDrv,{to_email:drvEmail,to_name:val('driver-name'),subject:`Pickup notice — ${empName}`,message:drvBody,from_name:settings.sender||'Travel Desk'});
+    if(val('driver-email-2')&&tplDrv)await emailjs.send(svcId,tplDrv,{to_email:val('driver-email-2'),to_name:val('driver-name-2'),subject:`Pickup notice — ${empName}`,message:drvBody,from_name:settings.sender||'Travel Desk'});
     trip.status='sent';
-
-    // Calendar invites
-    const ferryArriveTime=val('ferry-arrive-time');
-    const leg0Date=document.getElementById('leg-0-depart-date')?.value||val('travel-date');
-    const ferryDate=val('ferry-date')||val('travel-date');
-    const calResult=await sendCalendarInvites(empName,empEmail,val('travel-date'),ferryArriveTime,cl,drvEmail,drvName,leg0Date,ferryDate,val('driver-email-2'));
-
-    if(editingTripId){await api('/trips/update','POST',{id:editingTripId,...trip,status:'sent'});}
-    else{await api('/trips','POST',trip);}
-
+    const calResult=await sendCalendarInvites(empName,empEmail,val('travel-date'),cl,drvEmail,drvEmail2,leg0Date,finalDate,finalTime,val('arrival-instructions'));
+    if(editingTripId){await api('/trips/update','POST',{id:editingTripId,...trip,status:'sent'});}else{await api('/trips','POST',trip);}
     const ccMsg=cl.length?` CC'd: ${cl.map(l=>l.name).join(', ')}.`:'';
-    const calMsg=calResult.sent?' Calendar invites sent.':settings['gcal-worker']?' (Calendar invite failed)':'';
+    const calMsg=calResult.sent?' Calendar invites sent.':'';
     const action=editingTripId?'Updated and resent':'Sent';
     toast(`${action} to ${empName}!${drvEmail?' Driver notified.':''}${ccMsg}${calMsg}`,'success',6000);
     cancelEdit();resetForm();
-  }catch(e){
-    toast('Email failed: '+(e.text||e.message||'Check EmailJS settings'),'error',5000);
-    previewItinerary();
-  }finally{
-    btn.disabled=false;
-    document.getElementById('send-btn').textContent=editingTripId?'Save changes + resend':'Send itinerary + notify all';
-  }
+  }catch(e){toast('Email failed: '+(e.text||e.message||'Check EmailJS settings'),'error',5000);previewItinerary();}
+  finally{btn.disabled=false;document.getElementById('send-btn').textContent=editingTripId?'Save changes + resend':'Send itinerary + notify all';}
 }
 
 function resetForm(){
@@ -747,8 +811,16 @@ function resetForm(){
   document.querySelectorAll('input[name="bag-policy"]').forEach(r=>r.checked=false);
   document.getElementById('policy-a-wrap').classList.remove('selected');
   document.getElementById('policy-b-wrap').classList.remove('selected');
+  if(hotelOn)toggleHotel();
+  if(hotelLegOn)toggleHotelLeg();
+  setHotelPosition('before');
   document.querySelectorAll('.cc-checkbox').forEach(cb=>cb.checked=false);
   document.getElementById('preview-section').style.display='none';
+  document.getElementById('trip-form').style.display='none';
+  document.querySelectorAll('.dest-option').forEach(el=>el.classList.remove('selected'));
+  document.querySelectorAll('input[name="destination"]').forEach(r=>r.checked=false);
+  selectedDest=null;
+  document.getElementById('new-trip-sub').textContent='Select a destination to begin.';
   prefillEmergency();
 }
 
@@ -758,83 +830,12 @@ function renderTrips(){
   const list=document.getElementById('trips-list');
   if(!trips.length){list.innerHTML='<div style="text-align:center;padding:48px 24px;color:var(--muted);"><div style="font-size:32px;margin-bottom:12px;">✈️</div><div style="font-size:14px;">No trips yet.</div></div>';return;}
   list.innerHTML=trips.map(t=>{
-    const initials=t.empName.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+    const initials=(t.empName||'?').split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
     const cc=t.ccLeaders?.length?` · CC: ${t.ccLeaders.join(', ')}`:'';
+    const destLabel=t.dest?DEST_CONFIG[t.dest]?.label||'' :'';
     const hasData=!!t.formData;
-    return`<div class="trip-card"><div class="trip-card-top"><div class="trip-card-left"><div class="trip-avatar">${initials}</div><div><div class="trip-name">${t.empName}</div><div class="trip-meta">${fmtS(t.travelDate)} · ${t.visa||''}${cc}</div></div></div><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="trip-status status-${t.status}">${t.status}</span>${hasData?`<button class="btn btn-ghost btn-sm" onclick="editTrip(${t.id})">✏️ Edit</button><button class="btn btn-blue btn-sm" onclick="copyTrip(${t.id})">⧉ Copy</button>`:'<span style="font-size:11px;color:var(--muted);">Legacy</span>'}</div></div></div>`;
+    return`<div class="trip-card"><div class="trip-card-top"><div class="trip-card-left"><div class="trip-avatar">${initials}</div><div><div class="trip-name">${t.empName}</div><div class="trip-meta">${fmtS(t.travelDate)}${destLabel?' · '+destLabel:''}${cc}</div></div></div><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="trip-status status-${t.status}">${t.status}</span>${hasData?`<button class="btn btn-ghost btn-sm" onclick="editTrip(${t.id})">✏️ Edit</button><button class="btn btn-blue btn-sm" onclick="copyTrip(${t.id})">⧉ Copy</button>`:'<span style="font-size:11px;color:var(--muted);">Legacy</span>'}</div></div></div>`;
   }).join('');
-}
-
-// ── HOTEL ────────────────────────────────────────────────────────────────────
-let hotelPosition = 'before';
-
-let hotelOn = false;
-
-function toggleHotel() {
-  hotelOn = !hotelOn;
-  const card = document.getElementById('hotel-card');
-  const btn  = document.getElementById('hotel-toggle-btn');
-  card.style.display = hotelOn ? 'block' : 'none';
-  btn.textContent = hotelOn ? 'Yes' : 'No';
-  btn.style.background = hotelOn ? 'var(--accent)' : 'var(--surface2)';
-  btn.style.color = hotelOn ? 'white' : 'var(--muted)';
-  btn.style.borderColor = hotelOn ? 'var(--accent)' : 'var(--border)';
-  if (hotelOn) placeHotelCard(hotelPosition);
-}
-
-function setHotelPosition(pos) {
-  hotelPosition = pos;
-  document.getElementById('hotel-pos-before').classList.toggle('active', pos === 'before');
-  document.getElementById('hotel-pos-after').classList.toggle('active', pos === 'after');
-  placeHotelCard(pos);
-}
-
-function placeHotelCard(pos) {
-  const card = document.getElementById('hotel-card');
-  const busCard = document.getElementById('bus-card');
-  const toggleDiv = document.getElementById('hotel-toggle-div');
-  if (!card || !busCard || !toggleDiv) return;
-  if (pos === 'before') {
-    // Place after toggle, before bus card
-    toggleDiv.parentNode.insertBefore(card, busCard);
-  } else {
-    // Place after bus card
-    busCard.parentNode.insertBefore(card, busCard.nextSibling);
-  }
-}
-
-function getHotelBlock() {
-  const on = hotelOn;
-  if (!on) return '';
-  const name = val('hotel-name'), confirm = val('hotel-confirm'), address = val('hotel-address');
-  const ciDate = val('hotel-checkin-date'), ciTime = val('hotel-checkin-time');
-  const coDate = val('hotel-checkout-date'), coTime = val('hotel-checkout-time');
-  const roomType = val('hotel-room-type'), notes = val('hotel-notes');
-  const breakfast = document.querySelector('input[name="hotel-breakfast"]:checked')?.value || 'No';
-  let b = `
-───────────────────────────────────
-🏨  HOTEL ACCOMMODATION
-───────────────────────────────────
-`;
-  if (name)     b += `Hotel:         ${name}
-`;
-  if (address)  b += `Address:       ${address}
-`;
-  if (confirm)  b += `Confirmation:  ${confirm}
-`;
-  b +=           `Reservation:   In your name
-`;
-  if (ciDate)   b += `Check-in:      ${fmt(ciDate)}${ciTime ? ' at ' + ciTime : ''}
-`;
-  if (coDate)   b += `Check-out:     ${fmt(coDate)}${coTime ? ' at ' + coTime : ''}
-`;
-  if (roomType) b += `Room type:     ${roomType}
-`;
-  b +=           `Breakfast:     ${breakfast}
-`;
-  if (notes)    b += `Notes:         ${notes}
-`;
-  return b;
 }
 
 boot();
