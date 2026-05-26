@@ -385,6 +385,7 @@ textarea{resize:vertical;min-height:70px;line-height:1.5;}
 
     <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;">
       <button class="btn btn-ghost" onclick="previewItinerary()">Preview emails</button>
+      <button class="btn btn-ghost" id="draft-btn" onclick="saveDraft()" style="border-color:var(--amber);color:var(--amber);">Save draft</button>
       <button class="btn btn-primary" id="send-btn" onclick="sendItinerary()">Send itinerary + notify all</button>
     </div>
 
@@ -511,6 +512,7 @@ const DEFAULT_LEADERS = [
   { id:20, name:'Kristen Schenerman',  role:'Director of Rooms, Sag Harbor, NY',        email:'kristen@farawayhotels.com',   destinations:['sag-harbor'] },
   { id:21, name:'John Kramer',         role:'Dir F&B, Wyoming',                         email:'john@farawayhotels.com',      destinations:['jackson'] },
   { id:22, name:'Victoria Corsini',    role:'HR Specialist',                            email:'victoria@farawayhotels.com',  destinations:['greenport','montauk','sag-harbor'] },
+  { id:23, name:'Sonia Vanessa Mejia Caceres', role:'Regional Director of Housekeeping, NY',  email:'vanessa@farawayhotels.com',   destinations:['greenport','montauk','sag-harbor'] },
 ];
 
 let leaders=[], settings={}, trips=[], editingTripId=null;
@@ -865,6 +867,39 @@ function renderTrips(){
     const hasData=!!t.formData;
     return`<div class="trip-card"><div class="trip-card-top"><div class="trip-card-left"><div class="trip-avatar">${initials}</div><div><div class="trip-name">${t.empName}</div><div class="trip-meta">${fmtS(t.travelDate)}${destLabel?' · '+destLabel:''}${cc}</div></div></div><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span class="trip-status status-${t.status}">${t.status}</span>${hasData?`<button class="btn btn-ghost btn-sm" onclick="editTrip(${t.id})">✏️ Edit</button><button class="btn btn-blue btn-sm" onclick="copyTrip(${t.id})">⧉ Copy</button>`:'<span style="font-size:11px;color:var(--muted);">Legacy</span>'}</div></div></div>`;
   }).join('');
+}
+
+// ── SAVE DRAFT ───────────────────────────────────────────────────────────────
+async function saveDraft() {
+  if(!selectedDest){toast('Please select a destination first','error');return;}
+  const empName=val('emp-name')||'Unnamed employee';
+  const btn=document.getElementById('draft-btn');
+  btn.disabled=true;btn.textContent='Saving...';
+  const formData=snapshotForm();
+  const cl=getCheckedLeaders();
+  const trip={
+    empName,
+    empEmail:val('emp-email'),
+    travelDate:val('travel-date'),
+    dest:selectedDest,
+    visa:val('visa-status'),
+    ccLeaders:cl.map(l=>l.name),
+    status:'draft',
+    formData
+  };
+  try{
+    if(editingTripId){
+      await api('/trips/update','POST',{id:editingTripId,...trip});
+      toast(`Draft updated for ${empName}!`,'success');
+    } else {
+      await api('/trips','POST',trip);
+      toast(`Draft saved for ${empName}!`,'success');
+    }
+  }catch(e){
+    toast('Could not save draft','error');
+  }finally{
+    btn.disabled=false;btn.textContent='Save draft';
+  }
 }
 
 boot();
