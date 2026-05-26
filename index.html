@@ -480,12 +480,12 @@ const FIELDS = ['emp-name','emp-email','emp-phone','travel-date','visa-status','
 
 // Destination config
 const DEST_CONFIG = {
-  'nantucket':       { state:'MA', label:'Nantucket, MA',       variant:'ma' },
-  'marthas-vineyard':{ state:'MA', label:'Martha\'s Vineyard, MA', variant:'ma' },
-  'greenport':       { state:'NY', label:'Greenport, NY',       variant:'ny' },
-  'montauk':         { state:'NY', label:'Montauk, NY',         variant:'ny' },
-  'sag-harbor':      { state:'NY', label:'Sag Harbor, NY',      variant:'ny' },
-  'jackson':         { state:'WY', label:'Jackson, WY',         variant:'wy' },
+  'nantucket':       { state:'MA', label:'Nantucket, MA',         variant:'ma', tz:'America/New_York',  tzLabel:'Eastern Time' },
+  'marthas-vineyard':{ state:'MA', label:'Martha\'s Vineyard, MA', variant:'ma', tz:'America/New_York',  tzLabel:'Eastern Time' },
+  'greenport':       { state:'NY', label:'Greenport, NY',         variant:'ny', tz:'America/New_York',  tzLabel:'Eastern Time' },
+  'montauk':         { state:'NY', label:'Montauk, NY',           variant:'ny', tz:'America/New_York',  tzLabel:'Eastern Time' },
+  'sag-harbor':      { state:'NY', label:'Sag Harbor, NY',        variant:'ny', tz:'America/New_York',  tzLabel:'Eastern Time' },
+  'jackson':         { state:'WY', label:'Jackson, WY',           variant:'wy', tz:'America/Denver',    tzLabel:'Mountain Time' },
 };
 
 // Default leaders (pre-loaded, stored in KV too)
@@ -530,6 +530,40 @@ function fmtS(d){return d?new Date(d+'T12:00:00').toLocaleDateString('en-US',{mo
 async function api(path,method='GET',body=null){const opts={method,headers:{'Content-Type':'application/json'}};if(body)opts.body=JSON.stringify(body);const res=await fetch(WORKER+path,opts);return res.json();}
 
 // ── DESTINATION SELECTOR ─────────────────────────────────────────────────────
+function getTzBadge(dest){
+  const cfg=DEST_CONFIG[dest];
+  if(!cfg)return'';
+  return`<span style="font-size:11px;background:var(--blue-light);color:var(--blue);border-radius:20px;padding:2px 8px;font-family:var(--mono);margin-left:6px;">${cfg.tzLabel}</span>`;
+}
+
+function updateTzLabels(dest){
+  // Update ferry arrival time label (MA)
+  const ferryArrLabel=document.querySelector('label[for="ferry-arrive-time"], #ferry-arrive-time')?.closest('.form-group')?.querySelector('label');
+  if(ferryArrLabel){
+    ferryArrLabel.innerHTML=`Arrival time <span style="color:var(--red);">*</span> <span style="font-weight:400;color:var(--muted);font-size:11px;">(required for calendar invite)</span>${getTzBadge(dest)}`;
+  }
+  // Update ferry date label
+  const ferryDateLabel=document.querySelector('#ferry-date')?.closest('.form-group')?.querySelector('label');
+  if(ferryDateLabel){
+    ferryDateLabel.innerHTML=`Ferry date <span style="color:var(--red);">*</span> <span style="font-weight:400;color:var(--muted);font-size:11px;">(required for calendar invite)</span>`;
+  }
+  // Update arrival time label (NY/WY)
+  const arrTimeLabel=document.querySelector('#arrival-time')?.closest('.form-group')?.querySelector('label');
+  if(arrTimeLabel){
+    arrTimeLabel.innerHTML=`Arrival time <span style="color:var(--red);">*</span> <span style="font-weight:400;color:var(--muted);font-size:11px;">(required for calendar invite)</span>${getTzBadge(dest)}`;
+  }
+  // Update arrival date label (NY/WY)
+  const arrDateLabel=document.querySelector('#arrival-date')?.closest('.form-group')?.querySelector('label');
+  if(arrDateLabel){
+    arrDateLabel.innerHTML=`Arrival date <span style="color:var(--red);">*</span> <span style="font-weight:400;color:var(--muted);font-size:11px;">(required for calendar invite)</span>`;
+  }
+  // Update page sub with timezone info
+  const cfg=DEST_CONFIG[dest];
+  if(cfg){
+    document.getElementById('new-trip-sub').textContent=`Creating itinerary for ${cfg.label} · All times in ${cfg.tzLabel}`;
+  }
+}
+
 function selectDest(dest, labelEl) {
   selectedDest = dest;
   document.querySelectorAll('.dest-option').forEach(el=>el.classList.remove('selected'));
@@ -541,6 +575,7 @@ function selectDest(dest, labelEl) {
   applyVariant(cfg.variant);
   renderCCGrid();
   buildLegs(currentLegCount);
+  setTimeout(()=>updateTzLabels(dest),50);
 }
 
 function applyVariant(variant) {
@@ -716,14 +751,18 @@ function buildEmployeeEmail(){
   if(isMA){
     const ferryDate=val('ferry-date'),ferryFrom=val('ferry-from'),ferryDepart=val('ferry-depart-time'),ferryName=val('ferry-name'),ferryArrive=val('ferry-arrive-loc'),ferryArrTime=val('ferry-arrive-time'),ferryTicket=val('ferry-ticket'),ferryNotes=val('ferry-notes');
     b+=`\n───────────────────────────────────\n${sectionNum++}. ⛴️  FERRY / FINAL LEG\n───────────────────────────────────\n`;
-    if(ferryDate)b+=`Date:          ${fmt(ferryDate)}\n`;if(ferryFrom)b+=`Terminal:      ${ferryFrom}\n`;if(ferryName)b+=`Ferry:         ${ferryName}\n`;if(ferryDepart)b+=`Departure:     ${ferryDepart}\n`;if(ferryArrive)b+=`Arrival at:    ${ferryArrive}\n`;if(ferryArrTime)b+=`Arrival time:  ${ferryArrTime}\n`;if(ferryTicket)b+=`Ticket:        ${ferryTicket}\n`;if(ferryNotes)b+=`Notes:         ${ferryNotes}\n`;
+    if(ferryDate)b+=`Date:          ${fmt(ferryDate)}\n`;if(ferryFrom)b+=`Terminal:      ${ferryFrom}\n`;if(ferryName)b+=`Ferry:         ${ferryName}\n`;if(ferryDepart)b+=`Departure:     ${ferryDepart}\n`;if(ferryArrive)b+=`Arrival at:    ${ferryArrive}\n`;const maTzLabel=selectedDest?DEST_CONFIG[selectedDest]?.tzLabel:'';
+if(ferryArrTime)b+=`Arrival time:  ${ferryArrTime}${maTzLabel?' ('+maTzLabel+')':''}\n`;if(ferryTicket)b+=`Ticket:        ${ferryTicket}\n`;if(ferryNotes)b+=`Notes:         ${ferryNotes}\n`;
   }
 
   // NY/WY: arrival date/time
   if(isNYWY){
     const arrDate=val('arrival-date'),arrTime=val('arrival-time'),arrLoc=val('arrival-location');
+    const destTzLabel=selectedDest?DEST_CONFIG[selectedDest]?.tzLabel:'';
     b+=`\n───────────────────────────────────\n${sectionNum++}. 🕐  ARRIVAL\n───────────────────────────────────\n`;
-    if(arrDate)b+=`Date:          ${fmt(arrDate)}\n`;if(arrTime)b+=`Time:          ${arrTime}\n`;if(arrLoc)b+=`Location:      ${arrLoc}\n`;
+    if(arrDate)b+=`Date:          ${fmt(arrDate)}\n`;
+    if(arrTime)b+=`Time:          ${arrTime}${destTzLabel?' ('+destTzLabel+')':''}\n`;
+    if(arrLoc)b+=`Location:      ${arrLoc}\n`;
   }
 
   // Arrival coordination
@@ -773,7 +812,7 @@ function buildDriverEmail(){
 function previewItinerary(){document.getElementById('preview-employee').textContent=buildEmployeeEmail();document.getElementById('preview-driver').textContent=buildDriverEmail();document.getElementById('preview-section').style.display='block';setTimeout(()=>document.getElementById('preview-section').scrollIntoView({behavior:'smooth',block:'start'}),50);}
 
 // ── CALENDAR INVITES ──────────────────────────────────────────────────────────
-async function sendCalendarInvites(empName,empEmail,travelDate,checkedLeaders,driverEmail,driverEmail2,leg0Date,finalDate,finalTime,arrivalInstr){
+async function sendCalendarInvites(empName,empEmail,travelDate,checkedLeaders,driverEmail,driverEmail2,leg0Date,finalDate,finalTime,arrivalInstr,destTz,existingIds){
   const calWorker=settings['gcal-worker'];
   if(!calWorker)return{sent:false,reason:'No calendar worker configured'};
   const dest=selectedDest?DEST_CONFIG[selectedDest]?.label:'';
@@ -784,6 +823,7 @@ async function sendCalendarInvites(empName,empEmail,travelDate,checkedLeaders,dr
   const arrivalAttendees=[empEmail];
   if(driverEmail)arrivalAttendees.push(driverEmail);
   if(driverEmail2)arrivalAttendees.push(driverEmail2);
+  const tz=destTz||'America/New_York';
   let arrivalStart=null,arrivalEnd=null;
   if(finalDate&&finalTime){
     arrivalStart=`${finalDate}T${finalTime}:00`;
@@ -792,7 +832,7 @@ async function sendCalendarInvites(empName,empEmail,travelDate,checkedLeaders,dr
     arrivalEnd=`${finalDate}T${endH}:${String(m).padStart(2,'0')}:00`;
   }
   try{
-    const res=await fetch(calWorker+'/create-events',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({allDay:{title:allDayTitle,startDate:leg0Date||travelDate,endDate:finalDate||travelDate,attendees:allDayAttendees,description:buildEmployeeEmail()},arrival:arrivalStart?{title:arrivalTitle,start:arrivalStart,end:arrivalEnd,attendees:arrivalAttendees,description:arrivalInstr||arrivalTitle}:null})});
+    const res=await fetch(calWorker+'/create-events',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({allDay:{title:allDayTitle,startDate:leg0Date||travelDate,endDate:finalDate||travelDate,attendees:allDayAttendees,description:buildEmployeeEmail()},arrival:arrivalStart?{title:arrivalTitle,start:arrivalStart,end:arrivalEnd,tz:tz,attendees:arrivalAttendees,description:arrivalInstr||arrivalTitle}:null})});
     const data=await res.json();
     return{sent:true,data};
   }catch(e){return{sent:false,reason:e.message};}
@@ -825,7 +865,12 @@ async function sendItinerary(){
     if(drvEmail&&tplDrv)await emailjs.send(svcId,tplDrv,{to_email:drvEmail,to_name:val('driver-name'),subject:`Pickup notice — ${empName}`,message:drvBody,from_name:settings.sender||'Travel Desk'});
     if(val('driver-email-2')&&tplDrv)await emailjs.send(svcId,tplDrv,{to_email:val('driver-email-2'),to_name:val('driver-name-2'),subject:`Pickup notice — ${empName}`,message:drvBody,from_name:settings.sender||'Travel Desk'});
     trip.status='sent';
-    const calResult=await sendCalendarInvites(empName,empEmail,val('travel-date'),cl,drvEmail,drvEmail2,leg0Date,finalDate,finalTime,val('arrival-instructions'));
+    const destTz=selectedDest?DEST_CONFIG[selectedDest]?.tz:'America/New_York';
+    // Pass existing calendar event IDs if editing a trip
+    const existingCalIds=editingTripId?trips.find(t=>t.id===editingTripId)?.calEventIds:null;
+    const calResult=await sendCalendarInvites(empName,empEmail,val('travel-date'),cl,drvEmail,drvEmail2,leg0Date,finalDate,finalTime,val('arrival-instructions'),destTz,existingCalIds);
+    // Store calendar event IDs with the trip for future edits
+    if(calResult.sent&&calResult.calEventIds) trip.calEventIds=calResult.calEventIds;
     if(editingTripId){await api('/trips/update','POST',{id:editingTripId,...trip,status:'sent'});}else{await api('/trips','POST',trip);}
     const ccMsg=cl.length?` CC'd: ${cl.map(l=>l.name).join(', ')}.`:'';
     const calMsg=calResult.sent?' Calendar invites sent.':'';
@@ -889,6 +934,9 @@ async function saveDraft() {
   };
   try{
     if(editingTripId){
+      // Preserve existing calEventIds when saving draft
+      const existing=trips.find(t=>t.id===editingTripId);
+      if(existing?.calEventIds) trip.calEventIds=existing.calEventIds;
       await api('/trips/update','POST',{id:editingTripId,...trip});
       toast(`Draft updated for ${empName}!`,'success');
     } else {
