@@ -513,6 +513,7 @@ const DEFAULT_LEADERS = [
   { id:21, name:'John Kramer',         role:'Dir F&B, Wyoming',                         email:'john@farawayhotels.com',      destinations:['jackson'] },
   { id:22, name:'Victoria Corsini',    role:'HR Specialist',                            email:'victoria@farawayhotels.com',  destinations:['greenport','montauk','sag-harbor'] },
   { id:23, name:'Sonia Vanessa Mejia Caceres', role:'Regional Director of Housekeeping, NY',  email:'vanessa@farawayhotels.com',   destinations:['greenport','montauk','sag-harbor'] },
+  { id:24, name:'Erin Debettencourt', role:'Operations Coordinator, FMVY', email:'erin@farawayhotels.com', destinations:['marthas-vineyard'] },
 ];
 
 let leaders=[], settings={}, trips=[], editingTripId=null;
@@ -665,7 +666,28 @@ function getLeadersForDest(dest){
     return dests.includes(dest)||dests.includes('all');
   });
 }
-function renderCCGrid(){const grid=document.getElementById('cc-grid');const filtered=getLeadersForDest(selectedDest);if(!selectedDest){grid.innerHTML='<div style="font-size:13px;color:var(--muted);padding:8px 0;">Select a destination to see relevant leaders.</div>';return;}if(!filtered.length){grid.innerHTML='<div style="font-size:13px;color:var(--muted);padding:8px 0;">No leaders configured for this destination.</div>';return;}grid.innerHTML=filtered.map(l=>`<label class="cc-item"><input type="checkbox" value="${l.email}" class="cc-checkbox"/><div><div class="cc-item-name">${l.name}</div>${l.role?`<div class="cc-item-role">${l.role}</div>`:''}<div class="cc-item-email">${l.email}</div></div></label>`).join('');}
+function renderCCGrid(){
+  const grid=document.getElementById('cc-grid');
+  const filtered=getLeadersForDest(selectedDest);
+  if(!selectedDest){grid.innerHTML='<div style="font-size:13px;color:var(--muted);padding:8px 0;">Select a destination to see relevant leaders.</div>';return;}
+  if(!filtered.length){grid.innerHTML='<div style="font-size:13px;color:var(--muted);padding:8px 0;">No leaders configured for this destination.</div>';return;}
+  const destLabel=DEST_CONFIG[selectedDest]?.label||'this property';
+  // Group: leaders assigned to 'all' vs leaders specific to this destination
+  const allProps=filtered.filter(l=>(l.destinations||[]).includes('all'));
+  const specific=filtered.filter(l=>!(l.destinations||[]).includes('all'));
+  let html='';
+  if(specific.length){
+    html+=`<div class="dest-group-label" style="margin-top:0;">${destLabel}</div><div class="cc-grid">`;
+    html+=specific.map(l=>`<label class="cc-item"><input type="checkbox" value="${l.email}" class="cc-checkbox"/><div><div class="cc-item-name">${l.name}</div>${l.role?`<div class="cc-item-role">${l.role}</div>`:''}<div class="cc-item-email">${l.email}</div></div></label>`).join('');
+    html+='</div>';
+  }
+  if(allProps.length){
+    html+=`<div class="dest-group-label">All properties</div><div class="cc-grid">`;
+    html+=allProps.map(l=>`<label class="cc-item"><input type="checkbox" value="${l.email}" class="cc-checkbox"/><div><div class="cc-item-name">${l.name}</div>${l.role?`<div class="cc-item-role">${l.role}</div>`:''}<div class="cc-item-email">${l.email}</div></div></label>`).join('');
+    html+='</div>';
+  }
+  grid.outerHTML=`<div id="cc-grid">${html}</div>`;
+}
 function getCheckedLeaders(){return[...document.querySelectorAll('.cc-checkbox:checked')].map(cb=>({email:cb.value,name:cb.closest('.cc-item').querySelector('.cc-item-name')?.textContent||cb.value}));}
 
 async function addLeader(){const name=val('new-leader-name'),role=val('new-leader-role'),email=val('new-leader-email'),dest=val('new-leader-dest')||'all';if(!name||!email){toast('Enter name and email','error');return;}const dests=dest==='all'?['all']:dest==='ma'?['nantucket','marthas-vineyard']:dest==='ny'?['greenport','montauk','sag-harbor']:dest==='wy'?['jackson']:[dest];leaders.push({id:Date.now(),name,role,email,destinations:dests});await api('/leaders','POST',leaders);set('new-leader-name','');set('new-leader-role','');set('new-leader-email','');renderLeadersList();renderCCGrid();toast(name+' added!');}
@@ -864,6 +886,12 @@ async function sendItinerary(){
     await emailjs.send(svcId,tplEmp,{to_email:empEmail,to_name:empName,cc_emails:ccEmails,subject:`Your travel itinerary — ${DEST_CONFIG[selectedDest]?.label||'upcoming trip'}`,message:empBody,from_name:settings.sender||'Travel Desk'});
     if(drvEmail&&tplDrv)await emailjs.send(svcId,tplDrv,{to_email:drvEmail,to_name:val('driver-name'),subject:`Pickup notice — ${empName}`,message:drvBody,from_name:settings.sender||'Travel Desk'});
     if(val('driver-email-2')&&tplDrv)await emailjs.send(svcId,tplDrv,{to_email:val('driver-email-2'),to_name:val('driver-name-2'),subject:`Pickup notice — ${empName}`,message:drvBody,from_name:settings.sender||'Travel Desk'});
+    // Always CC Erin and Rachael whenever a pickup notice goes to sam@farawayhotels.com
+    const drvEmailsLower=[drvEmail,val('driver-email-2')].map(e=>(e||'').toLowerCase());
+    if(drvEmailsLower.includes('sam@farawayhotels.com')&&tplDrv){
+      await emailjs.send(svcId,tplDrv,{to_email:'erin@farawayhotels.com',to_name:'Erin Debettencourt',subject:`Pickup notice — ${empName}`,message:drvBody,from_name:settings.sender||'Travel Desk'});
+      await emailjs.send(svcId,tplDrv,{to_email:'rachael@farawayhotels.com',to_name:'Rachael Maurais',subject:`Pickup notice — ${empName}`,message:drvBody,from_name:settings.sender||'Travel Desk'});
+    }
     trip.status='sent';
     const destTz=selectedDest?DEST_CONFIG[selectedDest]?.tz:'America/New_York';
     // Pass existing calendar event IDs if editing a trip
